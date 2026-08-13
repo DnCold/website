@@ -43,6 +43,25 @@
 	min-height: 100vh;
 	margin: 0 auto;
 	padding: 0.75rem 0 3rem;
+	animation: coldem-signal-lock 520ms steps(7, end) both;
+}
+
+@keyframes coldem-signal-lock {
+	0% {
+		opacity: 0;
+		filter: contrast(2.4) saturate(1.8) blur(3px);
+		transform: translateX(1.4rem) scaleX(0.98);
+	}
+
+	42% {
+		opacity: 0.68;
+		transform: translateX(-0.35rem) scaleX(1.01);
+	}
+
+	58% {
+		opacity: 0.3;
+		transform: translateX(0.15rem);
+	}
 }
 
 .coldem-windowbar {

@@ -26,8 +26,9 @@ The local server uses `/` as its base path. Production builds use `/website/` fo
 
 - Site title and description: `src/consts.ts`
 - Main navigation: `src/lib/nav.ts`
-- Gallery chapters: `src/data/gallery.ts`
-- Gallery artwork: `src/assets/gallery/archive-guide-manga.webp`
+- Archivist shelves: `src/data/archivist.ts`
+- Archivist reaction portraits: `src/assets/archivist/`
+- Archivist page and styles: `src/pages/archivist/index.astro` and `src/styles/archivist.css`
 - Coldem world page: `src/pages/coldem.astro`
 - Coldem world styles: `src/styles/coldem.css`
 - Noren sprites: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`

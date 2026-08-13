@@ -22,6 +22,97 @@
 	--box-shadow: 5px 5px 0 rgba(32, 37, 59, 0.88);
 }
 
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 420ms;
+	animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root) {
+	animation-name: page-fold-away;
+}
+
+::view-transition-new(root) {
+	animation-name: page-fold-in;
+}
+
+html[data-world='archivist']::view-transition-old(root) {
+	animation-name: lamplight-out;
+}
+
+html[data-world='archivist']::view-transition-new(root) {
+	animation-name: lamplight-in;
+}
+
+html[data-world='coldem']::view-transition-old(root) {
+	animation-duration: 260ms;
+	animation-name: cold-signal-out;
+}
+
+html[data-world='coldem']::view-transition-new(root) {
+	animation-duration: 480ms;
+	animation-name: cold-signal-in;
+}
+
+@keyframes page-fold-away {
+	to {
+		opacity: 0;
+		filter: sepia(0.22) blur(2px);
+		transform: translateY(-0.7rem) scale(0.985);
+	}
+}
+
+@keyframes page-fold-in {
+	from {
+		opacity: 0;
+		filter: sepia(0.2) blur(3px);
+		transform: translateY(1.1rem) scale(0.985);
+	}
+}
+
+@keyframes lamplight-out {
+	to {
+		opacity: 0;
+		filter: sepia(0.65) brightness(0.55) blur(2px);
+		transform: scale(1.015);
+	}
+}
+
+@keyframes lamplight-in {
+	0% {
+		opacity: 0;
+		filter: sepia(0.9) brightness(0.35) blur(5px);
+	}
+	55% {
+		filter: sepia(0.45) brightness(1.18) blur(1px);
+	}
+}
+
+@keyframes cold-signal-out {
+	to {
+		opacity: 0;
+		filter: contrast(1.7) hue-rotate(24deg);
+		transform: translateX(-1.2rem) scaleX(1.015);
+	}
+}
+
+@keyframes cold-signal-in {
+	0% {
+		opacity: 0;
+		filter: contrast(2.3) saturate(1.9) blur(4px);
+		transform: translateX(1.8rem) scaleX(0.97);
+	}
+	45% {
+		opacity: 0.7;
+		filter: contrast(1.8) saturate(1.5);
+		transform: translateX(-0.25rem) scaleX(1.008);
+	}
+}
+
 *,
 *::before,
 *::after {
@@ -139,6 +230,26 @@ p {
 	min-height: 52vh;
 	margin: 0 auto;
 	padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+body:not(.home-page-body) .page-main > * {
+	animation: paper-content-arrive 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body:not(.home-page-body) .page-main > :nth-child(2) {
+	animation-delay: 70ms;
+}
+
+body:not(.home-page-body) .page-main > :nth-child(3) {
+	animation-delay: 120ms;
+}
+
+@keyframes paper-content-arrive {
+	from {
+		opacity: 0;
+		filter: sepia(0.3) blur(2px);
+		transform: translateY(0.8rem) rotate(0.15deg);
+	}
 }
 
 .panel {
@@ -290,5 +401,10 @@ blockquote {
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none !important;
 	}
 }

@@ -1,0 +1,221 @@
+---
+import { Image } from 'astro:assets';
+import archivistMotion from '../../assets/archivist/archivist-motion.webp';
+import archivistNeutral from '../../assets/archivist/archivist-neutral.webp';
+import archivistRender from '../../assets/archivist/archivist-render.webp';
+import archivistSketchbook from '../../assets/archivist/archivist-sketchbook.webp';
+import { SITE_TITLE } from '../../consts';
+import { ARCHIVIST_CHAPTERS } from '../../data/archivist';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import { withBase } from '../../lib/nav';
+import '../../styles/archivist.css';
+
+const firstChapter = ARCHIVIST_CHAPTERS[0];
+---
+
+<WorldLayout
+	title={`The Archivist — ${SITE_TITLE}`}
+	description="Pull up a chair in The Archivist's cozy collection of drawings, animation, and 3D experiments."
+	image={archivistNeutral}
+	bodyClass="archive-world"
+>
+	<div class="archive-shell">
+		<nav class="archive-nav" aria-label="Archivist navigation">
+			<a href={withBase()} aria-label="Leave The Archivist and return to the DanCold hub">← back to the front room</a>
+			<span>the lamp is on · the kettle is warm</span>
+		</nav>
+
+		<header class="archivist-heading">
+			<p class="archive-eyebrow">Private collection · three shelves open</p>
+			<h1>The <em>Archivist</em></h1>
+			<p>
+				A quiet room for drawings, moving pictures, and peculiar little objects. She has kept
+				your chair, though she would prefer you not dog-ear anything.
+			</p>
+		</header>
+
+		<section
+			class="reading-room"
+			data-chapter-select
+			data-active={firstChapter.id}
+			data-pose="neutral"
+			style={`--active-accent: ${firstChapter.accent}`}
+			aria-label="The Archivist's interactive shelves"
+		>
+			<div class="room-wall" aria-hidden="true">
+				<div class="little-window"><i></i></div>
+				<div class="book-shelf shelf-one"></div>
+				<div class="book-shelf shelf-two"></div>
+			</div>
+
+			<div class="shelf-menu">
+				<header class="menu-intro">
+					<p>She kept your place.</p>
+					<h2>What are you looking for?</h2>
+				</header>
+
+				<div class="chapter-tabs" role="tablist" aria-label="Archivist shelves">
+					{
+						ARCHIVIST_CHAPTERS.map((chapter, index) => (
+							<button
+								class="chapter-tab"
+								type="button"
+								role="tab"
+								id={`chapter-tab-${chapter.id}`}
+								aria-controls={`chapter-panel-${chapter.id}`}
+								aria-selected={index === 0 ? 'true' : 'false'}
+								tabindex={index === 0 ? 0 : -1}
+								data-chapter={chapter.id}
+								data-pose={chapter.id}
+								data-reaction={chapter.reaction}
+								data-accent={chapter.accent}
+								style={`--chapter-accent: ${chapter.accent}`}
+							>
+								<span class="chapter-number">Vol. {chapter.number}</span>
+								<span class="chapter-title">{chapter.title}</span>
+								<span class="chapter-summary">{chapter.summary}</span>
+								<span class="selection-mark" aria-hidden="true">→</span>
+							</button>
+						))
+					}
+				</div>
+
+				<p class="key-hint"><kbd>↑</kbd><kbd>↓</kbd> browse the shelves</p>
+			</div>
+
+			<div class="character-corner">
+				<div class="portrait-frame">
+					<div class="portrait-stack" aria-hidden="true">
+						<Image class="archivist-portrait" data-portrait="neutral" src={archivistNeutral} alt="" loading="eager" />
+						<Image class="archivist-portrait" data-portrait="sketchbook" src={archivistSketchbook} alt="" loading="eager" />
+						<Image class="archivist-portrait" data-portrait="motion-room" src={archivistMotion} alt="" loading="eager" />
+						<Image class="archivist-portrait" data-portrait="render-vault" src={archivistRender} alt="" loading="eager" />
+					</div>
+					<div class="lamp-glow" aria-hidden="true"><i></i></div>
+				</div>
+
+				<div class="guide-note">
+					<p><span>The Archivist</span><small>Keeper of unfinished things</small></p>
+					<blockquote data-guide-reaction>“You may browse. Neatly.”</blockquote>
+				</div>
+				<p class="sr-only" data-pose-announcer aria-live="polite">
+					The Archivist waits beside the shelves, wearing round glasses and an oversized braid.
+				</p>
+			</div>
+		</section>
+
+		<section class="chapter-readout" aria-label="Selected shelf details">
+			<p class="sr-only" aria-live="polite" data-chapter-announcer></p>
+			{
+				ARCHIVIST_CHAPTERS.map((chapter, index) => (
+					<article
+						class="chapter-panel"
+						id={`chapter-panel-${chapter.id}`}
+						role="tabpanel"
+						aria-labelledby={`chapter-tab-${chapter.id}`}
+						data-chapter-panel={chapter.id}
+						hidden={index !== 0}
+						style={`--chapter-accent: ${chapter.accent}`}
+					>
+						<div class="chapter-file">
+							<span>Shelf {chapter.number}</span>
+							<strong>{chapter.label}</strong>
+						</div>
+						<div class="chapter-copy">
+							<p class="archive-eyebrow">Open on the table</p>
+							<h2>{chapter.title}</h2>
+							<p>{chapter.description}</p>
+							<ul aria-label={`${chapter.title} topics`}>
+								{chapter.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						</div>
+						<p class="chapter-status"><span></span>{chapter.status}</p>
+					</article>
+				))
+			}
+		</section>
+
+		<footer class="archive-footnote">
+			<p>New work joins these shelves slowly. That is part of the charm.</p>
+			<a href={withBase()}>Close the door softly ↗</a>
+		</footer>
+	</div>
+</WorldLayout>
+
+<script>
+	const setupArchivist = () => {
+		const selector = document.querySelector<HTMLElement>('[data-chapter-select]');
+
+		if (!selector || selector.dataset.enhanced === 'true') return;
+		selector.dataset.enhanced = 'true';
+
+		const tabs = Array.from(selector.querySelectorAll<HTMLButtonElement>('[data-chapter]'));
+		const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-chapter-panel]'));
+		const announcer = document.querySelector<HTMLElement>('[data-chapter-announcer]');
+		const poseAnnouncer = selector.querySelector<HTMLElement>('[data-pose-announcer]');
+		const reaction = selector.querySelector<HTMLElement>('[data-guide-reaction]');
+		const neutralReaction = '“You may browse. Neatly.”';
+
+		const showPose = (tab?: HTMLButtonElement) => {
+			selector.dataset.pose = tab?.dataset.pose ?? 'neutral';
+			if (reaction) reaction.textContent = tab ? `“${tab.dataset.reaction ?? ''}”` : neutralReaction;
+			if (tab && poseAnnouncer) {
+				poseAnnouncer.textContent = `The Archivist reacts to ${tab.querySelector('.chapter-title')?.textContent ?? 'the shelf'}.`;
+			}
+		};
+
+		const selectChapter = (tab: HTMLButtonElement, announce = true) => {
+			const chapterId = tab.dataset.chapter;
+			if (!chapterId) return;
+
+			selector.dataset.active = chapterId;
+			selector.style.setProperty('--active-accent', tab.dataset.accent ?? '#77937b');
+
+			for (const candidate of tabs) {
+				const selected = candidate === tab;
+				candidate.setAttribute('aria-selected', String(selected));
+				candidate.tabIndex = selected ? 0 : -1;
+			}
+
+			for (const panel of panels) panel.hidden = panel.dataset.chapterPanel !== chapterId;
+
+			if (announce && announcer) {
+				announcer.textContent = `${tab.querySelector('.chapter-title')?.textContent ?? 'Shelf'} selected.`;
+			}
+
+			history.replaceState(null, '', `#${chapterId}`);
+		};
+
+		for (const tab of tabs) {
+			tab.addEventListener('pointerenter', () => showPose(tab));
+			tab.addEventListener('pointerleave', () => showPose());
+			tab.addEventListener('focus', () => showPose(tab));
+			tab.addEventListener('blur', () => showPose());
+			tab.addEventListener('click', () => {
+				showPose(tab);
+				selectChapter(tab);
+			});
+			tab.addEventListener('keydown', (event) => {
+				const currentIndex = tabs.indexOf(tab);
+				let nextIndex: number | undefined;
+
+				if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % tabs.length;
+				else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+				else if (event.key === 'Home') nextIndex = 0;
+				else if (event.key === 'End') nextIndex = tabs.length - 1;
+
+				if (nextIndex !== undefined) {
+					event.preventDefault();
+					tabs[nextIndex].focus();
+					selectChapter(tabs[nextIndex]);
+				}
+			});
+		}
+
+		const requestedChapter = window.location.hash.slice(1);
+		const requestedTab = tabs.find((tab) => tab.dataset.chapter === requestedChapter);
+		if (requestedTab) selectChapter(requestedTab, false);
+	};
+
+	document.addEventListener('astro:page-load', setupArchivist);
+</script>
