@@ -5,14 +5,14 @@ import NorenNav from './NorenNav.astro';
 
 <header class="site-header">
 	<div class="header-inner">
-		<a class="brand" href={withBase()} aria-label="Volver al inicio">
+		<a class="brand" href={withBase()} aria-label="Back to the homepage">
 			<span class="brand-snow" aria-hidden="true">❄</span>
 			<span>
 				<strong>DanCold</strong>
 				<small>personal web / digital attic</small>
 			</span>
 		</a>
-		<p class="signal"><span aria-hidden="true"></span> sitio en construcción permanente</p>
+		<p class="signal"><span aria-hidden="true"></span> permanently under construction</p>
 	</div>
 	<NorenNav items={NAV} />
 </header>
@@ -63,7 +63,7 @@ import NorenNav from './NorenNav.astro';
 	}
 
 	.brand strong {
-		font-family: Georgia, 'Times New Roman', serif;
+		font-family: var(--font-display);
 		font-size: clamp(1.5rem, 4vw, 2.1rem);
 		line-height: 1;
 		letter-spacing: -0.04em;

@@ -18,10 +18,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			</div>
 		)}
 		<header class="article-header">
-			<a class="back-link" href={withBase('blog/')}>← Volver a notas</a>
+			<a class="back-link" href={withBase('blog/')}>← Back to notes</a>
 			<p class="article-date">
 				<FormattedDate date={pubDate} />
-				{updatedDate && <span> · actualizado <FormattedDate date={updatedDate} /></span>}
+				{updatedDate && <span> · updated <FormattedDate date={updatedDate} /></span>}
 			</p>
 			<h1>{title}</h1>
 			<p class="article-description">{description}</p>

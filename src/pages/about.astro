@@ -4,52 +4,59 @@ import PageLayout from '../layouts/PageLayout.astro';
 ---
 
 <PageLayout
-	title={`Acerca — ${SITE_TITLE}`}
-	description="Acerca de DanCold y de esta pequeña web personal."
+	title={`About — ${SITE_TITLE}`}
+	description="About DanCold and the ideas behind this personal archive."
 >
 	<header class="page-heading">
 		<div>
-			<p class="eyebrow">Acerca de este lugar</p>
-			<h1>Una casa digital, no una tarjeta de presentación.</h1>
+			<p class="eyebrow">About this place</p>
+			<h1>A digital home, not a business card.</h1>
 		</div>
 		<p>
-			Soy DanCold. Uso este sitio para reunir trabajos visuales, notas de proceso y proyectos que
-			no encajan demasiado bien en una red social.
+			I am DanCold. I use this site to collect visual work, process notes, and projects that do
+			not fit neatly inside a social feed.
 		</p>
 	</header>
 
 	<div class="about-grid">
 		<article class="about-copy panel prose">
-			<h2>La idea</h2>
+			<h2>The idea</h2>
 			<p>
-				Quiero que esta web se sienta como entrar a una habitación llena de carpetas, pruebas y
-				objetos encontrados. No tiene que estar terminada para estar viva: va a cambiar junto con
-				los proyectos que aparezcan.
+				I want this website to feel like entering a room full of folders, tests, references, and
+				found objects. It does not need to be finished to be alive; it can change whenever the
+				work changes.
 			</p>
 			<p>
-				Acá van a convivir dibujos, animación, 3D, notas técnicas y pequeños experimentos. Algunas
-				secciones todavía están vacías; también forman parte del proceso.
+				Drawings, animation, 3D, technical notes, and small experiments can all live here. Empty
+				sections are part of the record too.
 			</p>
-			<h2>Principios</h2>
+			<h2>How it is made</h2>
+			<p>
+				The direction, taste, and final decisions are personal. The site combines Astro code,
+				hands-on editing, and AI-assisted tools for iteration and selected visuals. The point is
+				not to pretend the tools are invisible; it is to shape the result into something that feels
+				like mine.
+			</p>
+			<h2>Principles</h2>
 			<ul>
-				<li>Contenido antes que métricas.</li>
-				<li>Archivos propios antes que plataformas prestadas.</li>
-				<li>Una identidad imperfecta antes que una plantilla anónima.</li>
+				<li>Specific choices before anonymous templates.</li>
+				<li>An owned archive before a borrowed feed.</li>
+				<li>Honest process before invented purity.</li>
 			</ul>
 		</article>
 
-		<aside class="cabinet" aria-label="Ficha del sitio">
+		<aside class="cabinet" aria-label="Website record">
 			<div class="cabinet-label">
-				<span>ARCHIVO</span>
+				<span>ARCHIVE</span>
 				<strong>DANCOLD / WEB</strong>
 			</div>
 			<dl>
-				<div><dt>Tipo</dt><dd>Personal web</dd></div>
-				<div><dt>Estado</dt><dd>En progreso</dd></div>
-				<div><dt>Contenido</dt><dd>Arte + notas</dd></div>
-				<div><dt>Motor</dt><dd>Astro</dd></div>
+				<div><dt>Type</dt><dd>Personal web</dd></div>
+				<div><dt>Status</dt><dd>In progress</dd></div>
+				<div><dt>Contents</dt><dd>Art + notes</dd></div>
+				<div><dt>Engine</dt><dd>Astro</dd></div>
 			</dl>
-			<p class="stamp">NO ALGORITHM<br />INSIDE</p>
+			<p class="stamp">AI-ASSISTED<br />PERSONALLY DIRECTED</p>
 		</aside>
 	</div>
 </PageLayout>
@@ -117,16 +124,17 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.stamp {
 		width: max-content;
+		max-width: 100%;
 		margin: 2rem auto 0.5rem;
 		padding: 0.65rem;
 		border: 3px solid var(--ice);
 		color: var(--ice);
 		font-family: ui-monospace, 'Cascadia Code', monospace;
-		font-size: 0.8rem;
+		font-size: 0.72rem;
 		font-weight: 700;
-		line-height: 1.15;
+		line-height: 1.2;
 		text-align: center;
-		transform: rotate(-7deg);
+		transform: rotate(-5deg);
 	}
 
 	@media (max-width: 780px) {

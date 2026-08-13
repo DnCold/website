@@ -8,18 +8,18 @@ const today = new Date();
 	<div class="footer-inner">
 		<div>
 			<strong>DanCold</strong>
-			<p>Hecho a mano, sin algoritmos y con algunas costuras a la vista.</p>
+			<p>Personally directed, AI-assisted, and always allowed to show its seams.</p>
 		</div>
-		<nav aria-label="Links del pie">
+		<nav aria-label="Footer links">
 			<a href="https://github.com/DnCold" target="_blank" rel="noreferrer">GitHub ↗</a>
 			<a href="https://twitter.com/dancosta13" target="_blank" rel="noreferrer">Twitter ↗</a>
 			<a href={withBase('rss.xml')}>RSS</a>
-			<a href={withBase('about/')}>Acerca</a>
+			<a href={withBase('about/')}>About</a>
 		</nav>
 	</div>
 	<div class="footer-bottom">
 		<span>&copy; {today.getFullYear()} DanCold</span>
-		<span class="web-button" aria-label="Sitio hecho a mano"><b>WWW</b> handmade</span>
+		<span class="web-button" aria-label="An evolving personal website"><b>WWW</b> evolving</span>
 	</div>
 </footer>
 
@@ -42,7 +42,7 @@ const today = new Date();
 	}
 
 	.footer-inner strong {
-		font-family: Georgia, 'Times New Roman', serif;
+		font-family: var(--font-display);
 		font-size: 1.4rem;
 	}
 

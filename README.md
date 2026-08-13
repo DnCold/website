@@ -1,30 +1,41 @@
-# DanCold — personal web
+# DanCold — personal archive
 
-Web personal estática construida con Astro. Reúne notas, dibujos, animación, experimentos 3D y otros proyectos en una estética inspirada por la web independiente.
+A static personal website built with [Astro](https://astro.build/). It collects notes, drawings,
+animation, 3D experiments, and small projects in an indie-web-inspired space.
 
-## Desarrollo local
+Live site: <https://dncold.github.io/website/>
+
+## Start locally
 
 ```sh
 npm ci
 npm run dev
 ```
 
-El servidor local usa `/` como base. El build de producción usa `/website`, la ruta del proyecto en GitHub Pages.
+The local server uses `/` as its base path. Production builds use `/website/` for GitHub Pages.
 
-## Comandos
+## Useful commands
 
-| Comando | Acción |
+| Command | What it does |
 | --- | --- |
-| `npm run dev` | Inicia el servidor de desarrollo |
-| `npm run build` | Genera el sitio estático en `dist/` |
-| `npm run preview` | Sirve el build de producción localmente |
+| `npm run dev` | Starts the local development server |
+| `npm run build` | Builds the static site into `dist/` |
+| `npm run preview` | Serves the production build locally |
 
-## Publicar notas
+## Where to edit things
 
-Las notas viven en `src/content/blog/`. Los archivos heredados del starter de Astro están conservados como borradores mediante `draft: true`; para publicar una nota, crear un Markdown nuevo o cambiar ese valor a `false`.
+- Site title and description: `src/consts.ts`
+- Main navigation: `src/lib/nav.ts`
+- Gallery chapters: `src/data/gallery.ts`
+- Gallery artwork: `src/assets/gallery/archive-guide-manga.webp`
+- Page content: `src/pages/`
+- Notes: `src/content/blog/`
+- Global colors and typography: `src/styles/global.css`
 
-## GitHub Pages
+For the full, step-by-step maintenance guide in Spanish, read
+[`docs/EDITING-GUIDE.md`](docs/EDITING-GUIDE.md).
 
-El workflow `.github/workflows/deploy.yml` compila y publica el sitio cuando hay un push a `main`. En la configuración del repositorio debe seleccionarse **Settings → Pages → Source: GitHub Actions**.
+## Deployment
 
-Sitio previsto: <https://dncold.github.io/website/>
+The workflow in `.github/workflows/deploy.yml` builds and publishes the website after every push to
+`main`. GitHub Pages must use **Settings → Pages → Source: GitHub Actions**.
