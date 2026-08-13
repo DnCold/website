@@ -1,0 +1,126 @@
+---
+import { SITE_TITLE } from '../consts';
+import { withBase } from '../lib/nav';
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title={`Links — ${SITE_TITLE}`}
+	description="Links, perfiles y caminos para seguir la señal de DanCold."
+>
+	<header class="page-heading">
+		<div>
+			<p class="eyebrow">Directorio de señales</p>
+			<h1>Links para salir de acá sin perderse.</h1>
+		</div>
+		<p>Perfiles, feeds y algunas formas de seguir lo que vaya apareciendo en esta web.</p>
+	</header>
+
+	<section class="link-board panel">
+		<a class="link-note github" href="https://github.com/DnCold" target="_blank" rel="noreferrer">
+			<span>01 / CÓDIGO</span>
+			<strong>GitHub</strong>
+			<p>Repositorios, herramientas y proyectos.</p>
+			<b>github.com/DnCold ↗</b>
+		</a>
+		<a class="link-note twitter" href="https://twitter.com/dancosta13" target="_blank" rel="noreferrer">
+			<span>02 / SEÑAL</span>
+			<strong>Twitter</strong>
+			<p>Actualizaciones rápidas y cosas encontradas.</p>
+			<b>@dancosta13 ↗</b>
+		</a>
+		<a class="link-note rss" href={withBase('rss.xml')}>
+			<span>03 / FEED</span>
+			<strong>RSS</strong>
+			<p>Seguí las notas sin depender de un algoritmo.</p>
+			<b>copiar la señal →</b>
+		</a>
+	</section>
+
+	<section class="web-note">
+		<p class="eyebrow">Nota al margen</p>
+		<p>
+			Este directorio todavía es corto. Con el tiempo puede crecer con sitios amigos, herramientas
+			favoritas y pequeños botones de la web independiente.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.link-board {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.1rem;
+		padding: clamp(1rem, 3vw, 2rem);
+		background:
+			linear-gradient(rgba(255, 248, 233, 0.82), rgba(255, 248, 233, 0.82)),
+			repeating-linear-gradient(90deg, transparent 0 31px, rgba(32, 37, 59, 0.1) 31px 32px),
+			repeating-linear-gradient(0deg, transparent 0 31px, rgba(32, 37, 59, 0.1) 31px 32px);
+	}
+
+	.link-note {
+		display: flex;
+		min-height: 18rem;
+		padding: 1.25rem;
+		flex-direction: column;
+		border: 1px solid var(--ink);
+		color: var(--ink);
+		background: #f5de89;
+		box-shadow: 3px 3px 0 rgba(32, 37, 59, 0.7);
+		text-decoration: none;
+		transform: rotate(-1deg);
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.link-note:nth-child(2) {
+		background: #d5a79d;
+		transform: rotate(1deg);
+	}
+
+	.link-note:nth-child(3) {
+		background: #b9dadd;
+		transform: rotate(-0.5deg);
+	}
+
+	.link-note:hover {
+		color: var(--ink);
+		box-shadow: 7px 7px 0 var(--ink);
+		transform: translate(-3px, -3px) rotate(0);
+	}
+
+	.link-note span,
+	.link-note b {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.7rem;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+	}
+
+	.link-note strong {
+		margin-top: auto;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 2.25rem;
+	}
+
+	.link-note p {
+		margin: 0.6rem 0 1.5rem;
+	}
+
+	.web-note {
+		max-width: 42rem;
+		margin: 4rem auto 0;
+		padding-left: 1.25rem;
+		border-left: 4px solid var(--rust);
+	}
+
+	@media (max-width: 760px) {
+		.link-board {
+			grid-template-columns: 1fr;
+		}
+
+		.link-note {
+			min-height: 13rem;
+			transform: none !important;
+		}
+	}
+</style>

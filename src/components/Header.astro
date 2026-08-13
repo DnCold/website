@@ -1,0 +1,109 @@
+---
+import { NAV, withBase } from '../lib/nav';
+import NorenNav from './NorenNav.astro';
+---
+
+<header class="site-header">
+	<div class="header-inner">
+		<a class="brand" href={withBase()} aria-label="Volver al inicio">
+			<span class="brand-snow" aria-hidden="true">❄</span>
+			<span>
+				<strong>DanCold</strong>
+				<small>personal web / digital attic</small>
+			</span>
+		</a>
+		<p class="signal"><span aria-hidden="true"></span> sitio en construcción permanente</p>
+	</div>
+	<NorenNav items={NAV} />
+</header>
+
+<style>
+	.site-header {
+		position: relative;
+		padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+		border-bottom: 1px solid rgba(32, 37, 59, 0.25);
+		background:
+			linear-gradient(180deg, rgba(255, 248, 233, 0.96), rgba(238, 211, 163, 0.92)),
+			repeating-linear-gradient(90deg, transparent 0 17px, rgba(99, 71, 43, 0.05) 17px 18px);
+		box-shadow: 0 8px 24px rgba(44, 31, 23, 0.12);
+	}
+
+	.header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: min(100%, 68rem);
+		margin: 0 auto;
+		gap: 1rem;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.brand-snow {
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		aspect-ratio: 1;
+		border: 2px solid var(--ink);
+		border-radius: 50%;
+		background: var(--ice);
+		box-shadow: 3px 3px 0 var(--ink);
+		font-size: 1.35rem;
+	}
+
+	.brand strong,
+	.brand small {
+		display: block;
+	}
+
+	.brand strong {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: clamp(1.5rem, 4vw, 2.1rem);
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.brand small {
+		margin-top: 0.25rem;
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.68rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.signal {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0;
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.signal span {
+		width: 0.65rem;
+		height: 0.65rem;
+		border-radius: 50%;
+		background: #5f9f61;
+		box-shadow: 0 0 0 3px rgba(95, 159, 97, 0.2);
+	}
+
+	@media (max-width: 580px) {
+		.header-inner {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		.signal {
+			margin-left: 3.5rem;
+		}
+	}
+</style>

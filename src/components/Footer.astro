@@ -1,0 +1,109 @@
+---
+import { withBase } from '../lib/nav';
+
+const today = new Date();
+---
+
+<footer>
+	<div class="footer-inner">
+		<div>
+			<strong>DanCold</strong>
+			<p>Hecho a mano, sin algoritmos y con algunas costuras a la vista.</p>
+		</div>
+		<nav aria-label="Links del pie">
+			<a href="https://github.com/DnCold" target="_blank" rel="noreferrer">GitHub ↗</a>
+			<a href="https://twitter.com/dancosta13" target="_blank" rel="noreferrer">Twitter ↗</a>
+			<a href={withBase('rss.xml')}>RSS</a>
+			<a href={withBase('about/')}>Acerca</a>
+		</nav>
+	</div>
+	<div class="footer-bottom">
+		<span>&copy; {today.getFullYear()} DanCold</span>
+		<span class="web-button" aria-label="Sitio hecho a mano"><b>WWW</b> handmade</span>
+	</div>
+</footer>
+
+<style>
+	footer {
+		padding: 2.5rem clamp(1rem, 4vw, 3rem) 3rem;
+		border-top: 2px solid var(--ink);
+		background: var(--night);
+		color: var(--paper);
+	}
+
+	.footer-inner,
+	.footer-bottom {
+		display: flex;
+		width: min(100%, 68rem);
+		margin: 0 auto;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.footer-inner strong {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 1.4rem;
+	}
+
+	.footer-inner p {
+		max-width: 30rem;
+		margin: 0.35rem 0 0;
+		color: rgba(246, 234, 212, 0.72);
+		font-size: 0.92rem;
+	}
+
+	footer nav {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 0.45rem 1rem;
+	}
+
+	footer a {
+		color: var(--paper);
+		text-decoration: none;
+	}
+
+	footer a:hover {
+		color: var(--ice);
+	}
+
+	.footer-bottom {
+		align-items: center;
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px dashed rgba(246, 234, 212, 0.28);
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.72rem;
+		text-transform: uppercase;
+	}
+
+	.web-button {
+		display: inline-flex;
+		align-items: center;
+		width: 88px;
+		height: 31px;
+		padding: 2px 5px;
+		border: 1px solid var(--paper);
+		background: repeating-linear-gradient(135deg, #a95738 0 5px, #151622 5px 10px);
+		box-shadow: 2px 2px 0 var(--paper);
+		font-size: 0.58rem;
+		line-height: 1;
+	}
+
+	.web-button b {
+		margin-right: 4px;
+		font-size: 0.7rem;
+	}
+
+	@media (max-width: 680px) {
+		.footer-inner {
+			flex-direction: column;
+		}
+
+		footer nav {
+			justify-content: flex-start;
+		}
+	}
+</style>

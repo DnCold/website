@@ -1,0 +1,141 @@
+---
+import { SITE_TITLE } from '../consts';
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title={`Acerca — ${SITE_TITLE}`}
+	description="Acerca de DanCold y de esta pequeña web personal."
+>
+	<header class="page-heading">
+		<div>
+			<p class="eyebrow">Acerca de este lugar</p>
+			<h1>Una casa digital, no una tarjeta de presentación.</h1>
+		</div>
+		<p>
+			Soy DanCold. Uso este sitio para reunir trabajos visuales, notas de proceso y proyectos que
+			no encajan demasiado bien en una red social.
+		</p>
+	</header>
+
+	<div class="about-grid">
+		<article class="about-copy panel prose">
+			<h2>La idea</h2>
+			<p>
+				Quiero que esta web se sienta como entrar a una habitación llena de carpetas, pruebas y
+				objetos encontrados. No tiene que estar terminada para estar viva: va a cambiar junto con
+				los proyectos que aparezcan.
+			</p>
+			<p>
+				Acá van a convivir dibujos, animación, 3D, notas técnicas y pequeños experimentos. Algunas
+				secciones todavía están vacías; también forman parte del proceso.
+			</p>
+			<h2>Principios</h2>
+			<ul>
+				<li>Contenido antes que métricas.</li>
+				<li>Archivos propios antes que plataformas prestadas.</li>
+				<li>Una identidad imperfecta antes que una plantilla anónima.</li>
+			</ul>
+		</article>
+
+		<aside class="cabinet" aria-label="Ficha del sitio">
+			<div class="cabinet-label">
+				<span>ARCHIVO</span>
+				<strong>DANCOLD / WEB</strong>
+			</div>
+			<dl>
+				<div><dt>Tipo</dt><dd>Personal web</dd></div>
+				<div><dt>Estado</dt><dd>En progreso</dd></div>
+				<div><dt>Contenido</dt><dd>Arte + notas</dd></div>
+				<div><dt>Motor</dt><dd>Astro</dd></div>
+			</dl>
+			<p class="stamp">NO ALGORITHM<br />INSIDE</p>
+		</aside>
+	</div>
+</PageLayout>
+
+<style>
+	.about-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.65fr);
+		gap: clamp(1.5rem, 5vw, 4rem);
+		align-items: start;
+	}
+
+	.about-copy {
+		padding: clamp(1.5rem, 4vw, 3rem);
+	}
+
+	.about-copy > * {
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.cabinet {
+		padding: 1.25rem;
+		border: 3px double var(--paper);
+		background: var(--plum);
+		color: var(--paper);
+		box-shadow: 7px 7px 0 var(--ink);
+		transform: rotate(1deg);
+	}
+
+	.cabinet-label {
+		padding-bottom: 1rem;
+		border-bottom: 1px dashed rgba(246, 234, 212, 0.5);
+	}
+
+	.cabinet-label span,
+	.cabinet-label strong {
+		display: block;
+	}
+
+	.cabinet-label span,
+	dt {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.65rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	.cabinet dl {
+		margin: 1.5rem 0;
+	}
+
+	.cabinet dl div {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.55rem 0;
+		border-bottom: 1px dotted rgba(246, 234, 212, 0.35);
+	}
+
+	.cabinet dd {
+		margin: 0;
+		text-align: right;
+	}
+
+	.stamp {
+		width: max-content;
+		margin: 2rem auto 0.5rem;
+		padding: 0.65rem;
+		border: 3px solid var(--ice);
+		color: var(--ice);
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.8rem;
+		font-weight: 700;
+		line-height: 1.15;
+		text-align: center;
+		transform: rotate(-7deg);
+	}
+
+	@media (max-width: 780px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cabinet {
+			transform: none;
+		}
+	}
+</style>
