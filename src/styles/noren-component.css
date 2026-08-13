@@ -1,74 +1,100 @@
 .noren {
-	width: min(100%, 46rem);
-	margin: 1.2rem auto 0;
-	padding-top: 1rem;
+	position: relative;
+	width: min(100%, 47rem);
+	margin: 0.8rem auto 0;
+	aspect-ratio: 3 / 1;
+}
+
+.noren-illustration {
+	position: absolute;
+	inset: 0;
+	background: url('../assets/noren-rail-v2.webp') center / 100% 100% no-repeat;
+	filter: drop-shadow(0 6px 4px rgba(30, 21, 16, 0.24));
+	pointer-events: none;
 }
 
 .noren-selections {
+	position: absolute;
+	inset: 29% 4.3% 19%;
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: clamp(0.35rem, 1.5vw, 0.8rem);
-	padding: 1rem clamp(0.25rem, 2vw, 1rem) 0;
-	background-image: url('../assets/noren_connection.png');
-	background-repeat: repeat-x;
-	background-position: top center;
-	background-size: 5.4rem auto;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 0.55%;
 }
 
 .noren__strip {
 	position: relative;
 	display: grid;
 	place-items: center;
-	min-height: clamp(4.6rem, 13vw, 6.2rem);
-	padding: 1rem 0.5rem 1.25rem;
-	border: 1px solid rgba(63, 42, 25, 0.38);
-	border-top: 0;
-	border-radius: 0 0 1rem 1rem;
-	color: #291e17;
-	background-image:
-		linear-gradient(rgba(195, 153, 70, 0.12), rgba(111, 67, 32, 0.08)),
-		url('../assets/noren_base.png');
-	background-repeat: repeat;
-	background-size: auto, 5.5rem auto;
-	box-shadow: 0 4px 0 rgba(63, 42, 25, 0.18);
-	font-family: ui-monospace, 'Cascadia Code', monospace;
-	font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+	min-width: 0;
+	padding: 0.4rem 0.1rem 0.65rem;
+	overflow: hidden;
+	border: 0;
+	color: #f2e4c9;
+	background:
+		linear-gradient(rgba(8, 24, 37, 0.14), rgba(4, 15, 27, 0.38)),
+		url('../assets/noren-fabric-v2.webp') center / 9rem auto;
+	box-shadow: inset 1px 0 rgba(235, 204, 151, 0.16), inset -1px 0 rgba(0, 0, 0, 0.28);
+	font-family: var(--font-label);
+	font-size: clamp(0.48rem, 1.55vw, 0.72rem);
 	font-weight: 700;
-	letter-spacing: 0.05em;
+	letter-spacing: 0.055em;
+	line-height: 1.1;
 	text-align: center;
 	text-decoration: none;
+	text-shadow: 0 1px 2px #06111d;
 	text-transform: uppercase;
 	transform-origin: top center;
-	transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+	transition: color 160ms ease, filter 160ms ease, transform 160ms ease;
 }
 
 .noren__strip:nth-child(2n) {
-	transform: rotate(0.8deg);
+	transform: rotate(0.45deg);
 }
 
 .noren__strip:nth-child(3n) {
-	transform: rotate(-0.7deg);
+	transform: rotate(-0.35deg);
+}
+
+.noren__strip::after {
+	position: absolute;
+	right: 10%;
+	bottom: 11%;
+	left: 10%;
+	height: 2px;
+	background: rgba(200, 145, 59, 0.42);
+	content: '';
+	transform: scaleX(0.25);
+	transition: transform 160ms ease;
 }
 
 .noren__strip:hover {
-	color: #291e17;
-	filter: brightness(1.08);
-	transform: rotate(-1.5deg) translateY(3px);
+	color: #fff7e7;
+	filter: brightness(1.22);
+	transform: translateY(4px) rotate(-0.7deg);
+}
+
+.noren__strip:hover::after,
+.noren__strip.is-active::after {
+	transform: scaleX(1);
 }
 
 .noren__strip.is-active {
-	color: #25170c;
-	filter: saturate(1.18) brightness(1.1);
-	box-shadow: inset 0 -5px 0 rgba(139, 201, 211, 0.7), 0 3px 0 rgba(63, 42, 25, 0.2);
+	color: #fff4cb;
+	filter: saturate(1.15) brightness(1.1);
+	box-shadow:
+		inset 0 -5px 0 rgba(200, 145, 59, 0.72),
+		inset 1px 0 rgba(235, 204, 151, 0.2),
+		inset -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 @media (max-width: 520px) {
-	.noren-selections {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		background-size: 4.7rem auto;
+	.noren {
+		width: calc(100% + 0.5rem);
+		margin-left: -0.25rem;
 	}
 
 	.noren__strip {
-		min-height: 4.25rem;
+		padding-inline: 0;
+		letter-spacing: 0.015em;
 	}
 }

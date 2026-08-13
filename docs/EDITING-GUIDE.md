@@ -30,7 +30,7 @@ src/
 ├── components/        Cabecera, pie y piezas reutilizables
 ├── content/blog/      Notas escritas en Markdown o MDX
 ├── data/gallery.ts    Contenido de los capítulos de la galería
-├── layouts/           Estructura común de páginas y artículos
+├── layouts/           Layout normal y layout sin navegación para cada mundo
 ├── pages/             Una página por archivo o carpeta
 ├── styles/            Estilos globales y de la galería
 ├── consts.ts          Título y descripción generales
@@ -45,9 +45,23 @@ Los archivos que probablemente editarás más seguido son:
 - `src/pages/about.astro`: texto de About y explicación del proceso.
 - `src/pages/links.astro`: enlaces externos.
 - `src/data/gallery.ts`: capítulos de la galería.
+- `src/pages/coldem.astro`: contenido del mundo Coldem.
+- `src/styles/coldem.css`: apariencia completa del launcher Coldem.
 - `src/styles/global.css`: paleta y tipografías.
 
-## 3. Cambiar la galería
+## 3. Páginas normales y mundos independientes
+
+El sitio tiene dos tipos de página:
+
+- `PageLayout.astro` muestra la cabecera noren y el pie general. Se usa en Home, Notes, Links y About.
+- `WorldLayout.astro` no añade navegación visual. Se usa cuando una página debe sentirse como un
+  lugar o programa independiente.
+
+Gallery/Archivist y Coldem usan `WorldLayout.astro`. Cada mundo incluye un enlace pequeño para volver
+al hub, pero no hereda la cortina noren ni el pie de la portada. Para crear otro mundo, copia una de
+esas páginas, conserva `WorldLayout` y dale su propia hoja de estilos.
+
+## 4. Cambiar la galería
 
 Todo el texto de los capítulos vive en `src/data/gallery.ts`. Cada objeto tiene esta forma:
 
@@ -98,7 +112,43 @@ Para que la composición siga funcionando bien:
 - evita texto incrustado en la imagen: los títulos deben seguir siendo HTML editable;
 - WebP, AVIF, PNG y JPG funcionan, aunque WebP suele dar un buen equilibrio de tamaño y calidad.
 
-## 4. Escribir una nota
+## 5. Cambiar Coldem
+
+El contenido editable está en `src/pages/coldem.astro` y su diseño en `src/styles/coldem.css`.
+Las tres imágenes propias del launcher viven en `src/assets/coldem/`:
+
+- `icon.png`: icono pequeño del sistema;
+- `dancold-logo.png`: marca morada grande;
+- `pet-stickers-v6.webp`: hoja optimizada de cuatro stickers usada como sprite CSS.
+
+La página está pensada principalmente para descargar el instalador de Windows. La versión, el tamaño,
+el SHA-256 y la URL directa viven juntos al principio de `coldem.astro`:
+
+```ts
+const releaseVersion = '0.4.1';
+const installerUrl = '...';
+const installerSize = '26.9 MB';
+const installerSha = '...';
+```
+
+Cuando publiques una nueva versión del launcher, actualiza esas cuatro constantes con los datos del
+asset `.exe` de GitHub Releases. `launcherRepo` y `launcherReleases` controlan los enlaces secundarios
+al código y a las notas de versión.
+
+## 6. Cambiar los sprites noren
+
+La cortina del hub usa dos imágenes separadas:
+
+```text
+src/assets/noren-fabric-v2.webp   textura repetible
+src/assets/noren-rail-v2.webp     barra y cinco paneles transparentes
+```
+
+Sus tamaños, posición, interacción y vista móvil están en `src/styles/noren-component.css`. Si
+reemplazas una imagen, conserva el mismo nombre para no tocar código. El rail funciona mejor en una
+proporción horizontal cercana a 3:1 y con fondo transparente.
+
+## 7. Escribir una nota
 
 Crea un archivo como `src/content/blog/my-first-note.md`:
 
@@ -122,7 +172,7 @@ Si necesitas una imagen de portada, guárdala en `src/assets/` y añade al front
 heroImage: '../../assets/my-image.jpg'
 ```
 
-## 5. Cambiar colores y tipografía
+## 8. Cambiar colores y tipografía
 
 Las decisiones generales están al principio de `src/styles/global.css` dentro de `:root`.
 
@@ -145,7 +195,7 @@ Las decisiones generales están al principio de `src/styles/global.css` dentro d
 La mezcla está pensada para sentirse artesanal: serif de imprenta para la lectura, monoespaciada sólo
 en etiquetas funcionales y una superficie de papel con pequeñas imperfecciones.
 
-## 6. Cambiar una página
+## 9. Cambiar una página
 
 Cada ruta pública corresponde a un archivo:
 
@@ -154,6 +204,7 @@ Cada ruta pública corresponde a un archivo:
 | `/` | `src/pages/index.astro` |
 | `/blog/` | `src/pages/blog/index.astro` |
 | `/gallery/` | `src/pages/gallery/index.astro` |
+| `/coldem/` | `src/pages/coldem.astro` |
 | `/links/` | `src/pages/links.astro` |
 | `/about/` | `src/pages/about.astro` |
 | página inexistente | `src/pages/404.astro` |
@@ -161,7 +212,7 @@ Cada ruta pública corresponde a un archivo:
 En un archivo `.astro`, la parte entre `---` contiene imports y datos. El HTML está debajo. Los estilos
 locales suelen estar al final dentro de `<style>`.
 
-## 7. Publicar
+## 10. Publicar
 
 El repositorio publica automáticamente con GitHub Actions cuando los cambios llegan a `main`.
 
@@ -176,11 +227,12 @@ Flujo recomendado:
 
 No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica como código fuente.
 
-## 8. Checklist antes de terminar
+## 11. Checklist antes de terminar
 
 - [ ] Todo el texto público está en inglés.
 - [ ] Los enlaces del menú funcionan bajo `/website/`.
 - [ ] La galería se puede usar con mouse, touch y teclado.
+- [ ] Gallery y Coldem no muestran la navegación noren del hub.
 - [ ] El arte no contiene títulos que luego sean difíciles de editar.
 - [ ] Las imágenes tienen texto alternativo útil o `alt=""` si son sólo decorativas.
 - [ ] `npm run build` termina sin errores.
