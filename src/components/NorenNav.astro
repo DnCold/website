@@ -5,14 +5,15 @@ import "../styles/noren-component.css"
 type Props = {
     items: NavItem[];
     currentPath?: string;
+	retro?: boolean;
 }
 
-const { items, currentPath = Astro.url.pathname } = Astro.props;
+const { items, currentPath = Astro.url.pathname, retro = false } = Astro.props;
 const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
 const current = normalizePath(currentPath);
 ---
 
-<div class="noren">
+<div class:list={["noren", retro && "is-retro"]}>
 	<div class="noren-illustration" aria-hidden="true"></div>
     <nav class="noren-selections" aria-label="Sections">
     {
@@ -32,4 +33,5 @@ const current = normalizePath(currentPath);
         })
     }
     </nav>
+	{retro && <p class="noren-file-note" aria-hidden="true">NOREN_NAV.GIF // 61 KB // 32 COLORS</p>}
 </div>

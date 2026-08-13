@@ -54,6 +54,7 @@ Los archivos que probablemente editarás más seguido son:
 El sitio tiene dos tipos de página:
 
 - `PageLayout.astro` muestra la cabecera noren y el pie general. Se usa en Home, Notes, Links y About.
+  Home activa una variante retro propia; las otras páginas conservan la cabecera artesanal normal.
 - `WorldLayout.astro` no añade navegación visual. Se usa cuando una página debe sentirse como un
   lugar o programa independiente.
 
@@ -141,7 +142,17 @@ al código y a las notas de versión.
 
 ## 6. Cambiar los sprites noren
 
-La cortina del hub usa dos imágenes separadas:
+Home usa un GIF deliberadamente pequeño y limitado a 32 colores:
+
+```text
+src/assets/noren-retro-v3.gif    noren low-fi de la portada
+```
+
+La barra de título, dirección falsa, estado y textos del header están en
+`src/components/Header.astro`. El componente detecta Home automáticamente y pasa `retro={true}` a
+`NorenNav.astro`; no necesitas duplicar rutas ni navegación.
+
+Notes, Links y About usan las dos imágenes de mayor detalle:
 
 ```text
 src/assets/noren-fabric-v2.webp   textura repetible
@@ -149,8 +160,9 @@ src/assets/noren-rail-v2.webp     barra y cinco paneles transparentes
 ```
 
 Sus tamaños, posición, interacción y vista móvil están en `src/styles/noren-component.css`. Si
-reemplazas una imagen, conserva el mismo nombre para no tocar código. El rail funciona mejor en una
-proporción horizontal cercana a 3:1 y con fondo transparente.
+reemplazas una imagen, conserva el mismo nombre para no tocar código. El GIF retro funciona mejor en
+una proporción cercana a 3.7:1, con exactamente cinco paneles y fondo transparente. Los textos no
+deben estar dibujados dentro del GIF: siguen siendo enlaces HTML editables y accesibles.
 
 ## 7. Escribir una nota
 
