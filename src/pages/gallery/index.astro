@@ -1,0 +1,51 @@
+---
+import { SITE_TITLE } from '../../consts';
+import PageLayout from '../../layouts/PageLayout.astro';
+import '../../styles/gallery.css';
+---
+
+<PageLayout
+	title={`Galería — ${SITE_TITLE}`}
+	description="Biblioteca visual de dibujos, animación y experimentos 3D de DanCold."
+>
+	<header class="page-heading">
+		<div>
+			<p class="eyebrow">Biblioteca visual</p>
+			<h1>La bibliotecaria está ordenando los estantes.</h1>
+		</div>
+		<p>
+			Pasá el cursor por las categorías para pedirle una sección. Por ahora el catálogo sigue en
+			construcción, pero ninguna puerta termina en un 404.
+		</p>
+	</header>
+
+	<section class="gallery-stage panel" aria-label="Selector de galería">
+		<div class="gallery-scene">
+			<div class="library" aria-hidden="true"></div>
+			<div class="librarian" aria-hidden="true"></div>
+		</div>
+		<nav class="gallery-options" aria-label="Categorías de la galería">
+			<a class="opt opt-art" href="#artworks">Dibujos</a>
+			<a class="opt opt-anim" href="#animations">Animación</a>
+			<a class="opt opt-3d" href="#three-d">3D</a>
+		</nav>
+	</section>
+
+	<section class="gallery-shelves" aria-label="Estantes de la galería">
+		<article id="artworks" class="shelf panel">
+			<span>ESTANTE A</span>
+			<h2>Dibujos</h2>
+			<p>Ilustraciones, bocetos y pruebas visuales. Próximamente.</p>
+		</article>
+		<article id="animations" class="shelf panel">
+			<span>ESTANTE B</span>
+			<h2>Animación</h2>
+			<p>Loops, escenas y estudios de movimiento. Próximamente.</p>
+		</article>
+		<article id="three-d" class="shelf panel">
+			<span>ESTANTE C</span>
+			<h2>3D</h2>
+			<p>Modelos, renders y experimentos espaciales. Próximamente.</p>
+		</article>
+	</section>
+</PageLayout>

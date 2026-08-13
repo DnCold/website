@@ -1,0 +1,219 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { withBase } from '../lib/nav';
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} mainClass="home-page">
+	<section class="intro panel">
+		<div class="intro-copy">
+			<p class="eyebrow">Señal encontrada</p>
+			<h1>Un rincón propio en una web cada vez más igual.</h1>
+			<p class="lede">
+				Este es mi archivo personal para guardar notas, dibujos, animaciones, experimentos 3D
+				y pequeños proyectos que merecen un lugar fuera del feed.
+			</p>
+			<ul class="tag-list" aria-label="Temas del sitio">
+				<li>arte</li>
+				<li>animación</li>
+				<li>3D</li>
+				<li>devlog</li>
+			</ul>
+		</div>
+
+		<aside class="status-card" aria-label="Estado del sitio">
+			<p class="status-label">STATUS.TXT</p>
+			<strong>En construcción</strong>
+			<p>Estoy ordenando este pequeño espacio. Algunas puertas todavía llevan a estantes vacíos.</p>
+			<span>última señal: 2026</span>
+		</aside>
+	</section>
+
+	<section class="shelves" aria-labelledby="explorar">
+		<div class="section-title">
+			<p class="eyebrow">Mapa del sitio</p>
+			<h2 id="explorar">Elegí una puerta</h2>
+		</div>
+
+		<div class="shelf-grid">
+			<a class="shelf-card notes" href={withBase('blog/')}>
+				<span class="card-number">01</span>
+				<h3>Notas</h3>
+				<p>Ideas, bitácoras y cosas aprendidas mientras hago.</p>
+				<b>abrir cuaderno →</b>
+			</a>
+			<a class="shelf-card gallery" href={withBase('gallery/')}>
+				<span class="card-number">02</span>
+				<h3>Galería</h3>
+				<p>Dibujos, movimiento, 3D y otros artefactos visuales.</p>
+				<b>visitar biblioteca →</b>
+			</a>
+			<a class="shelf-card links" href={withBase('links/')}>
+				<span class="card-number">03</span>
+				<h3>Links</h3>
+				<p>Mis perfiles, el feed RSS y caminos hacia otros rincones.</p>
+				<b>seguir señales →</b>
+			</a>
+		</div>
+	</section>
+
+	<section class="tiny-manifesto panel">
+		<p class="eyebrow">Por qué una web personal</p>
+		<blockquote>
+			“Porque una página puede sentirse como una habitación: imperfecta, específica y realmente tuya.”
+		</blockquote>
+		<a href={withBase('about/')}>Leer acerca de este lugar →</a>
+	</section>
+</PageLayout>
+
+<style>
+	.intro {
+		display: grid;
+		grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.7fr);
+		gap: clamp(2rem, 6vw, 5rem);
+		padding: clamp(1.5rem, 5vw, 4.5rem);
+		background:
+			linear-gradient(120deg, rgba(255, 248, 233, 0.96), rgba(246, 234, 212, 0.9)),
+			repeating-linear-gradient(90deg, transparent 0 28px, rgba(32, 37, 59, 0.05) 28px 29px);
+	}
+
+	.intro::after {
+		position: absolute;
+		top: -0.85rem;
+		right: 8%;
+		width: 6rem;
+		height: 1.8rem;
+		background: rgba(139, 201, 211, 0.62);
+		content: '';
+		transform: rotate(2deg);
+	}
+
+	.lede {
+		max-width: 42rem;
+		margin-top: 1.5rem;
+		font-size: clamp(1.08rem, 2vw, 1.28rem);
+	}
+
+	.status-card {
+		align-self: end;
+		padding: 1.15rem;
+		border: 1px dashed var(--paper);
+		background: var(--night);
+		color: var(--paper);
+		box-shadow: 6px 6px 0 var(--rust);
+		transform: rotate(1.4deg);
+	}
+
+	.status-card p {
+		margin: 0.6rem 0;
+	}
+
+	.status-label,
+	.status-card span {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.68rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.status-card strong {
+		color: var(--ice);
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 1.55rem;
+	}
+
+	.status-card span {
+		color: rgba(246, 234, 212, 0.62);
+	}
+
+	.shelves {
+		margin-top: clamp(4rem, 8vw, 7rem);
+	}
+
+	.section-title {
+		margin-bottom: 1.5rem;
+	}
+
+	.shelf-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.shelf-card {
+		position: relative;
+		display: flex;
+		min-height: 19rem;
+		padding: 1.3rem;
+		flex-direction: column;
+		border: 2px solid var(--ink);
+		color: var(--ink);
+		background: var(--paper-soft);
+		box-shadow: 4px 4px 0 var(--ink);
+		text-decoration: none;
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.shelf-card:hover {
+		color: var(--ink);
+		box-shadow: 8px 8px 0 var(--ink);
+		transform: translate(-3px, -3px) rotate(-0.4deg);
+	}
+
+	.shelf-card:nth-child(2) {
+		background: #d8e7e4;
+		transform: rotate(0.5deg);
+	}
+
+	.shelf-card:nth-child(3) {
+		background: #e7c8b7;
+		transform: rotate(-0.5deg);
+	}
+
+	.card-number {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.72rem;
+	}
+
+	.shelf-card h3 {
+		margin-top: auto;
+		font-size: 2rem;
+	}
+
+	.shelf-card p {
+		margin: 0.7rem 0 1.5rem;
+	}
+
+	.shelf-card b {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+	}
+
+	.tiny-manifesto {
+		margin-top: clamp(4rem, 8vw, 7rem);
+		padding: clamp(1.5rem, 4vw, 3rem);
+		background: #e9d3a9;
+	}
+
+	.tiny-manifesto blockquote {
+		max-width: 48rem;
+		margin: 0.5rem 0 1.5rem;
+		font-size: clamp(1.45rem, 3.5vw, 2.4rem);
+	}
+
+	@media (max-width: 800px) {
+		.intro,
+		.shelf-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.status-card {
+			transform: none;
+		}
+
+		.shelf-card {
+			min-height: 14rem;
+		}
+	}
+</style>

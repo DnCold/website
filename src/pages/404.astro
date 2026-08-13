@@ -1,0 +1,55 @@
+---
+import { SITE_TITLE } from '../consts';
+import { withBase } from '../lib/nav';
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title={`404 — ${SITE_TITLE}`} description="Esta página todavía no existe.">
+	<section class="not-found panel">
+		<p class="error-code">404 / ESTANTE VACÍO</p>
+		<h1>La bibliotecaria no encontró esa página.</h1>
+		<p>Puede que el link haya cambiado o que esta habitación todavía no esté construida.</p>
+		<div class="actions">
+			<a href={withBase()}>← Volver al inicio</a>
+			<a href={withBase('gallery/')}>Ir a la galería</a>
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.not-found {
+		max-width: 52rem;
+		margin: 2rem auto;
+		padding: clamp(2rem, 7vw, 5rem);
+		text-align: center;
+	}
+
+	.error-code {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+	}
+
+	.not-found p:not(.error-code) {
+		max-width: 34rem;
+		margin: 1.25rem auto 2rem;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+	}
+
+	.actions a {
+		padding: 0.6rem 0.85rem;
+		border: 2px solid var(--ink);
+		color: var(--ink);
+		background: var(--ice);
+		box-shadow: 3px 3px 0 var(--ink);
+		font-weight: 700;
+		text-decoration: none;
+	}
+</style>

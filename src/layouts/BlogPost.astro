@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import { withBase } from '../lib/nav';
+import PageLayout from './PageLayout.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<PageLayout title={title} description={description} mainClass="article-page">
+	<article class="article-shell panel">
+		{heroImage && (
+			<div class="hero-image">
+				<Image width={1020} height={510} src={heroImage} alt="" />
+			</div>
+		)}
+		<header class="article-header">
+			<a class="back-link" href={withBase('blog/')}>← Volver a notas</a>
+			<p class="article-date">
+				<FormattedDate date={pubDate} />
+				{updatedDate && <span> · actualizado <FormattedDate date={updatedDate} /></span>}
+			</p>
+			<h1>{title}</h1>
+			<p class="article-description">{description}</p>
+		</header>
+		<div class="prose article-content">
+			<slot />
+		</div>
+	</article>
+</PageLayout>
+
+<style>
+	.article-shell {
+		max-width: 58rem;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.hero-image img {
+		width: 100%;
+		aspect-ratio: 2 / 1;
+		object-fit: cover;
+	}
+
+	.article-header,
+	.article-content {
+		padding: clamp(1.5rem, 5vw, 4rem);
+	}
+
+	.article-header {
+		padding-bottom: 2rem;
+		border-bottom: 1px dashed var(--line);
+	}
+
+	.back-link,
+	.article-date {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.72rem;
+		text-transform: uppercase;
+	}
+
+	.article-date {
+		margin: 2rem 0 0.75rem;
+	}
+
+	.article-description {
+		max-width: 42rem;
+		margin: 1rem 0 0;
+		font-size: 1.15rem;
+	}
+
+	.article-content {
+		padding-top: 2rem;
+	}
+</style>

@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { withBase } from '../../lib/nav';
+import PageLayout from '../../layouts/PageLayout.astro';
+
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<PageLayout title={`Notas — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+	<header class="page-heading">
+		<div>
+			<p class="eyebrow">Cuaderno abierto</p>
+			<h1>Notas desde el taller.</h1>
+		</div>
+		<p>
+			Bitácoras de proyectos, ideas que conviene guardar y aprendizajes que no quiero volver a
+			buscar desde cero.
+		</p>
+	</header>
+
+	{
+		posts.length > 0 ? (
+			<ul class="post-grid">
+				{posts.map((post, index) => (
+					<li class:list={[index === 0 && 'featured']}>
+						<a href={withBase(`blog/${post.id}/`)}>
+							{post.data.heroImage && (
+								<Image width={720} height={360} src={post.data.heroImage} alt="" />
+							)}
+							<div class="post-copy">
+								<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
+								<h2>{post.data.title}</h2>
+								<p>{post.data.description}</p>
+								<b>leer nota →</b>
+							</div>
+						</a>
+					</li>
+				))}
+			</ul>
+		) : (
+			<section class="empty-notebook panel">
+				<div class="paper-lines" aria-hidden="true" />
+				<div>
+					<p class="eyebrow">Página 001</p>
+					<h2>El cuaderno todavía está en blanco.</h2>
+					<p>
+						Los artículos de ejemplo quedaron guardados como borradores. La primera nota real va a
+						aparecer acá, y también en el feed RSS.
+					</p>
+					<a href={withBase('rss.xml')}>Suscribirse al RSS →</a>
+				</div>
+			</section>
+		)
+	}
+</PageLayout>
+
+<style>
+	.post-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.post-grid li {
+		border: 2px solid var(--ink);
+		background: var(--paper-soft);
+		box-shadow: 4px 4px 0 var(--ink);
+	}
+
+	.post-grid li.featured {
+		grid-column: 1 / -1;
+	}
+
+	.post-grid a {
+		display: grid;
+		height: 100%;
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.post-grid img {
+		width: 100%;
+		aspect-ratio: 2 / 1;
+		object-fit: cover;
+		border-bottom: 2px solid var(--ink);
+	}
+
+	.post-copy {
+		padding: 1.25rem;
+	}
+
+	.post-date,
+	.post-copy b {
+		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+	}
+
+	.empty-notebook {
+		display: grid;
+		grid-template-columns: minmax(5rem, 0.3fr) minmax(0, 1fr);
+		gap: clamp(1.5rem, 5vw, 4rem);
+		min-height: 25rem;
+		padding: clamp(1.5rem, 5vw, 4rem);
+		background: var(--paper-soft);
+	}
+
+	.paper-lines {
+		border-right: 2px solid rgba(169, 87, 56, 0.45);
+		background: repeating-linear-gradient(0deg, transparent 0 26px, rgba(139, 201, 211, 0.4) 26px 27px);
+	}
+
+	.empty-notebook > div:last-child {
+		align-self: center;
+		max-width: 42rem;
+	}
+
+	.empty-notebook h2 {
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 680px) {
+		.post-grid,
+		.empty-notebook {
+			grid-template-columns: 1fr;
+		}
+
+		.paper-lines {
+			display: none;
+		}
+	}
+</style>
