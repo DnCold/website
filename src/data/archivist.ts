@@ -1,11 +1,10 @@
 /**
- * Gallery chapter content.
+ * Content for The Archivist's shelves.
  *
- * Add, remove, or rewrite chapters here. The gallery page builds its selector
- * and detail panels from this single list, so content changes do not require
- * editing the interactive component.
+ * The page builds its shelf selector, character reactions, and detail pages
+ * from this list. Add or edit a shelf here instead of changing the template.
  */
-export type GalleryChapter = {
+export type ArchivistChapter = {
 	id: string;
 	number: string;
 	title: string;
@@ -15,9 +14,10 @@ export type GalleryChapter = {
 	status: string;
 	tags: string[];
 	accent: string;
+	reaction: string;
 };
 
-export const GALLERY_CHAPTERS: GalleryChapter[] = [
+export const ARCHIVIST_CHAPTERS: ArchivistChapter[] = [
 	{
 		id: 'sketchbook',
 		number: '01',
@@ -28,7 +28,8 @@ export const GALLERY_CHAPTERS: GalleryChapter[] = [
 			'A shelf for illustrations, character studies, loose ideas, and the drawings that become something else later.',
 		status: 'Catalog in progress',
 		tags: ['illustration', 'sketches', 'character art'],
-		accent: '#9edee8',
+		accent: '#77937b',
+		reaction: 'Mm. These margins have potential.',
 	},
 	{
 		id: 'motion-room',
@@ -40,18 +41,20 @@ export const GALLERY_CHAPTERS: GalleryChapter[] = [
 			'A growing collection of animation exercises, short loops, scene tests, and notes about making images move.',
 		status: 'First reels being indexed',
 		tags: ['2D animation', 'loops', 'motion studies'],
-		accent: '#e5a679',
+		accent: '#c16f4e',
+		reaction: 'Oh—this one refuses to sit still.',
 	},
 	{
 		id: 'render-vault',
 		number: '03',
-		title: 'The Render Vault',
+		title: 'The Render Cabinet',
 		label: '3D',
 		summary: 'Models, spaces, materials, and strange objects.',
 		description:
 			'Experiments in form and light: models, environments, material studies, renders, and small spatial ideas.',
-		status: 'Vault access pending',
+		status: 'Cabinet key being found',
 		tags: ['3D', 'rendering', 'environments'],
-		accent: '#c8a7df',
+		accent: '#9a7898',
+		reaction: 'A suspicious little polygon. I approve.',
 	},
 ];

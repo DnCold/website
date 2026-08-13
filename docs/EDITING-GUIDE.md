@@ -29,7 +29,7 @@ src/
 ├── assets/            Imágenes que Astro optimiza al compilar
 ├── components/        Cabecera, pie y piezas reutilizables
 ├── content/blog/      Notas escritas en Markdown o MDX
-├── data/gallery.ts    Contenido de los capítulos de la galería
+├── data/archivist.ts  Contenido de los estantes de The Archivist
 ├── layouts/           Layout normal y layout sin navegación para cada mundo
 ├── pages/             Una página por archivo o carpeta
 ├── styles/            Estilos globales y de la galería
@@ -44,7 +44,7 @@ Los archivos que probablemente editarás más seguido son:
 - `src/pages/index.astro`: portada.
 - `src/pages/about.astro`: texto de About y explicación del proceso.
 - `src/pages/links.astro`: enlaces externos.
-- `src/data/gallery.ts`: capítulos de la galería.
+- `src/data/archivist.ts`: estantes y reacciones de The Archivist.
 - `src/pages/coldem.astro`: contenido del mundo Coldem.
 - `src/styles/coldem.css`: apariencia completa del launcher Coldem.
 - `src/styles/global.css`: paleta y tipografías.
@@ -57,13 +57,13 @@ El sitio tiene dos tipos de página:
 - `WorldLayout.astro` no añade navegación visual. Se usa cuando una página debe sentirse como un
   lugar o programa independiente.
 
-Gallery/Archivist y Coldem usan `WorldLayout.astro`. Cada mundo incluye un enlace pequeño para volver
+The Archivist y Coldem usan `WorldLayout.astro`. Cada mundo incluye un enlace pequeño para volver
 al hub, pero no hereda la cortina noren ni el pie de la portada. Para crear otro mundo, copia una de
 esas páginas, conserva `WorldLayout` y dale su propia hoja de estilos.
 
-## 4. Cambiar la galería
+## 4. Cambiar The Archivist
 
-Todo el texto de los capítulos vive en `src/data/gallery.ts`. Cada objeto tiene esta forma:
+Todo el texto de los estantes vive en `src/data/archivist.ts`. Cada objeto tiene esta forma:
 
 ```ts
 {
@@ -75,7 +75,8 @@ Todo el texto de los capítulos vive en `src/data/gallery.ts`. Cada objeto tiene
   description: 'A longer description for the selected chapter.',
   status: 'Catalog in progress',
   tags: ['illustration', 'sketches'],
-  accent: '#9edee8',
+  accent: '#77937b',
+  reaction: 'Mm. These margins have potential.',
 }
 ```
 
@@ -87,29 +88,32 @@ automáticamente. Para un capítulo nuevo:
 3. Cambia el número, textos, etiquetas y color.
 4. Ejecuta `npm run build` para detectar errores.
 
-### Sustituir el arte de la recepcionista
+### Sustituir los retratos de The Archivist
 
-El arte actual está en:
+Los cuatro retratos están en:
 
 ```text
-src/assets/gallery/archive-guide-manga.webp
+src/assets/archivist/archivist-neutral.webp
+src/assets/archivist/archivist-sketchbook.webp
+src/assets/archivist/archivist-motion.webp
+src/assets/archivist/archivist-render.webp
 ```
 
-La página lo importa al comienzo de `src/pages/gallery/index.astro`:
+La página los importa al comienzo de `src/pages/archivist/index.astro`. Cada imagen corresponde a un
+estado de `data-pose`; al pasar el mouse o enfocar un estante, JavaScript muestra la pose asociada.
 
 ```ts
-import archiveGuide from '../../assets/gallery/archive-guide-manga.webp';
+import archivistNeutral from '../../assets/archivist/archivist-neutral.webp';
 ```
 
-La opción más clara es añadir tu imagen nueva en `src/assets/gallery/` y cambiar únicamente esa ruta.
-No necesitas tocar el selector ni JavaScript.
+La opción más clara es reemplazar los cuatro archivos conservando sus nombres. No necesitas tocar el
+selector ni JavaScript.
 
 Para que la composición siga funcionando bien:
 
-- usa una imagen horizontal cercana a proporción 16:10;
-- deja espacio oscuro y relativamente limpio a la izquierda;
-- coloca el personaje principal hacia la derecha;
-- evita texto incrustado en la imagen: los títulos deben seguir siendo HTML editable;
+- usa cuatro retratos cuadrados con el personaje a la misma escala;
+- conserva la identidad, ropa, gafas y trenza entre poses;
+- evita texto incrustado: títulos y reacciones siguen siendo HTML editable;
 - WebP, AVIF, PNG y JPG funcionan, aunque WebP suele dar un buen equilibrio de tamaño y calidad.
 
 ## 5. Cambiar Coldem
@@ -203,7 +207,8 @@ Cada ruta pública corresponde a un archivo:
 | --- | --- |
 | `/` | `src/pages/index.astro` |
 | `/blog/` | `src/pages/blog/index.astro` |
-| `/gallery/` | `src/pages/gallery/index.astro` |
+| `/archivist/` | `src/pages/archivist/index.astro` |
+| `/gallery/` | redirección antigua hacia `/archivist/` |
 | `/coldem/` | `src/pages/coldem.astro` |
 | `/links/` | `src/pages/links.astro` |
 | `/about/` | `src/pages/about.astro` |
@@ -220,7 +225,7 @@ Flujo recomendado:
 
 1. Haz tus cambios en una rama.
 2. Ejecuta `npm run build`.
-3. Revisa la portada, Gallery y la vista móvil.
+3. Revisa la portada, The Archivist y la vista móvil.
 4. Sube la rama y abre un pull request.
 5. Integra el pull request en `main`.
 6. Comprueba la pestaña **Actions** y luego la web pública.
@@ -231,8 +236,8 @@ No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica 
 
 - [ ] Todo el texto público está en inglés.
 - [ ] Los enlaces del menú funcionan bajo `/website/`.
-- [ ] La galería se puede usar con mouse, touch y teclado.
-- [ ] Gallery y Coldem no muestran la navegación noren del hub.
+- [ ] The Archivist se puede usar con mouse, touch y teclado.
+- [ ] The Archivist y Coldem no muestran la navegación noren del hub.
 - [ ] El arte no contiene títulos que luego sean difíciles de editar.
 - [ ] Las imágenes tienen texto alternativo útil o `alt=""` si son sólo decorativas.
 - [ ] `npm run build` termina sin errores.
