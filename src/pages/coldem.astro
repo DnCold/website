@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import coldemIcon from '../assets/coldem/icon.png';
+import coldemLogo from '../assets/coldem/dancold-logo.png';
+import petStickers from '../assets/coldem/pet-stickers-v6.webp';
+import { SITE_TITLE } from '../consts';
+import WorldLayout from '../layouts/WorldLayout.astro';
+import { withBase } from '../lib/nav';
+import '../styles/coldem.css';
+
+const stickerStyle = `--sticker-sheet: url(${petStickers.src})`;
+const launcherRepo = 'https://github.com/DnCold/Coldem-launcher';
+const launcherReleases = `${launcherRepo}/releases/latest`;
+const releaseVersion = '0.4.1';
+const installerUrl = `${launcherRepo}/releases/download/v${releaseVersion}/Coldem_${releaseVersion}_x64-setup.exe`;
+const installerSize = '26.9 MB';
+const installerSha = '856c2658a2c52da0…c75ea2628';
+---
+
+<WorldLayout
+	title={`Coldem Launcher — ${SITE_TITLE}`}
+	description="Download Coldem for Windows: the cold, sticker-covered launcher for installing, updating, and playing DanCold games."
+	image={coldemIcon}
+	bodyClass="coldem-world"
+>
+	<div class="coldem-shell" style={stickerStyle}>
+		<header class="coldem-windowbar">
+			<a class="coldem-wordmark" href={withBase()} aria-label="Return to the DanCold hub">
+				<Image src={coldemIcon} alt="" width={34} height={34} />
+				<span><strong>COLDEM</strong><small>LAUNCHER SYSTEM</small></span>
+			</a>
+			<div class="window-status"><i></i> COLD SYSTEM ONLINE</div>
+			<a class="hub-exit" href={withBase()}>EXIT TO DANCOLD ↗</a>
+		</header>
+
+		<div class="launcher-grid">
+			<aside class="launcher-sidebar">
+				<Image class="sidebar-logo" src={coldemLogo} alt="Coldem's purple face mark" width={122} />
+				<p class="build-label">CLIENT // {releaseVersion}</p>
+				<nav aria-label="Coldem sections">
+					<a class="active" href="#download"><span>01</span> DOWNLOAD</a>
+					<a href="#install"><span>02</span> INSTALL</a>
+					<a href="#system"><span>03</span> SPECS</a>
+				</nav>
+				<div class="sticker sticker-white-cat" aria-hidden="true"></div>
+				<p class="sidebar-note">Colder than all.<br /><strong>Always.</strong></p>
+			</aside>
+
+			<div class="launcher-main">
+				<section class="launcher-topbar" aria-labelledby="coldem-title">
+					<div>
+						<p>STABLE BUILD AVAILABLE</p>
+						<h1 id="coldem-title">Get the launcher.</h1>
+					</div>
+					<div class="search-fake" aria-hidden="true">WINDOWS // X64 <kbd>V{releaseVersion}</kbd></div>
+				</section>
+
+				<section class="featured-hero" id="download">
+					<div class="hero-copy">
+						<p class="system-kicker"><span></span> LATEST STABLE // V{releaseVersion}</p>
+						<h2>DOWNLOAD<br />COLDEM</h2>
+						<p>
+							Install, update, and launch DanCold games from one place. No launcher account,
+							no storefront wall—just the games and a cold system that keeps them current.
+						</p>
+						<div class="hero-actions">
+							<a class="coldem-button primary download-button" href={installerUrl}>DOWNLOAD FOR WINDOWS ↓</a>
+							<a class="coldem-button" href={launcherReleases} target="_blank" rel="noreferrer">RELEASE NOTES ↗</a>
+						</div>
+						<p class="download-meta" id="download-meta">Windows x64 · {installerSize} · NSIS installer</p>
+					</div>
+					<div class="hero-mark" aria-hidden="true">
+						<Image src={coldemLogo} alt="" width={300} />
+						<b>COLD!</b>
+					</div>
+				</section>
+
+				<section class="collection" id="install" aria-labelledby="collection-title">
+					<div class="section-heading">
+						<div><p>THREE QUICK STEPS</p><h2 id="collection-title">Install Coldem</h2></div>
+						<span>NO ACCOUNT REQUIRED</span>
+					</div>
+					<div class="install-steps">
+						<article><b>01</b><span><strong>Download</strong><small>Save the Windows setup file.</small></span></article>
+						<article><b>02</b><span><strong>Install</strong><small>Run the installer and open Coldem.</small></span></article>
+						<article><b>03</b><span><strong>Play</strong><small>Pick a game; Coldem handles the files.</small></span></article>
+					</div>
+				</section>
+			</div>
+
+			<aside class="launcher-rail" id="system">
+				<section class="profile-card">
+					<div class="profile-avatar">V{releaseVersion.split('.')[1]}</div>
+					<div><strong>LATEST RELEASE</strong><span><i></i> V{releaseVersion} STABLE</span></div>
+				</section>
+
+				<section class="rail-panel">
+					<div class="rail-heading"><p>PACKAGE READY</p><h2>Download</h2></div>
+					<div class="download-row"><b>CLD</b><span><strong>WINDOWS X64</strong><small>COLDEM SETUP.EXE</small></span><em>{installerSize}</em></div>
+					<div class="progress"><span></span></div>
+					<a class="rail-download" href={installerUrl}>DOWNLOAD INSTALLER ↓</a>
+				</section>
+
+				<section class="rail-panel system-list">
+					<div class="rail-heading"><p>INSTALL TARGET</p><h2>Requirements</h2></div>
+					<dl>
+						<div><dt>OS</dt><dd>WINDOWS 10/11</dd></div>
+						<div><dt>ARCH</dt><dd>X64</dd></div>
+						<div><dt>NETWORK</dt><dd>REQUIRED</dd></div>
+						<div><dt>CHANNEL</dt><dd>STABLE</dd></div>
+					</dl>
+					<p class="checksum">SHA-256<br /><code>{installerSha}</code></p>
+				</section>
+
+				<div class="sticker sticker-black-cat" aria-hidden="true"></div>
+			</aside>
+		</div>
+
+		<section class="coldem-manifest" aria-labelledby="manifest-title">
+			<div class="manifest-intro">
+				<p>INSIDE THE LAUNCHER // CLD-001</p>
+				<h2 id="manifest-title">One install. Stay current.</h2>
+				<p>
+					Download the launcher once. Coldem keeps itself and your DanCold games updated, then
+					gets out of the way when it is time to play.
+				</p>
+				<a class="source-link" href={launcherRepo} target="_blank" rel="noreferrer">View source code on GitHub ↗</a>
+			</div>
+			<div class="manifest-grid">
+				<article><span>01</span><h3>Your games in one place</h3><p>Browse, install, update, and start DanCold games without hunting through release pages.</p></article>
+				<article><span>02</span><h3>Smaller updates</h3><p>Incremental patches replace only the files that changed instead of downloading everything again.</p></article>
+				<article><span>03</span><h3>No account wall</h3><p>The public catalog works without a GitHub, itch.io, or separate Coldem account.</p></article>
+			</div>
+			<div class="sticker sticker-hamster" aria-hidden="true"></div>
+		</section>
+
+		<footer class="coldem-footer">
+			<span>COLDEM // A DANCOLD PROJECT // 2026</span>
+			<a href={withBase()}>Return to the personal web ↗</a>
+		</footer>
+	</div>
+</WorldLayout>

@@ -1,3 +1,56 @@
+.archive-world {
+	color: #eae3d7;
+	background:
+		radial-gradient(circle at 78% 12%, rgba(91, 82, 144, 0.2), transparent 28rem),
+		repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
+		#070810;
+}
+
+.archive-world::before {
+	display: none;
+}
+
+.archive-world .skip-link {
+	border-color: #eae3d7;
+	color: #070810;
+	background: #eae3d7;
+}
+
+.archive-shell {
+	width: min(calc(100% - 2rem), 72rem);
+	min-height: 100vh;
+	margin: 0 auto;
+	padding: 1rem 0 clamp(3rem, 8vw, 7rem);
+}
+
+.archive-nav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: clamp(3rem, 8vw, 6rem);
+	padding: 0.7rem 0;
+	border-bottom: 1px solid rgba(234, 227, 215, 0.22);
+	font-family: var(--font-label);
+	font-size: 0.62rem;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+}
+
+.archive-nav a,
+.archive-footnote a {
+	color: #b8dfe3;
+	text-decoration: none;
+}
+
+.archive-nav a:hover,
+.archive-footnote a:hover {
+	color: #fff4dd;
+}
+
+.archive-nav span {
+	color: rgba(234, 227, 215, 0.45);
+}
+
 .gallery-heading {
 	max-width: 52rem;
 	margin-bottom: clamp(2rem, 5vw, 3.5rem);
@@ -339,10 +392,26 @@ kbd {
 }
 
 .archive-footnote {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 2rem;
 	max-width: 44rem;
 	margin: 3rem auto 0;
 	padding-left: 1rem;
 	border-left: 3px solid var(--rust);
+}
+
+.archive-footnote p {
+	margin: 0;
+}
+
+.archive-footnote a {
+	flex: 0 0 auto;
+	font-family: var(--font-label);
+	font-size: 0.66rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 @media (max-width: 800px) {
@@ -387,6 +456,14 @@ kbd {
 }
 
 @media (max-width: 520px) {
+	.archive-nav span {
+		display: none;
+	}
+
+	.archive-footnote {
+		flex-direction: column;
+	}
+
 	.terminal-bar span:first-child {
 		display: none;
 	}

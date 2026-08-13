@@ -1,0 +1,27 @@
+---
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: ImageMetadata;
+	bodyClass: string;
+}
+
+const { title, description, image, bodyClass } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} image={image} />
+		<slot name="head" />
+	</head>
+	<body class={bodyClass}>
+		<a class="skip-link" href="#content">Skip to content</a>
+		<main id="content">
+			<slot />
+		</main>
+	</body>
+</html>

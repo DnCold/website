@@ -44,12 +44,18 @@ import PageLayout from '../layouts/PageLayout.astro';
 			</a>
 			<a class="shelf-card gallery" href={withBase('gallery/')}>
 				<span class="card-number">02</span>
-				<h3>Gallery</h3>
+				<h3>The Archivist</h3>
 				<p>A manga-styled chapter select for drawings, motion, and 3D work.</p>
 				<b>enter the archive →</b>
 			</a>
-			<a class="shelf-card links" href={withBase('links/')}>
+			<a class="shelf-card coldem" href={withBase('coldem/')}>
 				<span class="card-number">03</span>
+				<h3>Coldem</h3>
+				<p>Download the Windows launcher and keep every DanCold game in one cold system.</p>
+				<b>get the launcher →</b>
+			</a>
+			<a class="shelf-card links" href={withBase('links/')}>
+				<span class="card-number">04</span>
 				<h3>Links</h3>
 				<p>Profiles, the RSS feed, and paths toward other corners.</p>
 				<b>follow signals →</b>
@@ -136,7 +142,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.shelf-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 1rem;
 	}
 
@@ -166,6 +172,25 @@ import PageLayout from '../layouts/PageLayout.astro';
 	}
 
 	.shelf-card:nth-child(3) {
+		color: #ece8f0;
+		background:
+			radial-gradient(circle at 76% 22%, rgba(177, 100, 255, 0.28), transparent 11rem),
+			repeating-linear-gradient(-35deg, transparent 0 21px, rgba(182, 215, 22, 0.05) 21px 22px),
+			#111315;
+		box-shadow: 4px 4px 0 #74419f;
+		transform: rotate(-0.35deg);
+	}
+
+	.shelf-card:nth-child(3):hover {
+		color: #fff;
+		box-shadow: 8px 8px 0 #74419f;
+	}
+
+	.shelf-card:nth-child(3) b {
+		color: #b6d716;
+	}
+
+	.shelf-card:nth-child(4) {
 		background: #e7c8b7;
 		transform: rotate(-0.5deg);
 	}

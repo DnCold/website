@@ -3,26 +3,35 @@ import { Image } from 'astro:assets';
 import archiveGuide from '../../assets/gallery/archive-guide-manga.webp';
 import { SITE_TITLE } from '../../consts';
 import { GALLERY_CHAPTERS } from '../../data/gallery';
-import PageLayout from '../../layouts/PageLayout.astro';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import { withBase } from '../../lib/nav';
 import '../../styles/gallery.css';
 
 const firstChapter = GALLERY_CHAPTERS[0];
 ---
 
-<PageLayout
-	title={`Gallery — ${SITE_TITLE}`}
+<WorldLayout
+	title={`The Archivist — ${SITE_TITLE}`}
 	description="Choose a chapter from DanCold's visual archive: drawings, animation, and 3D experiments."
+	image={archiveGuide}
+	bodyClass="archive-world"
 >
-	<header class="gallery-heading">
-		<p class="eyebrow">Visual archive / three files found</p>
-		<h1>Choose your next chapter.</h1>
-		<p>
-			The catalog is still taking shape. Pick a door to see what belongs there and what the
-			Archivist is preparing next.
-		</p>
-	</header>
+	<div class="archive-shell">
+		<nav class="archive-nav" aria-label="Archive navigation">
+			<a href={withBase()} aria-label="Leave the archive and return to the DanCold hub">← leave archive</a>
+			<span>restricted collection // guest access</span>
+		</nav>
 
-	<section
+		<header class="gallery-heading">
+			<p class="eyebrow">Visual archive / three files found</p>
+			<h1>Choose your next chapter.</h1>
+			<p>
+				The catalog is still taking shape. Pick a door to see what belongs there and what the
+				Archivist is preparing next.
+			</p>
+		</header>
+
+		<section
 		class="chapter-select panel"
 		data-chapter-select
 		data-active={firstChapter.id}
@@ -77,9 +86,9 @@ const firstChapter = GALLERY_CHAPTERS[0];
 			<strong>The Archivist</strong>
 			<p>“Choose carefully. Every unfinished thing still has a door.”</p>
 		</div>
-	</section>
+		</section>
 
-	<section class="chapter-readout panel" aria-label="Selected chapter details">
+		<section class="chapter-readout panel" aria-label="Selected chapter details">
 		<p class="sr-only" aria-live="polite" data-chapter-announcer></p>
 		{
 			GALLERY_CHAPTERS.map((chapter, index) => (
@@ -108,13 +117,17 @@ const firstChapter = GALLERY_CHAPTERS[0];
 				</article>
 			))
 		}
-	</section>
+		</section>
 
-	<p class="archive-footnote">
-		The rooms are intentionally small for now. New work will appear inside these chapters instead
-		of turning the archive into an endless feed.
-	</p>
-</PageLayout>
+		<footer class="archive-footnote">
+			<p>
+				The rooms are intentionally small for now. New work will appear inside these chapters instead
+				of turning the archive into an endless feed.
+			</p>
+			<a href={withBase()}>Return to the DanCold hub ↗</a>
+		</footer>
+	</div>
+</WorldLayout>
 
 <script>
 	const selector = document.querySelector<HTMLElement>('[data-chapter-select]');
