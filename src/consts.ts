@@ -1,6 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'DanCold — rincón personal';
+// Shared metadata. Change these two values to update the browser title,
+// search description, RSS feed, and social previews across the whole site.
+export const SITE_TITLE = 'DanCold — personal archive';
 export const SITE_DESCRIPTION =
-	'Una web personal hecha a mano para notas, dibujos, animación, 3D y pequeños experimentos.';
+	'A personal archive for notes, drawings, animation, 3D work, and small experiments.';

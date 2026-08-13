@@ -11,15 +11,14 @@ const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<PageLayout title={`Notas — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
+<PageLayout title={`Notes — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
 	<header class="page-heading">
 		<div>
-			<p class="eyebrow">Cuaderno abierto</p>
-			<h1>Notas desde el taller.</h1>
+			<p class="eyebrow">Open notebook</p>
+			<h1>Notes from the workshop.</h1>
 		</div>
 		<p>
-			Bitácoras de proyectos, ideas que conviene guardar y aprendizajes que no quiero volver a
-			buscar desde cero.
+			Project logs, ideas worth keeping, and lessons I would rather not rediscover from scratch.
 		</p>
 	</header>
 
@@ -36,7 +35,7 @@ const posts = (await getCollection('blog'))
 								<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
 								<h2>{post.data.title}</h2>
 								<p>{post.data.description}</p>
-								<b>leer nota →</b>
+								<b>read note →</b>
 							</div>
 						</a>
 					</li>
@@ -46,13 +45,13 @@ const posts = (await getCollection('blog'))
 			<section class="empty-notebook panel">
 				<div class="paper-lines" aria-hidden="true" />
 				<div>
-					<p class="eyebrow">Página 001</p>
-					<h2>El cuaderno todavía está en blanco.</h2>
+					<p class="eyebrow">Page 001</p>
+					<h2>The notebook is still blank.</h2>
 					<p>
-						Los artículos de ejemplo quedaron guardados como borradores. La primera nota real va a
-						aparecer acá, y también en el feed RSS.
+						The starter articles are safely kept as drafts. The first real note will appear here and
+						in the RSS feed.
 					</p>
-					<a href={withBase('rss.xml')}>Suscribirse al RSS →</a>
+					<a href={withBase('rss.xml')}>Subscribe via RSS →</a>
 				</div>
 			</section>
 		)

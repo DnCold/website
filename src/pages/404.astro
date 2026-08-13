@@ -4,14 +4,14 @@ import { withBase } from '../lib/nav';
 import PageLayout from '../layouts/PageLayout.astro';
 ---
 
-<PageLayout title={`404 — ${SITE_TITLE}`} description="Esta página todavía no existe.">
+<PageLayout title={`404 — ${SITE_TITLE}`} description="This page does not exist yet.">
 	<section class="not-found panel">
-		<p class="error-code">404 / ESTANTE VACÍO</p>
-		<h1>La bibliotecaria no encontró esa página.</h1>
-		<p>Puede que el link haya cambiado o que esta habitación todavía no esté construida.</p>
+		<p class="error-code">404 / EMPTY SHELF</p>
+		<h1>The Archivist could not find that page.</h1>
+		<p>The link may have moved, or this room may not have been built yet.</p>
 		<div class="actions">
-			<a href={withBase()}>← Volver al inicio</a>
-			<a href={withBase('gallery/')}>Ir a la galería</a>
+			<a href={withBase()}>← Back home</a>
+			<a href={withBase('gallery/')}>Enter the gallery</a>
 		</div>
 	</section>
 </PageLayout>

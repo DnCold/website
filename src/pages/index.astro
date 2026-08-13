@@ -7,62 +7,62 @@ import PageLayout from '../layouts/PageLayout.astro';
 <PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} mainClass="home-page">
 	<section class="intro panel">
 		<div class="intro-copy">
-			<p class="eyebrow">Señal encontrada</p>
-			<h1>Un rincón propio en una web cada vez más igual.</h1>
+			<p class="eyebrow">Signal acquired</p>
+			<h1>A personal corner in a web that keeps looking the same.</h1>
 			<p class="lede">
-				Este es mi archivo personal para guardar notas, dibujos, animaciones, experimentos 3D
-				y pequeños proyectos que merecen un lugar fuera del feed.
+				This is my archive for notes, drawings, animation, 3D experiments, and small projects
+				that deserve a place beyond the feed.
 			</p>
-			<ul class="tag-list" aria-label="Temas del sitio">
-				<li>arte</li>
-				<li>animación</li>
+			<ul class="tag-list" aria-label="Site topics">
+				<li>art</li>
+				<li>animation</li>
 				<li>3D</li>
 				<li>devlog</li>
 			</ul>
 		</div>
 
-		<aside class="status-card" aria-label="Estado del sitio">
+		<aside class="status-card" aria-label="Site status">
 			<p class="status-label">STATUS.TXT</p>
-			<strong>En construcción</strong>
-			<p>Estoy ordenando este pequeño espacio. Algunas puertas todavía llevan a estantes vacíos.</p>
-			<span>última señal: 2026</span>
+			<strong>In progress</strong>
+			<p>I am arranging this little space. A few doors still lead to empty shelves.</p>
+			<span>latest signal: 2026</span>
 		</aside>
 	</section>
 
-	<section class="shelves" aria-labelledby="explorar">
+	<section class="shelves" aria-labelledby="explore">
 		<div class="section-title">
-			<p class="eyebrow">Mapa del sitio</p>
-			<h2 id="explorar">Elegí una puerta</h2>
+			<p class="eyebrow">Site map</p>
+			<h2 id="explore">Choose a door</h2>
 		</div>
 
 		<div class="shelf-grid">
 			<a class="shelf-card notes" href={withBase('blog/')}>
 				<span class="card-number">01</span>
-				<h3>Notas</h3>
-				<p>Ideas, bitácoras y cosas aprendidas mientras hago.</p>
-				<b>abrir cuaderno →</b>
+				<h3>Notes</h3>
+				<p>Ideas, build logs, and things learned while making.</p>
+				<b>open notebook →</b>
 			</a>
 			<a class="shelf-card gallery" href={withBase('gallery/')}>
 				<span class="card-number">02</span>
-				<h3>Galería</h3>
-				<p>Dibujos, movimiento, 3D y otros artefactos visuales.</p>
-				<b>visitar biblioteca →</b>
+				<h3>Gallery</h3>
+				<p>A manga-styled chapter select for drawings, motion, and 3D work.</p>
+				<b>enter the archive →</b>
 			</a>
 			<a class="shelf-card links" href={withBase('links/')}>
 				<span class="card-number">03</span>
 				<h3>Links</h3>
-				<p>Mis perfiles, el feed RSS y caminos hacia otros rincones.</p>
-				<b>seguir señales →</b>
+				<p>Profiles, the RSS feed, and paths toward other corners.</p>
+				<b>follow signals →</b>
 			</a>
 		</div>
 	</section>
 
 	<section class="tiny-manifesto panel">
-		<p class="eyebrow">Por qué una web personal</p>
+		<p class="eyebrow">Why a personal website</p>
 		<blockquote>
-			“Porque una página puede sentirse como una habitación: imperfecta, específica y realmente tuya.”
+			“A page can feel like a room: imperfect, specific, and unmistakably yours.”
 		</blockquote>
-		<a href={withBase('about/')}>Leer acerca de este lugar →</a>
+		<a href={withBase('about/')}>Read about this place →</a>
 	</section>
 </PageLayout>
 
@@ -118,7 +118,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.status-card strong {
 		color: var(--ice);
-		font-family: Georgia, 'Times New Roman', serif;
+		font-family: var(--font-display);
 		font-size: 1.55rem;
 	}
 

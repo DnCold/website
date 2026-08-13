@@ -4,44 +4,44 @@ import { withBase } from '../lib/nav';
 import PageLayout from '../layouts/PageLayout.astro';
 ---
 
-<PageLayout
-	title={`Links — ${SITE_TITLE}`}
-	description="Links, perfiles y caminos para seguir la señal de DanCold."
->
+	<PageLayout
+		title={`Links — ${SITE_TITLE}`}
+		description="Profiles, feeds, and paths for following DanCold's work."
+	>
 	<header class="page-heading">
 		<div>
-			<p class="eyebrow">Directorio de señales</p>
-			<h1>Links para salir de acá sin perderse.</h1>
+			<p class="eyebrow">Signal directory</p>
+			<h1>Paths out of here without getting lost.</h1>
 		</div>
-		<p>Perfiles, feeds y algunas formas de seguir lo que vaya apareciendo en esta web.</p>
+		<p>Profiles, feeds, and a few ways to follow whatever appears on this site next.</p>
 	</header>
 
 	<section class="link-board panel">
 		<a class="link-note github" href="https://github.com/DnCold" target="_blank" rel="noreferrer">
-			<span>01 / CÓDIGO</span>
+			<span>01 / CODE</span>
 			<strong>GitHub</strong>
-			<p>Repositorios, herramientas y proyectos.</p>
+			<p>Repositories, tools, and projects.</p>
 			<b>github.com/DnCold ↗</b>
 		</a>
 		<a class="link-note twitter" href="https://twitter.com/dancosta13" target="_blank" rel="noreferrer">
-			<span>02 / SEÑAL</span>
+			<span>02 / SIGNAL</span>
 			<strong>Twitter</strong>
-			<p>Actualizaciones rápidas y cosas encontradas.</p>
+			<p>Quick updates and things found along the way.</p>
 			<b>@dancosta13 ↗</b>
 		</a>
 		<a class="link-note rss" href={withBase('rss.xml')}>
 			<span>03 / FEED</span>
 			<strong>RSS</strong>
-			<p>Seguí las notas sin depender de un algoritmo.</p>
-			<b>copiar la señal →</b>
+			<p>Follow new notes in any feed reader you like.</p>
+			<b>open the feed →</b>
 		</a>
 	</section>
 
 	<section class="web-note">
-		<p class="eyebrow">Nota al margen</p>
+		<p class="eyebrow">Margin note</p>
 		<p>
-			Este directorio todavía es corto. Con el tiempo puede crecer con sitios amigos, herramientas
-			favoritas y pequeños botones de la web independiente.
+			This directory is still short. It may grow to include friendly sites, favorite tools, and
+			tiny buttons from the independent web.
 		</p>
 	</section>
 </PageLayout>
@@ -98,7 +98,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 	.link-note strong {
 		margin-top: auto;
-		font-family: Georgia, 'Times New Roman', serif;
+		font-family: var(--font-display);
 		font-size: 2.25rem;
 	}
 
