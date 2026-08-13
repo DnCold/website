@@ -13,12 +13,12 @@ const { title, description, mainClass } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-world="hub">
 	<head>
 		<BaseHead title={title} description={description} />
 		<slot name="head" />
 	</head>
-	<body>
+	<body class:list={[mainClass && `${mainClass}-body`]}>
 		<a class="skip-link" href="#content">Skip to content</a>
 		<Header />
 		<main id="content" class:list={['page-main', mainClass]}>

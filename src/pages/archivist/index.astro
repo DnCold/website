@@ -143,9 +143,12 @@ const firstChapter = ARCHIVIST_CHAPTERS[0];
 </WorldLayout>
 
 <script>
-	const selector = document.querySelector<HTMLElement>('[data-chapter-select]');
+	const setupArchivist = () => {
+		const selector = document.querySelector<HTMLElement>('[data-chapter-select]');
 
-	if (selector) {
+		if (!selector || selector.dataset.enhanced === 'true') return;
+		selector.dataset.enhanced = 'true';
+
 		const tabs = Array.from(selector.querySelectorAll<HTMLButtonElement>('[data-chapter]'));
 		const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-chapter-panel]'));
 		const announcer = document.querySelector<HTMLElement>('[data-chapter-announcer]');
@@ -212,5 +215,7 @@ const firstChapter = ARCHIVIST_CHAPTERS[0];
 		const requestedChapter = window.location.hash.slice(1);
 		const requestedTab = tabs.find((tab) => tab.dataset.chapter === requestedChapter);
 		if (requestedTab) selectChapter(requestedTab, false);
-	}
+	};
+
+	document.addEventListener('astro:page-load', setupArchivist);
 </script>

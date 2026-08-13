@@ -10,10 +10,11 @@ interface Props {
 }
 
 const { title, description, image, bodyClass } = Astro.props;
+const world = bodyClass === 'coldem-world' ? 'coldem' : bodyClass === 'archive-world' ? 'archivist' : 'world';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-world={world}>
 	<head>
 		<BaseHead title={title} description={description} image={image} />
 		<slot name="head" />
