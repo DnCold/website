@@ -6,8 +6,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dncold.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/website' : '/',
+  site: 'https://dancold.quest',
+  base: '/',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
   build: {

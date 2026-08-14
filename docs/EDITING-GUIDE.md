@@ -145,14 +145,22 @@ automáticamente el mismo mundo visual mediante `src/layouts/BlogPost.astro`.
 ## 6. Cambiar Coldem
 
 El contenido editable está en `src/pages/coldem.astro` y su diseño en `src/styles/coldem.css`.
-Las tres imágenes propias del launcher viven en `src/assets/coldem/`:
+Las imágenes propias de este mundo viven en `src/assets/coldem/`:
 
-- `icon.png`: icono pequeño del sistema;
-- `dancold-logo.png`: marca morada grande;
+- `dancold-logo.png`: marca grafiti original, conservada como referencia histórica;
+- `runner-v4.png`: retrato vertical con fondo, conservado como arte fuente;
+- `runner-head.png`: cabeza actual con transparencia; reemplaza la marca antigua en la interfaz;
+- `runner-full.png`: pose completa y transparente usada en la ficha del personaje;
+- `runner-welcome.png`: pose de bienvenida usada junto al launcher;
+- `runner-active.png`: pose dinámica usada en la portada del mundo;
+- `robot-rock-reborn-cover.png`: portada de la primera ficha de juego;
 - `pet-stickers-v6.webp`: hoja optimizada de cuatro stickers usada como sprite CSS.
 
-La página está pensada principalmente para descargar el instalador de Windows. La versión, el tamaño,
-el SHA-256 y la URL directa viven juntos al principio de `coldem.astro`:
+La página abre con el mundo de juegos y presenta el contenido en este orden: `#games`, `#runner`,
+`#launcher` y `#system`. El launcher es una herramienta opcional y aparece como un bloque compacto después
+del catálogo y de la ficha del personaje.
+
+La versión, el tamaño, el SHA-256 y la URL directa viven juntos al principio de `coldem.astro`:
 
 ```ts
 const releaseVersion = '0.4.1';
@@ -164,6 +172,20 @@ const installerSha = '...';
 Cuando publiques una nueva versión del launcher, actualiza esas cuatro constantes con los datos del
 asset `.exe` de GitHub Releases. `launcherRepo` y `launcherReleases` controlan los enlaces secundarios
 al código y a las notas de versión.
+
+- `#games`: catálogo público. La primera ficha usa **Robot Rock Reborn 0.1.0** y enlaza a su Release;
+- `#runner`: ficha de **The Runner**, el personaje nacido de la marca grafiti morada;
+- `#launcher`: descarga opcional, pasos de instalación y datos del paquete;
+- `#system`: principios del ecosistema Coldem.
+
+Para añadir otro juego, duplica una ficha dentro de `.future-games` o crea otro bloque con la misma
+estructura de `.featured-game`. Mantén el título, versión, plataforma, descripción y enlaces como texto
+HTML editable. Las portadas no deberían contener información esencial que no se repita en el HTML.
+
+`dancold-logo.png` ya no se usa como imagen principal, pero sigue siendo la referencia histórica de identidad.
+Futuras ilustraciones de The Runner deberían conservar la cabeza rectangular violeta, los dos ojos negros
+esféricos (uno grande y otro asomándose por el lateral), la boca blanca, la grieta angular y la ropa urbana
+remendada. Los cuatro PNG `runner-*.png` son transparentes y se pueden reutilizar sobre otros fondos.
 
 ## 7. Cambiar los sprites noren
 
@@ -272,7 +294,7 @@ No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica 
 ## 12. Checklist antes de terminar
 
 - [ ] Todo el texto público está en inglés.
-- [ ] Los enlaces del menú funcionan bajo `/website/`.
+- [ ] Los enlaces del menú funcionan desde la raíz de `https://dancold.quest/`.
 - [ ] The Archivist se puede usar con mouse, touch y teclado.
 - [ ] The Chronicler, The Archivist y Coldem no muestran la navegación noren del hub.
 - [ ] El arte no contiene títulos que luego sean difíciles de editar.

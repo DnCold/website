@@ -13,6 +13,11 @@ yarn-error.log*
 pnpm-debug.log*
 .pnpm-store/
 
+# local Codex workspaces and previews
+/coldem-launcher/
+/tmp/
+/.preview-*.log
+
 
 # environment variables
 .env

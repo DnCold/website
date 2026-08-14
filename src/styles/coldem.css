@@ -174,8 +174,60 @@
 
 .sidebar-logo {
 	width: 6.4rem;
-	margin: 0.5rem auto 0.35rem;
+	margin: 0 auto;
 	filter: drop-shadow(0 0 20px rgba(141, 79, 209, 0.38));
+}
+
+.tag-profile {
+	position: relative;
+	display: grid;
+	place-items: center;
+	min-height: 10.2rem;
+	margin-bottom: 0.35rem;
+	padding: 0.75rem 0.4rem 2.1rem;
+	border: 1px solid #302938;
+	background:
+		linear-gradient(145deg, rgba(177, 100, 255, 0.1), transparent 60%),
+		#0a0b0d;
+	clip-path: polygon(0 0.5rem, 94% 0, 100% 88%, 91% 100%, 4% 97%);
+}
+
+.tag-profile::before {
+	position: absolute;
+	top: 0.45rem;
+	right: 0.6rem;
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: 50%;
+	background: var(--coldem-lime);
+	box-shadow: 0 0 9px rgba(182, 215, 22, 0.75);
+	content: '';
+}
+
+.tag-profile p {
+	position: absolute;
+	right: 0.55rem;
+	bottom: 0.55rem;
+	left: 0.55rem;
+	margin: 0;
+	text-align: center;
+}
+
+.tag-profile p span,
+.tag-profile p strong {
+	display: block;
+}
+
+.tag-profile p span {
+	color: var(--coldem-muted);
+	font: 0.48rem Consolas, monospace;
+	letter-spacing: 0.1em;
+}
+
+.tag-profile p strong {
+	color: var(--coldem-purple-hot);
+	font: 500 0.82rem Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.08em;
 }
 
 .build-label {
@@ -404,29 +456,62 @@
 	box-shadow: 4px 4px 0 #5a690d;
 }
 
-.hero-mark {
+.runner-announcement {
 	position: relative;
 	z-index: 1;
-	display: grid;
-	place-items: center;
+	align-self: stretch;
+	min-width: 0;
+	margin: -2.3rem -2.7rem -3.4rem 0;
+	overflow: hidden;
+	border-left: 1px solid rgba(177, 100, 255, 0.28);
+	background: rgba(5, 6, 8, 0.42);
+	clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 }
 
-.hero-mark img {
-	width: min(100%, 17rem);
-	filter: drop-shadow(0 0 28px rgba(177, 100, 255, 0.42));
-	transform: rotate(3deg);
+.runner-announcement img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 30rem;
+	object-fit: cover;
+	object-position: 50% 44%;
+	filter: contrast(1.08) saturate(1.08);
+	transition: filter 180ms linear, transform 480ms ease;
 }
 
-.hero-mark b {
+.runner-announcement:hover img {
+	filter: contrast(1.17) saturate(1.18);
+	transform: scale(1.018);
+}
+
+.runner-announcement figcaption {
 	position: absolute;
-	right: -0.6rem;
-	bottom: 0.3rem;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 0.75rem 1.2rem 0.8rem 2.5rem;
+	border-top: 1px solid var(--coldem-purple-hot);
+	background: rgba(8, 9, 11, 0.9);
+	font-family: Consolas, monospace;
+}
+
+.runner-announcement figcaption b,
+.runner-announcement figcaption span {
+	display: block;
+}
+
+.runner-announcement figcaption b {
 	color: var(--coldem-lime);
-	font-family: Impact, 'Arial Narrow', sans-serif;
-	font-size: clamp(2rem, 5vw, 4rem);
-	font-style: italic;
-	text-shadow: 3px 3px 0 #20112c;
-	transform: rotate(-10deg);
+	font: italic 500 1.1rem Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.08em;
+}
+
+.runner-announcement figcaption span {
+	margin-top: 0.1rem;
+	color: var(--coldem-muted);
+	font-size: 0.5rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 }
 
 .collection {
@@ -712,6 +797,324 @@
 	transform: rotate(7deg);
 }
 
+.game-broadcast {
+	margin-top: 1rem;
+	padding: clamp(1.3rem, 4vw, 3.4rem);
+	border: 1px solid var(--coldem-line);
+	background:
+		radial-gradient(circle at 88% 18%, rgba(182, 215, 22, 0.08), transparent 22rem),
+		repeating-linear-gradient(-45deg, transparent 0 34px, rgba(177, 100, 255, 0.025) 34px 35px),
+		#0b0d0e;
+}
+
+.broadcast-header {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.2rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 3px solid var(--coldem-purple);
+}
+
+.broadcast-header p,
+.runner-copy > p:first-child,
+.game-cover figcaption {
+	margin: 0;
+	color: var(--coldem-muted);
+	font: 0.58rem Consolas, 'Courier New', monospace;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.broadcast-header h2 {
+	margin-top: 0.25rem;
+	font: italic 500 clamp(2.4rem, 6vw, 5.4rem)/0.82 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.025em;
+	text-transform: uppercase;
+	text-shadow: 4px 4px 0 #341649;
+}
+
+.broadcast-header > span {
+	color: var(--coldem-lime);
+	font: 0.56rem Consolas, monospace;
+	letter-spacing: 0.08em;
+}
+
+.broadcast-header > span i {
+	display: inline-block;
+	width: 0.45rem;
+	height: 0.45rem;
+	margin-right: 0.35rem;
+	border-radius: 50%;
+	background: var(--coldem-lime);
+	box-shadow: 0 0 10px rgba(182, 215, 22, 0.8);
+}
+
+.featured-game {
+	display: grid;
+	grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+	min-height: 31rem;
+	border: 1px solid #49345c;
+	background: #111216;
+	box-shadow: 9px 9px 0 #050607;
+}
+
+.game-cover {
+	position: relative;
+	min-width: 0;
+	margin: 0;
+	overflow: hidden;
+	border-right: 1px solid #49345c;
+}
+
+.game-cover::after {
+	position: absolute;
+	inset: 0;
+	background:
+		repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 0, 0, 0.13) 3px 4px),
+		linear-gradient(90deg, transparent 60%, rgba(11, 12, 14, 0.42));
+	content: '';
+	pointer-events: none;
+}
+
+.game-cover img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 31rem;
+	object-fit: cover;
+	object-position: 52% center;
+	transition: filter 180ms linear, transform 650ms ease;
+}
+
+.featured-game:hover .game-cover img {
+	filter: contrast(1.08) saturate(1.08);
+	transform: scale(1.018);
+}
+
+.game-cover figcaption {
+	position: absolute;
+	z-index: 2;
+	right: 0.65rem;
+	bottom: 0.65rem;
+	padding: 0.28rem 0.45rem;
+	color: #d4cfd8;
+	background: rgba(7, 8, 9, 0.84);
+}
+
+.game-copy {
+	align-self: center;
+	padding: clamp(1.4rem, 4vw, 3.2rem);
+}
+
+.game-copy h3 {
+	margin: 0.75rem 0 1rem;
+	font: italic 500 clamp(3rem, 6vw, 5.5rem)/0.76 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.015em;
+	text-transform: uppercase;
+	text-shadow: 5px 5px 0 #321249;
+}
+
+.game-copy h3 em {
+	color: var(--coldem-lime);
+	font-style: inherit;
+}
+
+.game-copy > p:not(.system-kicker) {
+	max-width: 34rem;
+	color: #aaa4af;
+	font-size: 0.8rem;
+}
+
+.game-meta {
+	display: grid;
+	gap: 0.35rem;
+	margin: 1.3rem 0;
+	padding: 0;
+	list-style: none;
+	font: 0.62rem Consolas, monospace;
+}
+
+.game-meta li {
+	display: grid;
+	grid-template-columns: 6.2rem 1fr;
+	padding-bottom: 0.28rem;
+	border-bottom: 1px dashed #39333f;
+}
+
+.game-meta span {
+	color: var(--coldem-muted);
+}
+
+.future-games {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem;
+	margin-top: 1.3rem;
+}
+
+.future-games article {
+	position: relative;
+	min-height: 9.5rem;
+	padding: 1.1rem;
+	overflow: hidden;
+	border: 1px dashed #493e55;
+	background:
+		repeating-linear-gradient(-45deg, transparent 0 14px, rgba(177, 100, 255, 0.025) 14px 15px),
+		#0e1012;
+}
+
+.future-games article > span,
+.future-games article > b {
+	font: 0.54rem Consolas, monospace;
+	letter-spacing: 0.08em;
+}
+
+.future-games article > span {
+	color: var(--coldem-muted);
+}
+
+.future-games article > strong {
+	display: block;
+	margin-top: 0.8rem;
+	font: 500 1.25rem Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.future-games article > p {
+	max-width: 31rem;
+	margin: 0.25rem 0 0;
+	color: #76717a;
+	font-size: 0.68rem;
+}
+
+.future-games article > b {
+	position: absolute;
+	right: 1rem;
+	bottom: 0.8rem;
+	color: var(--coldem-purple-hot);
+}
+
+.runner-dossier {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(18rem, 0.82fr) minmax(0, 1.18fr);
+	min-height: 42rem;
+	margin-top: 1rem;
+	overflow: hidden;
+	border: 1px solid var(--coldem-line);
+	background:
+		linear-gradient(110deg, #0b0c0e 0 62%, rgba(48, 21, 67, 0.9)),
+		repeating-linear-gradient(-18deg, transparent 0 28px, rgba(177, 100, 255, 0.04) 28px 29px);
+}
+
+.runner-poster {
+	position: relative;
+	min-width: 0;
+	margin: 0;
+	overflow: hidden;
+	border-right: 1px solid #4c365e;
+	clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+}
+
+.runner-poster img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 43%;
+	filter: contrast(1.08) saturate(1.08);
+}
+
+.runner-poster figcaption {
+	position: absolute;
+	right: 8%;
+	bottom: 1rem;
+	padding: 0.35rem 0.55rem;
+	color: var(--coldem-lime);
+	background: #08090a;
+	font: 0.56rem Consolas, monospace;
+	letter-spacing: 0.08em;
+}
+
+.runner-copy {
+	position: relative;
+	z-index: 2;
+	align-self: center;
+	padding: clamp(2rem, 6vw, 5rem);
+}
+
+.runner-copy h2 {
+	margin: 0.45rem 0 1.2rem;
+	font: italic 500 clamp(3.4rem, 8vw, 7rem)/0.77 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.015em;
+	text-transform: uppercase;
+	text-shadow: 5px 5px 0 #3a1852;
+}
+
+.runner-copy h2 span {
+	display: block;
+	color: var(--coldem-purple-hot);
+	font-size: 0.34em;
+	letter-spacing: 0.08em;
+}
+
+.runner-intro {
+	max-width: 41rem;
+	color: #b1abb6;
+	font-size: 0.92rem;
+	line-height: 1.55;
+}
+
+.runner-copy blockquote {
+	max-width: 33rem;
+	margin: 1.4rem 0;
+	padding: 0.75rem 1rem;
+	border-left: 5px solid var(--coldem-lime);
+	color: #e6e1e9;
+	background: #121015;
+	box-shadow: 5px 5px 0 #372047;
+	font: 700 0.76rem Consolas, monospace;
+	transform: rotate(-0.6deg);
+}
+
+.runner-facts {
+	max-width: 39rem;
+	margin: 1.6rem 0 0;
+	border-top: 1px solid #504657;
+	font: 0.63rem Consolas, monospace;
+}
+
+.runner-facts div {
+	display: grid;
+	grid-template-columns: 7.5rem 1fr;
+	gap: 0.8rem;
+	padding: 0.4rem 0;
+	border-bottom: 1px dashed #39333f;
+}
+
+.runner-facts dt {
+	color: var(--coldem-muted);
+	text-transform: uppercase;
+}
+
+.runner-facts dd {
+	margin: 0;
+	color: #c9c3cd;
+}
+
+.runner-origin-mark {
+	position: absolute;
+	right: -2.2rem;
+	bottom: -2.8rem;
+	width: 13rem;
+	opacity: 0.13;
+	filter: drop-shadow(0 0 20px rgba(177, 100, 255, 0.65));
+	transform: rotate(9deg);
+}
+
 .coldem-manifest {
 	position: relative;
 	display: grid;
@@ -842,6 +1245,10 @@
 	.sticker-black-cat {
 		display: none;
 	}
+
+	.featured-game {
+		grid-template-columns: minmax(0, 1.1fr) minmax(17rem, 0.9fr);
+	}
 }
 
 @media (max-width: 760px) {
@@ -871,8 +1278,20 @@
 		border-bottom: 1px solid var(--coldem-line);
 	}
 
-	.sidebar-logo {
+	.tag-profile {
 		grid-row: 1 / 3;
+		width: 5.4rem;
+		min-height: 5.4rem;
+		margin: 0;
+		padding: 0.35rem;
+		clip-path: none;
+	}
+
+	.tag-profile p {
+		display: none;
+	}
+
+	.sidebar-logo {
 		width: 3.6rem;
 		margin: 0;
 	}
@@ -908,12 +1327,28 @@
 		grid-template-columns: 1fr;
 	}
 
-	.hero-mark {
+	.runner-announcement {
 		position: absolute;
-		right: -4rem;
-		bottom: -3rem;
-		width: 14rem;
-		opacity: 0.32;
+		right: -3.5rem;
+		bottom: 0;
+		width: 17rem;
+		height: 100%;
+		margin: 0;
+		border: 0;
+		opacity: 0.26;
+		clip-path: none;
+	}
+
+	.runner-announcement img {
+		min-height: 100%;
+	}
+
+	.runner-announcement figcaption {
+		display: none;
+	}
+
+	.hero-copy {
+		max-width: 34rem;
 	}
 
 	.launcher-rail {
@@ -931,6 +1366,44 @@
 
 	.install-steps {
 		grid-template-columns: 1fr;
+	}
+
+	.broadcast-header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.featured-game {
+		grid-template-columns: 1fr;
+	}
+
+	.game-cover {
+		max-height: 28rem;
+		border-right: 0;
+		border-bottom: 1px solid #49345c;
+	}
+
+	.game-cover img {
+		min-height: 23rem;
+	}
+
+	.future-games {
+		grid-template-columns: 1fr;
+	}
+
+	.runner-dossier {
+		grid-template-columns: 1fr;
+	}
+
+	.runner-poster {
+		max-height: 42rem;
+		border-right: 0;
+		border-bottom: 1px solid #4c365e;
+		clip-path: none;
+	}
+
+	.runner-poster img {
+		min-height: 38rem;
 	}
 }
 
@@ -957,11 +1430,558 @@
 		font-size: 3.65rem;
 	}
 
+	.broadcast-header h2 {
+		font-size: 3.15rem;
+	}
+
+	.game-broadcast {
+		padding: 1.5rem 0.75rem;
+	}
+
+	.game-cover,
+	.game-cover img {
+		min-height: 17rem;
+		max-height: 20rem;
+	}
+
+	.game-copy {
+		padding: 1.5rem 1rem 1.8rem;
+	}
+
+	.game-copy h3 {
+		font-size: 3.4rem;
+	}
+
+	.future-games article {
+		min-height: 10.5rem;
+	}
+
+	.runner-poster,
+	.runner-poster img {
+		min-height: 30rem;
+		max-height: 33rem;
+	}
+
+	.runner-copy {
+		padding: 2rem 1.1rem 3.5rem;
+	}
+
+	.runner-copy h2 {
+		font-size: 4rem;
+	}
+
+	.runner-facts div {
+		grid-template-columns: 6.1rem 1fr;
+	}
+
 	.coldem-manifest {
 		padding: 2rem 1.2rem;
 	}
 
 	.coldem-footer {
 		flex-direction: column;
+	}
+}
+
+/* Games-first composition ------------------------------------------------- */
+
+.coldem-wordmark img {
+	width: 2.55rem;
+	height: 2.55rem;
+	object-fit: contain;
+}
+
+.coldem-landing {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr);
+	min-height: 39rem;
+	overflow: hidden;
+	border-right: 1px solid var(--coldem-line);
+	border-bottom: 1px solid var(--coldem-line);
+	border-left: 1px solid var(--coldem-line);
+	background:
+		radial-gradient(circle at 79% 36%, rgba(177, 100, 255, 0.25), transparent 25rem),
+		repeating-linear-gradient(-16deg, transparent 0 34px, rgba(255, 255, 255, 0.025) 34px 35px),
+		linear-gradient(115deg, #090b0d 0 56%, #24102f 100%);
+	isolation: isolate;
+}
+
+.coldem-landing::before {
+	position: absolute;
+	right: 3%;
+	bottom: -24%;
+	width: 46%;
+	aspect-ratio: 1;
+	border: 1px solid rgba(182, 215, 22, 0.25);
+	border-radius: 50%;
+	box-shadow: 0 0 0 2rem rgba(182, 215, 22, 0.025), 0 0 0 5rem rgba(177, 100, 255, 0.03);
+	content: '';
+}
+
+.coldem-landing__copy {
+	position: relative;
+	z-index: 2;
+	align-self: center;
+	padding: clamp(2rem, 6vw, 6rem);
+}
+
+.coldem-landing h1 {
+	margin: 0.8rem 0 1.35rem;
+	font: italic 500 clamp(4.3rem, 9vw, 8.6rem)/0.76 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.015em;
+	text-transform: uppercase;
+	text-shadow: 7px 7px 0 #321249;
+	transform: skew(-2deg);
+}
+
+.coldem-landing h1 em {
+	color: var(--coldem-lime);
+	font-style: inherit;
+}
+
+.coldem-landing__copy > p:not(.system-kicker) {
+	max-width: 42rem;
+	color: #b7b0bd;
+	font-size: 0.9rem;
+	line-height: 1.6;
+}
+
+.coldem-landing__copy .hero-actions {
+	margin-top: 1.55rem;
+}
+
+.coldem-landing__signal {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.2rem;
+	margin: 2.4rem 0 0;
+	padding: 1rem 0 0;
+	border-top: 1px dashed #42394a;
+	list-style: none;
+}
+
+.coldem-landing__signal li {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 0.45rem;
+}
+
+.coldem-landing__signal b {
+	color: var(--coldem-purple-hot);
+	font: 500 1.45rem Impact, 'Arial Narrow', sans-serif;
+}
+
+.coldem-landing__signal span {
+	max-width: 4.5rem;
+	color: #77717e;
+	font: 0.5rem/1.25 Consolas, monospace;
+	letter-spacing: 0.07em;
+}
+
+.coldem-landing__runner {
+	position: relative;
+	z-index: 1;
+	min-width: 0;
+	margin: 0;
+}
+
+.coldem-landing__runner img {
+	position: absolute;
+	right: -5%;
+	bottom: -8%;
+	width: min(47rem, 112%);
+	height: 112%;
+	object-fit: contain;
+	object-position: right bottom;
+	filter: drop-shadow(1.2rem 1.5rem 0 rgba(4, 5, 6, 0.46));
+}
+
+.coldem-landing__runner figcaption {
+	position: absolute;
+	right: 1.2rem;
+	bottom: 1.2rem;
+	z-index: 2;
+	padding: 0.55rem 0.7rem;
+	border-left: 3px solid var(--coldem-lime);
+	background: rgba(7, 8, 10, 0.82);
+	font-family: Consolas, monospace;
+	transform: rotate(-1.5deg);
+}
+
+.coldem-landing__runner figcaption b,
+.coldem-landing__runner figcaption span {
+	display: block;
+}
+
+.coldem-landing__runner figcaption b {
+	font-size: 0.68rem;
+	letter-spacing: 0.1em;
+}
+
+.coldem-landing__runner figcaption span {
+	margin-top: 0.15rem;
+	color: var(--coldem-muted);
+	font-size: 0.48rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.coldem-directory {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	border-right: 1px solid var(--coldem-line);
+	border-bottom: 1px solid var(--coldem-line);
+	border-left: 1px solid var(--coldem-line);
+	background: #0b0d0f;
+}
+
+.coldem-directory a {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto;
+	gap: 0 0.65rem;
+	min-height: 5.6rem;
+	padding: 1rem;
+	border-right: 1px solid #2e2933;
+	color: var(--coldem-cream);
+	text-decoration: none;
+}
+
+.coldem-directory a:last-child {
+	border-right: 0;
+}
+
+.coldem-directory a::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 3px;
+	background: var(--coldem-purple-hot);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 180ms ease;
+	content: '';
+}
+
+.coldem-directory a:hover {
+	background: linear-gradient(120deg, rgba(141, 79, 209, 0.16), transparent);
+}
+
+.coldem-directory a:hover::after {
+	transform: scaleX(1);
+}
+
+.coldem-directory span {
+	grid-row: 1 / 3;
+	align-self: center;
+	color: var(--coldem-lime);
+	font: 0.58rem Consolas, monospace;
+}
+
+.coldem-directory strong {
+	align-self: end;
+	font: 500 1rem Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.06em;
+}
+
+.coldem-directory small {
+	color: var(--coldem-muted);
+	font: 0.55rem Consolas, monospace;
+}
+
+.runner-poster {
+	background:
+		radial-gradient(circle at 47% 38%, rgba(141, 79, 209, 0.25), transparent 18rem),
+		repeating-linear-gradient(-45deg, transparent 0 18px, rgba(255, 255, 255, 0.025) 18px 19px),
+		#080a0c;
+}
+
+.runner-poster img {
+	object-fit: contain;
+	object-position: center bottom;
+	filter: drop-shadow(0.8rem 1rem 0 rgba(0, 0, 0, 0.42));
+}
+
+.runner-origin-mark {
+	opacity: 0.09;
+}
+
+.launcher-dock {
+	margin-top: 1rem;
+	padding: clamp(1.3rem, 4vw, 3.4rem);
+	border: 1px solid var(--coldem-line);
+	background:
+		repeating-linear-gradient(0deg, transparent 0 27px, rgba(255, 255, 255, 0.018) 27px 28px),
+		#0b0d0e;
+}
+
+.launcher-dock__header {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 3px solid var(--coldem-lime);
+}
+
+.launcher-dock__header p,
+.launcher-package > p:first-child {
+	margin: 0;
+	color: var(--coldem-muted);
+	font: 0.58rem Consolas, monospace;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.launcher-dock__header h2 {
+	margin-top: 0.25rem;
+	font: italic 500 clamp(2rem, 5vw, 4.2rem)/0.85 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	text-shadow: 4px 4px 0 #321249;
+}
+
+.launcher-dock__header > span {
+	color: var(--coldem-lime);
+	font: 0.58rem Consolas, monospace;
+	letter-spacing: 0.08em;
+}
+
+.launcher-dock__grid {
+	display: grid;
+	grid-template-columns: minmax(12rem, 0.45fr) minmax(20rem, 1fr) minmax(14rem, 0.45fr);
+	min-height: 24rem;
+	overflow: hidden;
+	border: 1px solid #49345c;
+	background:
+		radial-gradient(circle at 16% 45%, rgba(141, 79, 209, 0.2), transparent 18rem),
+		linear-gradient(110deg, #0b0c0f, #17111d);
+	box-shadow: 8px 8px 0 #050607;
+}
+
+.launcher-dock__runner {
+	position: relative;
+	min-width: 0;
+	margin: 0;
+	overflow: hidden;
+	border-right: 1px solid #49345c;
+}
+
+.launcher-dock__runner img {
+	position: absolute;
+	right: -12%;
+	bottom: -8%;
+	width: 125%;
+	height: 112%;
+	object-fit: contain;
+	object-position: center bottom;
+}
+
+.launcher-dock__runner figcaption {
+	position: absolute;
+	right: 0.6rem;
+	bottom: 0.6rem;
+	left: 0.6rem;
+	padding: 0.4rem;
+	color: var(--coldem-lime);
+	background: rgba(6, 7, 9, 0.82);
+	font: 0.52rem Consolas, monospace;
+	letter-spacing: 0.08em;
+	text-align: center;
+}
+
+.launcher-dock__copy {
+	align-self: center;
+	padding: clamp(1.3rem, 4vw, 3rem);
+}
+
+.launcher-dock__copy h3 {
+	margin: 0.7rem 0 1rem;
+	font: italic 500 clamp(2.4rem, 5vw, 4.8rem)/0.8 Impact, 'Arial Narrow', sans-serif;
+	text-transform: uppercase;
+	text-shadow: 4px 4px 0 #321249;
+}
+
+.launcher-dock__copy > p:not(.system-kicker) {
+	max-width: 39rem;
+	color: #aaa4af;
+	font-size: 0.78rem;
+}
+
+.launcher-dock__copy .hero-actions {
+	margin: 1.2rem 0;
+}
+
+.launcher-package {
+	padding: 1.25rem;
+	border-left: 1px solid #49345c;
+	background: rgba(8, 10, 12, 0.78);
+}
+
+.launcher-package > strong {
+	display: block;
+	margin: 1rem 0 1.4rem;
+	color: var(--coldem-purple-hot);
+	font: italic 500 2.4rem/0.84 Impact, 'Arial Narrow', sans-serif;
+	letter-spacing: 0.04em;
+}
+
+.launcher-package dl {
+	display: grid;
+	gap: 0.5rem;
+	margin: 0;
+	font: 0.55rem Consolas, monospace;
+}
+
+.launcher-package dl div {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding-bottom: 0.4rem;
+	border-bottom: 1px dashed #39333f;
+}
+
+.launcher-package dt {
+	color: var(--coldem-muted);
+}
+
+.launcher-package dd {
+	margin: 0;
+	color: #c8c2cc;
+}
+
+@media (max-width: 960px) {
+	.coldem-landing {
+		grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.7fr);
+	}
+
+	.coldem-landing__copy {
+		padding: 3rem 2rem;
+	}
+
+	.launcher-dock__grid {
+		grid-template-columns: minmax(11rem, 0.4fr) minmax(0, 1fr);
+	}
+
+	.launcher-package {
+		display: grid;
+		grid-column: 1 / -1;
+		grid-template-columns: auto 1fr;
+		gap: 0 2rem;
+		border-top: 1px solid #49345c;
+		border-left: 0;
+	}
+
+	.launcher-package > strong {
+		grid-row: 1 / 4;
+		margin: 0;
+	}
+}
+
+@media (max-width: 700px) {
+	.coldem-landing {
+		grid-template-columns: 1fr;
+		min-height: 43rem;
+	}
+
+	.coldem-landing__copy {
+		align-self: start;
+		padding: 2.4rem 1.2rem 19rem;
+	}
+
+	.coldem-landing h1 {
+		font-size: clamp(3.6rem, 18vw, 6rem);
+	}
+
+	.coldem-landing__runner {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 25rem;
+	}
+
+	.coldem-landing__runner img {
+		right: -10%;
+		width: 90%;
+		height: 108%;
+	}
+
+	.coldem-directory {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.coldem-directory a:nth-child(2) {
+		border-right: 0;
+	}
+
+	.coldem-directory a:nth-child(-n + 2) {
+		border-bottom: 1px solid #2e2933;
+	}
+
+	.runner-poster img {
+		object-fit: contain;
+	}
+
+	.launcher-dock__header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.launcher-dock__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.launcher-dock__runner {
+		min-height: 24rem;
+		border-right: 0;
+		border-bottom: 1px solid #49345c;
+	}
+
+	.launcher-dock__runner img {
+		right: -2%;
+		width: 100%;
+	}
+
+	.launcher-package {
+		display: block;
+		grid-column: auto;
+	}
+
+	.launcher-package > strong {
+		margin: 1rem 0 1.4rem;
+	}
+}
+
+@media (max-width: 470px) {
+	.coldem-landing__copy {
+		padding-right: 0.9rem;
+		padding-left: 0.9rem;
+	}
+
+	.coldem-landing__signal {
+		display: none;
+	}
+
+	.coldem-directory a {
+		min-height: 5rem;
+		padding: 0.75rem;
+	}
+
+	.launcher-dock {
+		padding: 1.5rem 0.75rem;
+	}
+
+	.launcher-dock__copy {
+		padding: 1.5rem 1rem;
+	}
+
+	.launcher-dock__copy h3 {
+		font-size: 3rem;
 	}
 }
