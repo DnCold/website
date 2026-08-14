@@ -39,6 +39,8 @@ src/
 
 Los archivos que probablemente editarás más seguido son:
 
+- `CHARACTER-LIBRARY.md`: identidad, rasgos obligatorios, prompts y arte canónico de cada personaje.
+- `src/data/characters.ts`: catálogo reutilizable de personajes e imágenes para Astro.
 - `src/consts.ts`: nombre y descripción global.
 - `src/lib/nav.ts`: enlaces de navegación.
 - `src/pages/index.astro`: portada.

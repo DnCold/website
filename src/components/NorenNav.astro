@@ -1,11 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import type { NavItem } from '../lib/nav.ts';
-import archivistIcon from '../assets/noren-icons/archivist.png';
-import chroniclerIcon from '../assets/noren-icons/chronicler.png';
 import homeIcon from '../assets/noren-icons/home.png';
 import linksIcon from '../assets/noren-icons/links.png';
-import runnerIcon from '../assets/noren-icons/runner.png';
+import { characters } from '../data/characters.ts';
 import '../styles/noren-component.css';
 
 type Props = {
@@ -19,9 +17,9 @@ const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
 const current = normalizePath(currentPath);
 const norenIcons = {
     Home: homeIcon,
-    'The Chronicler': chroniclerIcon,
-    'The Archivist': archivistIcon,
-    Coldem: runnerIcon,
+    'The Chronicler': characters.chronicler.artwork.chibi,
+    'The Archivist': characters.archivist.artwork.chibi,
+    Coldem: characters.runner.artwork.chibi,
     Links: linksIcon,
 };
 ---
