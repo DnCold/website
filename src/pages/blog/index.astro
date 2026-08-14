@@ -1,139 +1,109 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import chroniclerPortrait from '../../assets/chronicler/chronicler-neutral.png';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 import { withBase } from '../../lib/nav';
-import PageLayout from '../../layouts/PageLayout.astro';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import '../../styles/chronicler.css';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<PageLayout title={`Notes — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
-	<header class="page-heading">
-		<div>
-			<p class="eyebrow">Open notebook</p>
-			<h1>Notes from the workshop.</h1>
-		</div>
-		<p>
-			Project logs, ideas worth keeping, and lessons I would rather not rediscover from scratch.
-		</p>
-	</header>
+<WorldLayout
+	title={`The Chronicler — ${SITE_TITLE}`}
+	description="The Chronicler's field notes: devlogs, unfinished experiments, and lessons rescued beyond the map."
+	image={chroniclerPortrait}
+	bodyClass="chronicler-world"
+>
+	<div class="chronicler-shell">
+		<nav class="chronicle-nav" aria-label="Chronicler navigation">
+			<a href={withBase()}>← return to the front page</a>
+			<p><span>FIELD LOG</span> / VOL. 01 / ALWAYS IN PROGRESS</p>
+		</nav>
 
-	{
-		posts.length > 0 ? (
-			<ul class="post-grid">
-				{posts.map((post, index) => (
-					<li class:list={[index === 0 && 'featured']}>
-						<a href={withBase(`blog/${post.id}/`)}>
-							{post.data.heroImage && (
-								<Image width={720} height={360} src={post.data.heroImage} alt="" />
-							)}
-							<div class="post-copy">
-								<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
-								<h2>{post.data.title}</h2>
-								<p>{post.data.description}</p>
-								<b>read note →</b>
-							</div>
-						</a>
-					</li>
-				))}
-			</ul>
-		) : (
-			<section class="empty-notebook panel">
-				<div class="paper-lines" aria-hidden="true" />
-				<div>
-					<p class="eyebrow">Page 001</p>
-					<h2>The notebook is still blank.</h2>
-					<p>
-						The starter articles are safely kept as drafts. The first real note will appear here and
-						in the RSS feed.
-					</p>
-					<a href={withBase('rss.xml')}>Subscribe via RSS →</a>
+		<section class="chronicle-cover" aria-labelledby="chronicle-title">
+			<div class="chronicle-copy">
+				<p class="chronicle-kicker">ROUGH COUNTRY // FIELD RECORDER</p>
+				<h1 id="chronicle-title"><span>The</span> Chronicler</h1>
+				<p class="chronicle-deck">
+					He crosses unfinished places and records strange trails, failed builds, and useful
+					mistakes before the weather takes them.
+				</p>
+				<blockquote>“If it broke once, write down why.”</blockquote>
+				<dl class="chronicle-facts">
+					<div><dt>Known as</dt><dd>The Chronicler</dd></div>
+					<div><dt>Habitat</dt><dd>Where the map stops being useful</dd></div>
+					<div><dt>Disposition</dt><dd>Weathered. Stubborn. Still taking notes.</dd></div>
+				</dl>
+			</div>
+
+			<figure class="chronicler-portrait">
+				<div class="portrait-crop">
+					<Image
+						src={chroniclerPortrait}
+						alt="The Chronicler, a manga-style character with enormous messy curls and a full beard, looking left in profile."
+						loading="eager"
+					/>
 				</div>
-			</section>
-		)
-	}
-</PageLayout>
+				<figcaption>
+					<b>DAN // THE CHRONICLER</b>
+					<span>Explorer of unfinished places. Collector of useful mistakes.</span>
+				</figcaption>
+			</figure>
 
-<style>
-	.post-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1.25rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
+			<p class="ink-stamp" aria-hidden="true">RECORDED<br />BY HAND</p>
+		</section>
 
-	.post-grid li {
-		border: 2px solid var(--ink);
-		background: var(--paper-soft);
-		box-shadow: 4px 4px 0 var(--ink);
-	}
+		<section class="chronicle-entries" aria-labelledby="entries-title">
+			<header>
+				<div>
+					<p>THE WORKBENCH INDEX</p>
+					<h2 id="entries-title">Recovered notes</h2>
+				</div>
+				<span>{String(posts.length).padStart(2, '0')} PUBLIC ENTRIES</span>
+			</header>
 
-	.post-grid li.featured {
-		grid-column: 1 / -1;
-	}
+			{
+				posts.length > 0 ? (
+					<ol class="chronicle-list">
+						{posts.map((post, index) => (
+							<li>
+								<a href={withBase(`blog/${post.id}/`)}>
+									<span class="entry-number">{String(index + 1).padStart(2, '0')}</span>
+									<div>
+										<p><FormattedDate date={post.data.pubDate} /></p>
+										<h3>{post.data.title}</h3>
+										<span>{post.data.description}</span>
+									</div>
+									<b>OPEN FILE →</b>
+								</a>
+							</li>
+						))}
+					</ol>
+				) : (
+					<div class="empty-log">
+						<p class="empty-number">000</p>
+						<div>
+							<p class="margin-note">THE INK IS STILL WET</p>
+							<h3>No public entries—yet.</h3>
+							<p>
+								The starter articles remain safely marked as drafts. The first real field note will
+								appear here and in the RSS feed when The Chronicler decides it survived the workshop.
+							</p>
+							<a href={withBase('rss.xml')}>watch the RSS wire →</a>
+						</div>
+					</div>
+				)
+			}
+		</section>
 
-	.post-grid a {
-		display: grid;
-		height: 100%;
-		color: var(--ink);
-		text-decoration: none;
-	}
-
-	.post-grid img {
-		width: 100%;
-		aspect-ratio: 2 / 1;
-		object-fit: cover;
-		border-bottom: 2px solid var(--ink);
-	}
-
-	.post-copy {
-		padding: 1.25rem;
-	}
-
-	.post-date,
-	.post-copy b {
-		font-family: ui-monospace, 'Cascadia Code', monospace;
-		font-size: 0.7rem;
-		text-transform: uppercase;
-	}
-
-	.empty-notebook {
-		display: grid;
-		grid-template-columns: minmax(5rem, 0.3fr) minmax(0, 1fr);
-		gap: clamp(1.5rem, 5vw, 4rem);
-		min-height: 25rem;
-		padding: clamp(1.5rem, 5vw, 4rem);
-		background: var(--paper-soft);
-	}
-
-	.paper-lines {
-		border-right: 2px solid rgba(169, 87, 56, 0.45);
-		background: repeating-linear-gradient(0deg, transparent 0 26px, rgba(139, 201, 211, 0.4) 26px 27px);
-	}
-
-	.empty-notebook > div:last-child {
-		align-self: center;
-		max-width: 42rem;
-	}
-
-	.empty-notebook h2 {
-		margin-bottom: 1rem;
-	}
-
-	@media (max-width: 680px) {
-		.post-grid,
-		.empty-notebook {
-			grid-template-columns: 1fr;
-		}
-
-		.paper-lines {
-			display: none;
-		}
-	}
-</style>
+		<footer class="chronicle-footer">
+			<p>END OF CURRENT RECORD // MORE MARGINS WILL BE ADDED</p>
+			<a href={withBase()}>back to dancold.cafe</a>
+		</footer>
+	</div>
+</WorldLayout>

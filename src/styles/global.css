@@ -58,6 +58,16 @@ html[data-world='coldem']::view-transition-new(root) {
 	animation-name: cold-signal-in;
 }
 
+html[data-world='chronicler']::view-transition-old(root) {
+	animation-duration: 320ms;
+	animation-name: ink-page-out;
+}
+
+html[data-world='chronicler']::view-transition-new(root) {
+	animation-duration: 520ms;
+	animation-name: ink-page-in;
+}
+
 @keyframes page-fold-away {
 	to {
 		opacity: 0;
@@ -110,6 +120,26 @@ html[data-world='coldem']::view-transition-new(root) {
 		opacity: 0.7;
 		filter: contrast(1.8) saturate(1.5);
 		transform: translateX(-0.25rem) scaleX(1.008);
+	}
+}
+
+@keyframes ink-page-out {
+	to {
+		opacity: 0;
+		filter: grayscale(1) contrast(1.8);
+		transform: skewX(-1.5deg) translateX(-1rem);
+	}
+}
+
+@keyframes ink-page-in {
+	0% {
+		opacity: 0;
+		clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+		filter: grayscale(1) contrast(2.2);
+	}
+	65% {
+		clip-path: polygon(0 0, 104% 0, 96% 100%, 0 100%);
+		filter: grayscale(1) contrast(1.25);
 	}
 }
 

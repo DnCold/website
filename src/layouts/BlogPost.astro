@@ -1,52 +1,76 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import chroniclerPortrait from '../assets/chronicler/chronicler-neutral.png';
 import FormattedDate from '../components/FormattedDate.astro';
 import { withBase } from '../lib/nav';
-import PageLayout from './PageLayout.astro';
+import '../styles/chronicler.css';
+import WorldLayout from './WorldLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<PageLayout title={title} description={description} mainClass="article-page">
-	<article class="article-shell panel">
-		{heroImage && (
-			<div class="hero-image">
-				<Image width={1020} height={510} src={heroImage} alt="" />
+<WorldLayout
+	title={`${title} — The Chronicler`}
+	description={description}
+	image={heroImage ?? chroniclerPortrait}
+	bodyClass="chronicler-world"
+>
+	<div class="chronicler-shell article-edition">
+		<nav class="chronicle-nav" aria-label="Note navigation">
+			<a href={withBase('blog/')}>← The Chronicler's index</a>
+			<p><span>FIELD LOG</span> / RECOVERED ENTRY</p>
+		</nav>
+
+		<article class="article-shell">
+			{heroImage && (
+				<div class="hero-image">
+					<Image width={1020} height={510} src={heroImage} alt="" />
+				</div>
+			)}
+			<header class="article-header">
+				<a class="back-link" href={withBase('blog/')}>← Back to the field index</a>
+				<p class="article-date">
+					<FormattedDate date={pubDate} />
+					{updatedDate && <span> · updated <FormattedDate date={updatedDate} /></span>}
+				</p>
+				<h1>{title}</h1>
+				<p class="article-description">{description}</p>
+			</header>
+			<div class="prose article-content">
+				<slot />
 			</div>
-		)}
-		<header class="article-header">
-			<a class="back-link" href={withBase('blog/')}>← Back to notes</a>
-			<p class="article-date">
-				<FormattedDate date={pubDate} />
-				{updatedDate && <span> · updated <FormattedDate date={updatedDate} /></span>}
-			</p>
-			<h1>{title}</h1>
-			<p class="article-description">{description}</p>
-		</header>
-		<div class="prose article-content">
-			<slot />
-		</div>
-	</article>
-</PageLayout>
+		</article>
+
+		<footer class="chronicle-footer">
+			<p>ENTRY CLOSED // MARGINALIA WELCOME</p>
+			<a href={withBase()}>back to dancold.cafe</a>
+		</footer>
+	</div>
+</WorldLayout>
 
 <style>
 	.article-shell {
-		max-width: 58rem;
+		max-width: 64rem;
 		margin: 0 auto;
-		overflow: hidden;
+		color: var(--chronicle-ink);
+		background:
+			linear-gradient(90deg, transparent 0 5rem, rgba(158, 64, 44, 0.24) 5rem 5.1rem, transparent 5.1rem),
+			repeating-linear-gradient(0deg, transparent 0 31px, rgba(73, 56, 40, 0.1) 31px 32px),
+			var(--chronicle-light);
 	}
 
 	.hero-image {
-		border-bottom: 2px solid var(--ink);
+		border-bottom: 6px solid var(--chronicle-ink);
 	}
 
 	.hero-image img {
 		width: 100%;
 		aspect-ratio: 2 / 1;
 		object-fit: cover;
+		filter: contrast(1.08) saturate(0.82);
 	}
 
 	.article-header,
@@ -56,18 +80,30 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 	.article-header {
 		padding-bottom: 2rem;
-		border-bottom: 1px dashed var(--line);
+		border-bottom: 3px double var(--chronicle-ink);
 	}
 
 	.back-link,
 	.article-date {
-		font-family: ui-monospace, 'Cascadia Code', monospace;
+		font-family: 'Courier New', monospace;
 		font-size: 0.72rem;
+		font-weight: 700;
 		text-transform: uppercase;
+	}
+
+	.back-link,
+	.back-link:hover {
+		color: var(--chronicle-rust);
 	}
 
 	.article-date {
 		margin: 2rem 0 0.75rem;
+	}
+
+	.article-header h1 {
+		max-width: 13ch;
+		font-size: clamp(2.8rem, 7vw, 6rem);
+		letter-spacing: -0.055em;
 	}
 
 	.article-description {
@@ -78,5 +114,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 	.article-content {
 		padding-top: 2rem;
+	}
+
+	.article-content :global(a) {
+		color: #7a2e20;
+	}
+
+	.article-content :global(pre) {
+		border: 3px solid var(--chronicle-ink);
+		background: var(--chronicle-ink);
+	}
+
+	@media (max-width: 560px) {
+		.article-header,
+		.article-content {
+			padding: 1.35rem 1rem;
+		}
 	}
 </style>

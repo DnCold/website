@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import chroniclerPortrait from '../assets/chronicler/chronicler-neutral.png';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { withBase } from '../lib/nav';
 import PageLayout from '../layouts/PageLayout.astro';
@@ -73,8 +75,11 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 			<div class="door-grid">
 				<a class="door-card notes" href={withBase('blog/')}>
-					<span class="door-icon" aria-hidden="true">[TXT]</span>
-					<span><strong>NOTES</strong><small>Devlogs, ideas & things learned the hard way.</small></span>
+					<span class="door-icon character-icon" aria-hidden="true">
+						<Image src={chroniclerPortrait} alt="" width={160} />
+						<i>[TXT]</i>
+					</span>
+					<span><strong>THE CHRONICLER</strong><small>Field reports, devlogs & lessons rescued beyond the map.</small></span>
 					<b>ENTER &gt;&gt;</b>
 				</a>
 				<a class="door-card archivist" href={withBase('archivist/')}>
@@ -561,6 +566,32 @@ import PageLayout from '../layouts/PageLayout.astro';
 		color: #fff;
 		background: #504069;
 		font: 700 0.64rem 'Courier New', monospace;
+	}
+
+	.character-icon {
+		position: relative;
+		overflow: hidden;
+		border-color: #7f624e;
+		background: #171514;
+	}
+
+	.character-icon img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 48% 30%;
+		filter: contrast(1.08) sepia(0.14);
+	}
+
+	.character-icon i {
+		position: absolute;
+		right: 1px;
+		bottom: 1px;
+		padding: 0.08rem 0.16rem;
+		color: #ffeab1;
+		background: #1b1514;
+		font: 700 0.42rem 'Courier New', monospace;
+		font-style: normal;
 	}
 
 	.archivist .door-icon {
