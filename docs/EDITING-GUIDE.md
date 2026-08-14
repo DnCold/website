@@ -149,7 +149,7 @@ Las imágenes propias de este mundo viven en `src/assets/coldem/`:
 
 - `icon.png`: icono pequeño del sistema;
 - `dancold-logo.png`: marca morada grande;
-- `runner-v3.png`: retrato vertical de The Runner;
+- `runner-v4.png`: retrato vertical de The Runner;
 - `robot-rock-reborn-cover.png`: portada de la primera ficha de juego;
 - `pet-stickers-v6.webp`: hoja optimizada de cuatro stickers usada como sprite CSS.
 
@@ -176,9 +176,10 @@ Para añadir otro juego, duplica una ficha dentro de `.future-games` o crea otro
 estructura de `.featured-game`. Mantén el título, versión, plataforma, descripción y enlaces como texto
 HTML editable. Las portadas no deberían contener información esencial que no se repita en el HTML.
 
-`runner-v3.png` es una versión nueva y no reemplaza `dancold-logo.png`: la marca original sigue siendo
+`runner-v4.png` es una versión nueva y no reemplaza `dancold-logo.png`: la marca original sigue siendo
 la referencia de identidad. Futuras ilustraciones de The Runner deberían conservar la cabeza rectangular
-violeta, el ojo negro único, la boca blanca, la grieta angular y la ropa urbana remendada.
+violeta, los dos ojos negros esféricos (uno grande y otro asomándose por el lateral), la boca blanca, la
+grieta angular y la ropa urbana remendada.
 
 ## 7. Cambiar los sprites noren
 
