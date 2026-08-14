@@ -1,0 +1,737 @@
+.chronicler-world {
+	--chronicle-paper: #e4d4af;
+	--chronicle-light: #fff8e8;
+	--chronicle-ink: #171513;
+	--chronicle-rust: #963e2c;
+	--chronicle-faded: #695b4a;
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	color: var(--chronicle-ink);
+	background:
+		radial-gradient(circle at 18% 12%, rgba(255, 249, 227, 0.25), transparent 28rem),
+		repeating-linear-gradient(91deg, rgba(39, 28, 18, 0.035) 0 1px, transparent 1px 7px),
+		#262321;
+	font-family: Georgia, 'Times New Roman', serif;
+}
+
+.chronicler-world::before {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background:
+		radial-gradient(circle, rgba(255, 239, 201, 0.12) 0 1px, transparent 1px) 0 0 / 7px 7px,
+		linear-gradient(115deg, transparent 0 48%, rgba(0, 0, 0, 0.28) 48.2% 49%, transparent 49.2%);
+	content: '';
+	pointer-events: none;
+}
+
+.chronicler-world .skip-link {
+	color: var(--chronicle-light);
+	background: var(--chronicle-ink);
+}
+
+.chronicler-shell {
+	width: min(calc(100% - 2rem), 76rem);
+	margin: clamp(1rem, 3vw, 2.5rem) auto;
+	border: 1px solid #0e0d0d;
+	background: #2b2925;
+	box-shadow: 12px 14px 0 #0e0d0d, 17px 19px 0 rgba(255, 239, 200, 0.12);
+	overflow: hidden;
+	animation: chronicle-arrive 620ms steps(8, end) both;
+}
+
+.chronicle-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.7rem clamp(0.8rem, 2vw, 1.5rem);
+	border-bottom: 4px double var(--chronicle-ink);
+	color: var(--chronicle-light);
+	background: var(--chronicle-ink);
+	font: 700 0.68rem/1.2 'Courier New', monospace;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.chronicle-nav a,
+.chronicle-nav a:hover {
+	color: #ffdaa1;
+}
+
+.chronicle-nav p {
+	margin: 0;
+	text-align: right;
+}
+
+.chronicle-nav span {
+	color: #df7458;
+}
+
+.travel-diary {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	min-height: 45rem;
+	padding: clamp(0.8rem, 2vw, 1.4rem);
+	border-bottom: 7px solid var(--chronicle-ink);
+	background:
+		repeating-linear-gradient(94deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 6px),
+		#38342e;
+}
+
+.diary-spine {
+	position: absolute;
+	top: 0.8rem;
+	bottom: 0.8rem;
+	left: 50%;
+	z-index: 6;
+	width: 1.2rem;
+	background:
+		repeating-linear-gradient(0deg, transparent 0 15px, rgba(255, 244, 211, 0.5) 15px 18px, transparent 18px 31px),
+		linear-gradient(90deg, #312a22, #74614b 48%, #27221c);
+	box-shadow: -4px 0 8px rgba(0, 0, 0, 0.34), 4px 0 8px rgba(0, 0, 0, 0.34);
+	transform: translateX(-50%);
+}
+
+.diary-page {
+	position: relative;
+	min-width: 0;
+	padding: clamp(1.4rem, 4vw, 3.4rem);
+	background:
+		repeating-linear-gradient(0deg, transparent 0 30px, rgba(73, 56, 40, 0.105) 30px 31px),
+		radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.5), transparent 20rem),
+		var(--chronicle-paper);
+	box-shadow: inset 0 0 35px rgba(76, 52, 29, 0.18);
+}
+
+.field-page {
+	padding-right: clamp(2rem, 5vw, 4.5rem);
+	border-radius: 1.5rem 0.2rem 0.2rem 1.5rem;
+}
+
+.clipping-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: clamp(2rem, 5vw, 4.5rem);
+	border-radius: 0.2rem 1.5rem 1.5rem 0.2rem;
+	background:
+		linear-gradient(112deg, transparent 0 66%, rgba(107, 76, 43, 0.08) 66.2% 66.6%, transparent 66.8%),
+		repeating-linear-gradient(0deg, transparent 0 30px, rgba(73, 56, 40, 0.095) 30px 31px),
+		#dfcda7;
+}
+
+.diary-page::before {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(circle at 100% 50%, rgba(66, 45, 26, 0.15), transparent 24%);
+	content: '';
+	pointer-events: none;
+}
+
+.clipping-page::before {
+	background: radial-gradient(circle at 0 50%, rgba(66, 45, 26, 0.16), transparent 24%);
+}
+
+.diary-dateline {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: clamp(2rem, 5vw, 4.6rem);
+	padding-bottom: 0.45rem;
+	border-bottom: 1px solid var(--chronicle-faded);
+	font: 700 0.61rem 'Courier New', monospace;
+	letter-spacing: 0.08em;
+}
+
+.chronicle-kicker,
+.chronicle-entries > header p,
+.margin-note {
+	margin: 0 0 0.7rem;
+	font: 700 0.7rem 'Courier New', monospace;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.field-page h1 {
+	position: relative;
+	margin: 0;
+	font-size: clamp(3.15rem, 6.5vw, 6.1rem);
+	font-style: italic;
+	font-weight: 700;
+	letter-spacing: -0.065em;
+	line-height: 0.78;
+	transform: rotate(-1deg);
+}
+
+.field-page h1 span {
+	display: block;
+	margin: 0 0 0.25em 0.1em;
+	color: var(--chronicle-rust);
+	font: 700 0.24em 'Courier New', monospace;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.chronicle-deck {
+	max-width: 32rem;
+	margin: 2rem 0 1.2rem;
+	font-size: clamp(1rem, 1.7vw, 1.18rem);
+	font-weight: 700;
+	line-height: 1.48;
+}
+
+.field-page blockquote {
+	max-width: 26rem;
+	margin: 1.1rem 0 1.4rem;
+	padding: 0.55rem 0.75rem;
+	border-left: 5px solid var(--chronicle-rust);
+	background: rgba(255, 247, 222, 0.5);
+	box-shadow: 3px 3px 0 rgba(21, 19, 19, 0.55);
+	font-family: 'Courier New', monospace;
+	font-size: 0.82rem;
+	font-weight: 700;
+	transform: rotate(0.4deg);
+}
+
+.journey-facts {
+	max-width: 31rem;
+	margin: 1.5rem 0 0;
+	border-top: 1px solid var(--chronicle-ink);
+	font: 0.69rem 'Courier New', monospace;
+}
+
+.journey-facts div {
+	display: grid;
+	grid-template-columns: 6.8rem 1fr;
+	gap: 0.65rem;
+	padding: 0.32rem 0;
+	border-bottom: 1px dotted var(--chronicle-faded);
+}
+
+.journey-facts dt {
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.journey-facts dd {
+	margin: 0;
+}
+
+.route-sketch {
+	position: relative;
+	width: min(100%, 29rem);
+	height: 5.5rem;
+	margin-top: 1.2rem;
+	border: 1px dashed rgba(74, 54, 37, 0.6);
+	background:
+		linear-gradient(24deg, transparent 0 47%, rgba(74, 54, 37, 0.09) 47.4% 48%, transparent 48.4%),
+		rgba(255, 250, 229, 0.34);
+	overflow: hidden;
+}
+
+.route-point {
+	position: absolute;
+	z-index: 2;
+	font: italic 700 0.65rem Georgia, serif;
+	transform: rotate(-5deg);
+}
+
+.route-point::before {
+	display: block;
+	width: 0.72rem;
+	height: 0.72rem;
+	margin: 0 auto 0.1rem;
+	border: 2px solid var(--chronicle-rust);
+	border-radius: 50%;
+	content: '';
+}
+
+.camp { left: 8%; bottom: 0.5rem; }
+.ford { left: 46%; top: 0.55rem; }
+.unknown { right: 7%; bottom: 0.7rem; font-size: 1.2rem; }
+.unknown::before { border-style: dashed; }
+
+.route-path {
+	position: absolute;
+	height: 2px;
+	border-top: 2px dashed var(--chronicle-rust);
+	transform-origin: left center;
+}
+
+.path-one { left: 16%; bottom: 2rem; width: 37%; transform: rotate(-19deg); }
+.path-two { left: 55%; top: 1.8rem; width: 35%; transform: rotate(18deg); }
+
+.pencil-note,
+.marginalia {
+	margin: 0.5rem 0 0;
+	color: #51473b;
+	font: italic 0.72rem Georgia, serif;
+	text-align: right;
+	transform: rotate(-1.3deg);
+}
+
+.page-number {
+	position: absolute;
+	right: 0;
+	bottom: 0.75rem;
+	left: 0;
+	font: 700 0.58rem 'Courier New', monospace;
+	text-align: center;
+}
+
+.newspaper-clipping {
+	position: relative;
+	z-index: 2;
+	width: min(100%, 30rem);
+	padding: 1rem clamp(0.85rem, 2.2vw, 1.35rem) 1.25rem;
+	border: 1px solid #625b50;
+	color: #111;
+	background:
+		repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.024) 0 1px, transparent 1px 3px),
+		#e8e4d6;
+	box-shadow: 8px 10px 0 rgba(35, 28, 19, 0.28);
+	clip-path: polygon(0.8% 0, 15% 0.5%, 30% 0, 47% 0.6%, 64% 0, 81% 0.5%, 99.5% 0, 100% 16%, 99.5% 33%, 100% 49%, 99.2% 67%, 100% 84%, 99% 100%, 84% 99.5%, 67% 100%, 48% 99.4%, 30% 100%, 13% 99.5%, 0 100%, 0.6% 82%, 0 64%, 0.7% 46%, 0 28%);
+	transform: rotate(1.2deg);
+}
+
+.newspaper-clipping::after {
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle, rgba(0, 0, 0, 0.09) 0 0.55px, transparent 0.7px);
+	background-size: 3px 3px;
+	content: '';
+	mix-blend-mode: multiply;
+	opacity: 0.35;
+	pointer-events: none;
+}
+
+.newspaper-masthead {
+	border-top: 3px double #111;
+	border-bottom: 3px double #111;
+	text-align: center;
+}
+
+.newspaper-masthead > p {
+	margin: 0.1rem 0 0;
+	font-size: clamp(1.65rem, 3.7vw, 2.7rem);
+	font-weight: 900;
+	letter-spacing: -0.06em;
+	line-height: 1;
+}
+
+.newspaper-masthead div {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.25rem 0;
+	border-top: 1px solid #111;
+	font: 700 0.46rem 'Courier New', monospace;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.newspaper-rubric {
+	margin: 0.65rem 0 0.28rem;
+	font: 700 0.5rem 'Courier New', monospace;
+	letter-spacing: 0.12em;
+	text-align: center;
+}
+
+.newspaper-clipping h2 {
+	margin: 0;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-size: clamp(1.75rem, 3.6vw, 3rem);
+	font-weight: 900;
+	letter-spacing: -0.025em;
+	line-height: 0.9;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.newspaper-deck {
+	margin: 0.45rem auto 0.7rem;
+	padding-bottom: 0.45rem;
+	border-bottom: 1px solid #111;
+	font-size: 0.7rem;
+	font-weight: 700;
+	line-height: 1.25;
+	text-align: center;
+}
+
+.newspaper-photo {
+	margin: 0;
+}
+
+.newspaper-photo__frame {
+	position: relative;
+	max-height: 21rem;
+	border: 1px solid #111;
+	background: #26221d;
+	overflow: hidden;
+}
+
+.newspaper-photo__frame::after {
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle, rgba(10, 10, 10, 0.46) 0 0.8px, transparent 0.9px);
+	background-size: 4px 4px;
+	content: '';
+	mix-blend-mode: multiply;
+	pointer-events: none;
+}
+
+.newspaper-photo img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	max-height: 21rem;
+	object-fit: cover;
+	object-position: 50% 29%;
+	filter: grayscale(1) sepia(0.2) contrast(1.3) brightness(0.96);
+	transition: filter 180ms linear, transform 420ms ease;
+}
+
+.newspaper-clipping:hover .newspaper-photo img {
+	filter: grayscale(1) sepia(0.2) contrast(1.4) brightness(1.03);
+	transform: scale(1.018);
+}
+
+.newspaper-photo figcaption {
+	padding: 0.28rem 0;
+	border-bottom: 1px solid #111;
+	font: italic 0.52rem/1.25 Georgia, serif;
+}
+
+.newspaper-columns {
+	columns: 2;
+	column-gap: 1rem;
+	column-rule: 1px solid rgba(0, 0, 0, 0.5);
+	margin-top: 0.55rem;
+	font-size: 0.58rem;
+	line-height: 1.34;
+	text-align: justify;
+}
+
+.newspaper-columns p {
+	margin: 0 0 0.45rem;
+}
+
+.clipping-mark {
+	position: absolute;
+	right: 1.5rem;
+	bottom: 1.1rem;
+	margin: 0;
+	padding: 0.35rem 0.5rem;
+	border: 3px double var(--chronicle-rust);
+	border-radius: 50%;
+	color: var(--chronicle-rust);
+	font: 900 0.5rem 'Courier New', monospace;
+	transform: rotate(-12deg);
+}
+
+.paperclip {
+	position: absolute;
+	top: 1rem;
+	right: 10%;
+	z-index: 4;
+	width: 1.3rem;
+	height: 4.2rem;
+	border: 4px double #635746;
+	border-bottom: 0;
+	border-radius: 0.9rem 0.9rem 0 0;
+	transform: rotate(7deg);
+}
+
+.marginalia {
+	position: absolute;
+	right: 2rem;
+	bottom: 2.3rem;
+	z-index: 3;
+}
+
+.chronicle-entries {
+	padding: clamp(1.4rem, 4vw, 3.5rem);
+	background:
+		linear-gradient(90deg, transparent 0 7%, rgba(158, 64, 44, 0.26) 7% 7.2%, transparent 7.2%),
+		repeating-linear-gradient(0deg, transparent 0 31px, rgba(73, 56, 40, 0.11) 31px 32px),
+		var(--chronicle-light);
+}
+
+.chronicle-entries > header {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.6rem;
+	padding-bottom: 0.8rem;
+	border-bottom: 5px solid var(--chronicle-ink);
+}
+
+.chronicle-entries h2 {
+	margin: 0;
+	font-size: clamp(2.2rem, 5vw, 4.6rem);
+	font-style: italic;
+	letter-spacing: -0.055em;
+	line-height: 0.9;
+}
+
+.chronicle-entries > header > span {
+	font: 700 0.65rem 'Courier New', monospace;
+	letter-spacing: 0.08em;
+}
+
+.chronicle-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.chronicle-list li {
+	border-bottom: 2px solid var(--chronicle-ink);
+}
+
+.chronicle-list a {
+	display: grid;
+	grid-template-columns: 4rem minmax(0, 1fr) auto;
+	gap: 1.2rem;
+	align-items: center;
+	padding: 1.2rem 0.8rem;
+	color: var(--chronicle-ink);
+	text-decoration: none;
+}
+
+.chronicle-list a:hover {
+	color: var(--chronicle-light);
+	background: var(--chronicle-ink);
+}
+
+.entry-number,
+.empty-number {
+	color: var(--chronicle-rust);
+	font: 900 2rem Impact, sans-serif;
+}
+
+.chronicle-list p,
+.chronicle-list h3,
+.chronicle-list span {
+	margin: 0;
+}
+
+.chronicle-list p,
+.chronicle-list b {
+	font: 700 0.64rem 'Courier New', monospace;
+}
+
+.chronicle-list h3 {
+	font-size: 1.4rem;
+}
+
+.chronicle-list div > span {
+	display: block;
+	margin-top: 0.25rem;
+	font-size: 0.85rem;
+}
+
+.empty-log {
+	display: grid;
+	grid-template-columns: minmax(6rem, 0.28fr) minmax(0, 1fr);
+	gap: clamp(1.5rem, 5vw, 4rem);
+	min-height: 20rem;
+	align-items: center;
+	padding: clamp(1.2rem, 4vw, 3rem);
+	border: 3px dashed var(--chronicle-ink);
+	background: rgba(255, 250, 232, 0.58);
+	box-shadow: 7px 7px 0 rgba(21, 19, 19, 0.18);
+}
+
+.empty-number {
+	margin: 0;
+	font-size: clamp(4.5rem, 11vw, 8.5rem);
+	line-height: 1;
+	transform: rotate(-5deg);
+}
+
+.empty-log h3 {
+	margin: 0 0 0.8rem;
+	font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.empty-log div > p:not(.margin-note) {
+	max-width: 42rem;
+	line-height: 1.55;
+}
+
+.empty-log a {
+	color: #7a2e20;
+	font: 700 0.78rem 'Courier New', monospace;
+}
+
+.chronicle-footer {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.8rem 1.2rem;
+	color: var(--chronicle-light);
+	background: var(--chronicle-ink);
+	font: 700 0.62rem 'Courier New', monospace;
+	letter-spacing: 0.05em;
+}
+
+.chronicle-footer p {
+	margin: 0;
+}
+
+.chronicle-footer a {
+	color: #ef8b68;
+}
+
+@keyframes chronicle-arrive {
+	from {
+		opacity: 0;
+		filter: contrast(2) grayscale(1);
+		transform: translateX(-1rem) skewX(-0.8deg);
+	}
+}
+
+@media (max-width: 800px) {
+	.travel-diary {
+		grid-template-columns: 1fr;
+	}
+
+	.diary-spine {
+		display: none;
+	}
+
+	.field-page,
+	.clipping-page {
+		padding: clamp(1.4rem, 6vw, 3.2rem);
+		border-radius: 0.8rem;
+	}
+
+	.field-page {
+		padding-bottom: 3rem;
+		border-bottom: 10px solid #312a22;
+	}
+
+	.newspaper-clipping {
+		width: min(100%, 35rem);
+	}
+
+	.newspaper-photo__frame,
+	.newspaper-photo img {
+		max-height: 27rem;
+	}
+
+	.marginalia {
+		right: 3rem;
+		bottom: 2.2rem;
+	}
+}
+
+@media (max-width: 560px) {
+	.chronicler-shell {
+		width: calc(100% - 0.7rem);
+		margin: 0.35rem;
+		box-shadow: 5px 6px 0 #0e0d0d;
+	}
+
+	.chronicle-nav,
+	.chronicle-footer,
+	.chronicle-entries > header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.chronicle-nav p {
+		text-align: left;
+	}
+
+	.travel-diary {
+		padding: 0.45rem;
+	}
+
+	.diary-page {
+		padding: 1.6rem 1rem 2.8rem;
+	}
+
+	.diary-dateline {
+		margin-bottom: 2.3rem;
+		font-size: 0.54rem;
+	}
+
+	.field-page h1 {
+		font-size: clamp(3rem, 17vw, 4.7rem);
+	}
+
+	.route-sketch {
+		height: 5rem;
+	}
+
+	.clipping-page {
+		padding-top: 2.2rem;
+		padding-bottom: 4.2rem;
+	}
+
+	.newspaper-clipping {
+		padding: 0.75rem 0.72rem 1.1rem;
+		transform: rotate(0.55deg);
+	}
+
+	.newspaper-masthead > p {
+		font-size: 1.75rem;
+	}
+
+	.newspaper-clipping h2 {
+		font-size: clamp(1.75rem, 10vw, 2.5rem);
+	}
+
+	.newspaper-photo__frame,
+	.newspaper-photo img {
+		max-height: 21rem;
+	}
+
+	.newspaper-columns {
+		columns: 1;
+		font-size: 0.62rem;
+	}
+
+	.clipping-mark {
+		display: none;
+	}
+
+	.paperclip {
+		right: 8%;
+	}
+
+	.marginalia {
+		right: 1.4rem;
+		bottom: 2.15rem;
+	}
+
+	.chronicle-entries {
+		padding: 2rem 1rem;
+	}
+
+	.empty-log,
+	.chronicle-list a {
+		grid-template-columns: 1fr;
+	}
+
+	.empty-number {
+		font-size: 4.5rem;
+	}
+
+	.chronicle-list a > b {
+		justify-self: start;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.chronicler-shell,
+	.newspaper-photo img {
+		animation: none;
+		transition: none;
+	}
+}

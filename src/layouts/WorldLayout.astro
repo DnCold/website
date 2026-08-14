@@ -10,7 +10,13 @@ interface Props {
 }
 
 const { title, description, image, bodyClass } = Astro.props;
-const world = bodyClass === 'coldem-world' ? 'coldem' : bodyClass === 'archive-world' ? 'archivist' : 'world';
+const world = bodyClass === 'coldem-world'
+	? 'coldem'
+	: bodyClass === 'archive-world'
+		? 'archivist'
+		: bodyClass === 'chronicler-world'
+			? 'chronicler'
+			: 'world';
 ---
 
 <!doctype html>

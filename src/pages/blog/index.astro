@@ -1,139 +1,144 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import chroniclerPortrait from '../../assets/chronicler/chronicler-neutral.png';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 import { withBase } from '../../lib/nav';
-import PageLayout from '../../layouts/PageLayout.astro';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import '../../styles/chronicler.css';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<PageLayout title={`Notes — ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
-	<header class="page-heading">
-		<div>
-			<p class="eyebrow">Open notebook</p>
-			<h1>Notes from the workshop.</h1>
-		</div>
-		<p>
-			Project logs, ideas worth keeping, and lessons I would rather not rediscover from scratch.
-		</p>
-	</header>
+<WorldLayout
+	title={`The Chronicler — ${SITE_TITLE}`}
+	description="The Chronicler's travel diary: field reports, unfinished expeditions, and lessons carried home."
+	image={chroniclerPortrait}
+	bodyClass="chronicler-world"
+>
+	<div class="chronicler-shell">
+		<nav class="chronicle-nav" aria-label="Chronicler navigation">
+			<a href={withBase()}>← return to the front page</a>
+			<p><span>TRAVEL DIARY</span> / JOURNAL I / ROAD STILL OPEN</p>
+		</nav>
 
-	{
-		posts.length > 0 ? (
-			<ul class="post-grid">
-				{posts.map((post, index) => (
-					<li class:list={[index === 0 && 'featured']}>
-						<a href={withBase(`blog/${post.id}/`)}>
-							{post.data.heroImage && (
-								<Image width={720} height={360} src={post.data.heroImage} alt="" />
-							)}
-							<div class="post-copy">
-								<p class="post-date"><FormattedDate date={post.data.pubDate} /></p>
-								<h2>{post.data.title}</h2>
-								<p>{post.data.description}</p>
-								<b>read note →</b>
-							</div>
-						</a>
-					</li>
-				))}
-			</ul>
-		) : (
-			<section class="empty-notebook panel">
-				<div class="paper-lines" aria-hidden="true" />
-				<div>
-					<p class="eyebrow">Page 001</p>
-					<h2>The notebook is still blank.</h2>
-					<p>
-						The starter articles are safely kept as drafts. The first real note will appear here and
-						in the RSS feed.
-					</p>
-					<a href={withBase('rss.xml')}>Subscribe via RSS →</a>
+		<section class="travel-diary" aria-labelledby="chronicle-title">
+			<div class="diary-spine" aria-hidden="true"></div>
+
+			<article class="diary-page field-page">
+				<header class="diary-dateline">
+					<span>FIELD ENTRY 000</span>
+					<span>DATE: UNRECORDED</span>
+				</header>
+
+				<p class="chronicle-kicker">BEYOND THE LAST MARKER</p>
+				<h1 id="chronicle-title"><span>The Chronicler's</span> Travel Diary</h1>
+				<p class="chronicle-deck">
+					A record of roads beyond the last useful map: strange places, broken tools,
+					unexpected shelters, and lessons carried home.
+				</p>
+
+				<blockquote>“If the road changes you, mark the page.”</blockquote>
+
+				<dl class="journey-facts">
+					<div><dt>Current route</dt><dd>Past the final printed border</dd></div>
+					<div><dt>Weather</dt><dd>Ink-dry. Wind rising.</dd></div>
+					<div><dt>Supplies</dt><dd>One notebook. No clean plans.</dd></div>
+				</dl>
+
+				<div class="route-sketch" aria-label="A rough hand-drawn route from camp to an unknown landmark">
+					<span class="route-point camp">camp</span>
+					<span class="route-path path-one" aria-hidden="true"></span>
+					<span class="route-point ford">old ford</span>
+					<span class="route-path path-two" aria-hidden="true"></span>
+					<span class="route-point unknown">?</span>
 				</div>
-			</section>
-		)
-	}
-</PageLayout>
+				<p class="pencil-note">take the ridge if the bridge is gone again</p>
+				<span class="page-number">— 01 —</span>
+			</article>
 
-<style>
-	.post-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1.25rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
+			<article class="diary-page clipping-page">
+				<span class="paperclip" aria-hidden="true"></span>
+				<section class="newspaper-clipping" aria-label="A newspaper clipping about The Chronicler">
+					<header class="newspaper-masthead">
+						<p>The Wayfarer's Gazette</p>
+						<div><span>Special field edition</span><span>Price: one good story</span></div>
+					</header>
+					<p class="newspaper-rubric">NEWS FROM BEYOND THE LAST MARKER</p>
+					<h2>Local Chronicler vanishes beyond the last useful map</h2>
+					<p class="newspaper-deck">Explorer leaves the obvious road carrying a weathered journal and very few sensible supplies.</p>
 
-	.post-grid li {
-		border: 2px solid var(--ink);
-		background: var(--paper-soft);
-		box-shadow: 4px 4px 0 var(--ink);
-	}
+					<figure class="newspaper-photo">
+						<div class="newspaper-photo__frame">
+							<Image
+								src={chroniclerPortrait}
+								alt="The Chronicler, a manga-style adventurer with enormous messy curls, a beard, and a weathered cape."
+								loading="eager"
+							/>
+						</div>
+						<figcaption>Last known portrait, recovered from a rain-damaged field dispatch.</figcaption>
+					</figure>
 
-	.post-grid li.featured {
-		grid-column: 1 / -1;
-	}
+					<div class="newspaper-columns">
+						<p><b>OUTER ROAD —</b> Witnesses say the traveler ignored the marked trail just after sunrise, pausing only to sketch the broken signpost.</p>
+						<p>The expedition continues somewhere outside the neat edge of the page. Any useful mistakes will be reported upon his return.</p>
+					</div>
+					<p class="clipping-mark">CLIPPING 07</p>
+				</section>
+				<p class="marginalia">Found folded inside the back cover. Keep dry.</p>
+				<span class="page-number">— 02 —</span>
+			</article>
+		</section>
 
-	.post-grid a {
-		display: grid;
-		height: 100%;
-		color: var(--ink);
-		text-decoration: none;
-	}
+		<section class="chronicle-entries" aria-labelledby="entries-title">
+			<header>
+				<div>
+					<p>FIELD ENTRY INDEX</p>
+					<h2 id="entries-title">Pages from the road</h2>
+				</div>
+				<span>{String(posts.length).padStart(2, '0')} LOGGED ENTRIES</span>
+			</header>
 
-	.post-grid img {
-		width: 100%;
-		aspect-ratio: 2 / 1;
-		object-fit: cover;
-		border-bottom: 2px solid var(--ink);
-	}
+			{
+				posts.length > 0 ? (
+					<ol class="chronicle-list">
+						{posts.map((post, index) => (
+							<li>
+								<a href={withBase(`blog/${post.id}/`)}>
+									<span class="entry-number">{String(index + 1).padStart(2, '0')}</span>
+									<div>
+										<p><FormattedDate date={post.data.pubDate} /></p>
+										<h3>{post.data.title}</h3>
+										<span>{post.data.description}</span>
+									</div>
+									<b>READ ENTRY →</b>
+								</a>
+							</li>
+						))}
+					</ol>
+				) : (
+					<div class="empty-log">
+						<p class="empty-number">000</p>
+						<div>
+							<p class="margin-note">THE FIRST PAGE IS STILL BEING WRITTEN</p>
+							<h3>No dispatches from the road—yet.</h3>
+							<p>
+								The starter notes remain closed as drafts. The first field dispatch will surface
+								here—and on the RSS trail—when it has survived the weather.
+							</p>
+							<a href={withBase('rss.xml')}>follow the RSS trail →</a>
+						</div>
+					</div>
+				)
+			}
+		</section>
 
-	.post-copy {
-		padding: 1.25rem;
-	}
-
-	.post-date,
-	.post-copy b {
-		font-family: ui-monospace, 'Cascadia Code', monospace;
-		font-size: 0.7rem;
-		text-transform: uppercase;
-	}
-
-	.empty-notebook {
-		display: grid;
-		grid-template-columns: minmax(5rem, 0.3fr) minmax(0, 1fr);
-		gap: clamp(1.5rem, 5vw, 4rem);
-		min-height: 25rem;
-		padding: clamp(1.5rem, 5vw, 4rem);
-		background: var(--paper-soft);
-	}
-
-	.paper-lines {
-		border-right: 2px solid rgba(169, 87, 56, 0.45);
-		background: repeating-linear-gradient(0deg, transparent 0 26px, rgba(139, 201, 211, 0.4) 26px 27px);
-	}
-
-	.empty-notebook > div:last-child {
-		align-self: center;
-		max-width: 42rem;
-	}
-
-	.empty-notebook h2 {
-		margin-bottom: 1rem;
-	}
-
-	@media (max-width: 680px) {
-		.post-grid,
-		.empty-notebook {
-			grid-template-columns: 1fr;
-		}
-
-		.paper-lines {
-			display: none;
-		}
-	}
-</style>
+		<footer class="chronicle-footer">
+			<p>END OF CURRENT JOURNAL // NEXT WAYPOINT UNKNOWN</p>
+			<a href={withBase()}>back to dancold.cafe</a>
+		</footer>
+	</div>
+</WorldLayout>

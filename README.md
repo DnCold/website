@@ -26,14 +26,19 @@ The local server uses `/` as its base path. Production builds use `/website/` fo
 
 - Site title and description: `src/consts.ts`
 - Main navigation: `src/lib/nav.ts`
+- Chronicler portrait: `src/assets/chronicler/chronicler-neutral.png`
+- Chronicler page and styles: `src/pages/blog/index.astro` and `src/styles/chronicler.css`
+- Chronicler entries: `src/content/blog/`
 - Archivist shelves: `src/data/archivist.ts`
 - Archivist reaction portraits: `src/assets/archivist/`
 - Archivist page and styles: `src/pages/archivist/index.astro` and `src/styles/archivist.css`
 - Coldem world page: `src/pages/coldem.astro`
 - Coldem world styles: `src/styles/coldem.css`
-- Noren sprites: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`
+- Homepage retro noren: `src/assets/noren-retro-v3.gif`
+- Standard hub noren: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`
+- Header markup and homepage-only retro chrome: `src/components/Header.astro`
+- About dossier page and styles: `src/pages/about.astro` and `src/styles/about.css`
 - Page content: `src/pages/`
-- Notes: `src/content/blog/`
 - Global colors and typography: `src/styles/global.css`
 
 For the full, step-by-step maintenance guide in Spanish, read

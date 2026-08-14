@@ -42,9 +42,13 @@ Los archivos que probablemente editarás más seguido son:
 - `src/consts.ts`: nombre y descripción global.
 - `src/lib/nav.ts`: enlaces de navegación.
 - `src/pages/index.astro`: portada.
-- `src/pages/about.astro`: texto de About y explicación del proceso.
+- `src/pages/about.astro`: contenido del dossier About.
+- `src/styles/about.css`: apariencia retro del dossier About.
 - `src/pages/links.astro`: enlaces externos.
 - `src/data/archivist.ts`: estantes y reacciones de The Archivist.
+- `src/pages/blog/index.astro`: presentación y textos de The Chronicler.
+- `src/styles/chronicler.css`: mundo visual de The Chronicler.
+- `src/assets/chronicler/chronicler-neutral.png`: retrato principal de The Chronicler.
 - `src/pages/coldem.astro`: contenido del mundo Coldem.
 - `src/styles/coldem.css`: apariencia completa del launcher Coldem.
 - `src/styles/global.css`: paleta y tipografías.
@@ -53,11 +57,12 @@ Los archivos que probablemente editarás más seguido son:
 
 El sitio tiene dos tipos de página:
 
-- `PageLayout.astro` muestra la cabecera noren y el pie general. Se usa en Home, Notes, Links y About.
+- `PageLayout.astro` muestra la cabecera noren y el pie general. Se usa en Home, Links y About.
+  Home activa una variante retro propia; las otras páginas conservan la cabecera artesanal normal.
 - `WorldLayout.astro` no añade navegación visual. Se usa cuando una página debe sentirse como un
   lugar o programa independiente.
 
-The Archivist y Coldem usan `WorldLayout.astro`. Cada mundo incluye un enlace pequeño para volver
+The Chronicler, The Archivist y Coldem usan `WorldLayout.astro`. Cada mundo incluye un enlace pequeño para volver
 al hub, pero no hereda la cortina noren ni el pie de la portada. Para crear otro mundo, copia una de
 esas páginas, conserva `WorldLayout` y dale su propia hoja de estilos.
 
@@ -116,7 +121,28 @@ Para que la composición siga funcionando bien:
 - evita texto incrustado: títulos y reacciones siguen siendo HTML editable;
 - WebP, AVIF, PNG y JPG funcionan, aunque WebP suele dar un buen equilibrio de tamaño y calidad.
 
-## 5. Cambiar Coldem
+## 5. Cambiar The Chronicler
+
+The Chronicler es el personaje de Notes. Su portada vive en `src/pages/blog/index.astro` y todos sus
+estilos están agrupados en `src/styles/chronicler.css`. El retrato canónico está en:
+
+```text
+src/assets/chronicler/chronicler-neutral.png
+```
+
+Puedes sustituirlo conservando ese nombre. La misma imagen aparece recortada como miniatura en la
+portada y a tamaño grande dentro del mundo de The Chronicler. Para que ambos recortes funcionen:
+
+- usa un retrato vertical con el rostro y el pelo lejos de los bordes;
+- deja algo de espacio alrededor de la silueta;
+- evita texto incrustado, porque el nombre y la descripción son HTML editable;
+- conserva el aspecto del personaje entre futuros retratos: rizos grandes, barba, capa gastada,
+  correas de explorador y libreta de campo.
+
+Los artículos no se escriben dentro de la página. Siguen viviendo en `src/content/blog/` y usan
+automáticamente el mismo mundo visual mediante `src/layouts/BlogPost.astro`.
+
+## 6. Cambiar Coldem
 
 El contenido editable está en `src/pages/coldem.astro` y su diseño en `src/styles/coldem.css`.
 Las tres imágenes propias del launcher viven en `src/assets/coldem/`:
@@ -139,9 +165,19 @@ Cuando publiques una nueva versión del launcher, actualiza esas cuatro constant
 asset `.exe` de GitHub Releases. `launcherRepo` y `launcherReleases` controlan los enlaces secundarios
 al código y a las notas de versión.
 
-## 6. Cambiar los sprites noren
+## 7. Cambiar los sprites noren
 
-La cortina del hub usa dos imágenes separadas:
+Home usa un GIF deliberadamente pequeño y limitado a 32 colores:
+
+```text
+src/assets/noren-retro-v3.gif    noren low-fi de la portada
+```
+
+La barra de título, dirección falsa, estado y textos del header están en
+`src/components/Header.astro`. El componente detecta Home automáticamente y pasa `retro={true}` a
+`NorenNav.astro`; no necesitas duplicar rutas ni navegación.
+
+Links y About usan las dos imágenes de mayor detalle:
 
 ```text
 src/assets/noren-fabric-v2.webp   textura repetible
@@ -149,10 +185,11 @@ src/assets/noren-rail-v2.webp     barra y cinco paneles transparentes
 ```
 
 Sus tamaños, posición, interacción y vista móvil están en `src/styles/noren-component.css`. Si
-reemplazas una imagen, conserva el mismo nombre para no tocar código. El rail funciona mejor en una
-proporción horizontal cercana a 3:1 y con fondo transparente.
+reemplazas una imagen, conserva el mismo nombre para no tocar código. El GIF retro funciona mejor en
+una proporción cercana a 3.7:1, con exactamente cinco paneles y fondo transparente. Los textos no
+deben estar dibujados dentro del GIF: siguen siendo enlaces HTML editables y accesibles.
 
-## 7. Escribir una nota
+## 8. Escribir una nota
 
 Crea un archivo como `src/content/blog/my-first-note.md`:
 
@@ -176,7 +213,7 @@ Si necesitas una imagen de portada, guárdala en `src/assets/` y añade al front
 heroImage: '../../assets/my-image.jpg'
 ```
 
-## 8. Cambiar colores y tipografía
+## 9. Cambiar colores y tipografía
 
 Las decisiones generales están al principio de `src/styles/global.css` dentro de `:root`.
 
@@ -199,7 +236,7 @@ Las decisiones generales están al principio de `src/styles/global.css` dentro d
 La mezcla está pensada para sentirse artesanal: serif de imprenta para la lectura, monoespaciada sólo
 en etiquetas funcionales y una superficie de papel con pequeñas imperfecciones.
 
-## 9. Cambiar una página
+## 10. Cambiar una página
 
 Cada ruta pública corresponde a un archivo:
 
@@ -217,7 +254,7 @@ Cada ruta pública corresponde a un archivo:
 En un archivo `.astro`, la parte entre `---` contiene imports y datos. El HTML está debajo. Los estilos
 locales suelen estar al final dentro de `<style>`.
 
-## 10. Publicar
+## 11. Publicar
 
 El repositorio publica automáticamente con GitHub Actions cuando los cambios llegan a `main`.
 
@@ -225,19 +262,19 @@ Flujo recomendado:
 
 1. Haz tus cambios en una rama.
 2. Ejecuta `npm run build`.
-3. Revisa la portada, The Archivist y la vista móvil.
+3. Revisa la portada, The Chronicler, The Archivist y la vista móvil.
 4. Sube la rama y abre un pull request.
 5. Integra el pull request en `main`.
 6. Comprueba la pestaña **Actions** y luego la web pública.
 
 No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica como código fuente.
 
-## 11. Checklist antes de terminar
+## 12. Checklist antes de terminar
 
 - [ ] Todo el texto público está en inglés.
 - [ ] Los enlaces del menú funcionan bajo `/website/`.
 - [ ] The Archivist se puede usar con mouse, touch y teclado.
-- [ ] The Archivist y Coldem no muestran la navegación noren del hub.
+- [ ] The Chronicler, The Archivist y Coldem no muestran la navegación noren del hub.
 - [ ] El arte no contiene títulos que luego sean difíciles de editar.
 - [ ] Las imágenes tienen texto alternativo útil o `alt=""` si son sólo decorativas.
 - [ ] `npm run build` termina sin errores.

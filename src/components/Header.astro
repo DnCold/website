@@ -1,20 +1,52 @@
 ---
 import { NAV, withBase } from '../lib/nav';
 import NorenNav from './NorenNav.astro';
+
+const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
+const isHome = normalizePath(Astro.url.pathname) === normalizePath(import.meta.env.BASE_URL);
 ---
 
-<header class="site-header">
+<header class:list={["site-header", isHome && "retro-home-header"]}>
+	{
+		isHome && (
+			<div class="retro-titlebar" aria-hidden="true">
+				<span>❄ DanCold's Personal Home Page — Navigation</span>
+				<i></i><i></i><i></i>
+			</div>
+		)
+	}
 	<div class="header-inner">
 		<a class="brand" href={withBase()} aria-label="Back to the homepage">
-			<span class="brand-snow" aria-hidden="true">❄</span>
+			<span class="brand-snow" aria-hidden="true">{isHome ? 'DC' : '❄'}</span>
 			<span>
-				<strong>DanCold</strong>
-				<small>personal web / digital attic</small>
+				<strong>{isHome ? 'DanCold Cafe!' : 'DanCold'}</strong>
+				<small>{isHome ? 'personal homepage // est. 2026' : 'personal web / digital attic'}</small>
 			</span>
 		</a>
-		<p class="signal"><span aria-hidden="true"></span> permanently under construction</p>
+		<div class="header-status">
+			<p class="signal"><span aria-hidden="true"></span> permanently under construction</p>
+			{isHome && <p class="last-update">LAST UPDATED: 08.13.2026 · 800×600 FRIENDLY</p>}
+		</div>
 	</div>
-	<NorenNav items={NAV} />
+	{
+		isHome && (
+			<div class="retro-addressbar" aria-label="Current website address">
+				<span>ADDRESS</span>
+				<code>https://dancold.cafe/index.html</code>
+				<b aria-hidden="true">GO!</b>
+			</div>
+		)
+	}
+	<NorenNav items={NAV} retro={isHome} />
+	{
+		isHome && (
+			<div class="retro-header-foot">
+				<span><i aria-hidden="true"></i> 5 DOORS ONLINE</span>
+				<span>CLICK A CURTAIN TO ENTER</span>
+				<span>JAVASCRIPT: ON</span>
+			</div>
+		)
+	}
 </header>
 
 <style>
@@ -96,6 +128,168 @@ import NorenNav from './NorenNav.astro';
 		box-shadow: 0 0 0 3px rgba(95, 159, 97, 0.2);
 	}
 
+	.header-status {
+		text-align: right;
+	}
+
+	.last-update {
+		margin: 0.25rem 0 0;
+		color: rgba(32, 37, 59, 0.68);
+		font-family: 'Courier New', monospace;
+		font-size: 0.58rem;
+		letter-spacing: 0.055em;
+	}
+
+	.retro-home-header {
+		width: min(calc(100% - 1rem), 60rem);
+		margin: 0.75rem auto 0;
+		padding: 0 0.65rem 0.55rem;
+		border: 4px ridge #d9cda9;
+		color: #25213b;
+		background:
+			repeating-linear-gradient(0deg, transparent 0 3px, rgba(83, 64, 108, 0.035) 3px 4px),
+			#eadfc3;
+		box-shadow: 0 0 0 2px #101028, 8px 9px 0 rgba(9, 8, 25, 0.36);
+	}
+
+	.retro-titlebar {
+		display: grid;
+		grid-template-columns: 1fr repeat(3, 1.05rem);
+		gap: 3px;
+		align-items: center;
+		min-height: 1.8rem;
+		margin: 0 -0.65rem 0.55rem;
+		padding: 0.2rem 0.35rem 0.2rem 0.55rem;
+		border-bottom: 2px groove #d9cda9;
+		color: #fff;
+		background: linear-gradient(90deg, #15155a, #593c7a 64%, #245b6d);
+		font: 700 0.65rem 'Trebuchet MS', Verdana, sans-serif;
+		letter-spacing: 0.02em;
+		text-shadow: 1px 1px #000;
+	}
+
+	.retro-titlebar i {
+		display: block;
+		height: 0.95rem;
+		border: 2px outset #ded7c1;
+		background: #c8c1ac;
+	}
+
+	.retro-titlebar i:last-child::after {
+		display: grid;
+		place-items: center;
+		color: #311d32;
+		content: 'x';
+		font: 700 0.6rem/0.55rem Arial, sans-serif;
+	}
+
+	.retro-home-header .header-inner {
+		width: 100%;
+		padding: 0.35rem 0.35rem 0.55rem;
+	}
+
+	.retro-home-header .brand {
+		color: #34264f;
+	}
+
+	.retro-home-header .brand-snow {
+		width: 3.2rem;
+		border: 3px ridge #c5b581;
+		border-radius: 0;
+		color: #d6f6ff;
+		background:
+			repeating-conic-gradient(#323365 0 25%, #22213e 0 50%) 0 / 8px 8px;
+		box-shadow: inset 0 0 0.8rem #101022, 2px 2px 0 #6f5b82;
+		font-family: Georgia, serif;
+		font-size: 1.2rem;
+		font-style: italic;
+		text-shadow: 2px 2px #7d467d;
+	}
+
+	.retro-home-header .brand strong {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: clamp(1.2rem, 3vw, 1.8rem);
+		letter-spacing: -0.025em;
+		text-shadow: 1px 1px #fff, 2px 2px #cfb875;
+	}
+
+	.retro-home-header .brand small,
+	.retro-home-header .signal,
+	.retro-home-header .last-update {
+		font-family: 'Courier New', monospace;
+	}
+
+	.retro-home-header .signal span,
+	.retro-header-foot i {
+		border-radius: 0;
+		background: #61d95c;
+		box-shadow: 0 0 4px #42c342;
+		animation: status-blink 1.2s steps(2, end) infinite;
+	}
+
+	.retro-addressbar {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 0.35rem;
+		align-items: center;
+		margin: 0 0.2rem 0.2rem;
+		padding: 0.25rem;
+		border: 2px groove #c8baa0;
+		background: #d6cdb7;
+		font: 700 0.55rem Verdana, sans-serif;
+	}
+
+	.retro-addressbar span {
+		padding-inline: 0.2rem;
+	}
+
+	.retro-addressbar code {
+		min-width: 0;
+		padding: 0.15rem 0.35rem;
+		overflow: hidden;
+		border: 2px inset #d5d0c3;
+		color: #1f1f35;
+		background: #fffdf0;
+		font: 0.61rem 'Courier New', monospace;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.retro-addressbar b {
+		padding: 0.18rem 0.35rem;
+		border: 2px outset #ded7c1;
+		background: #c8c1ac;
+		font-size: 0.55rem;
+	}
+
+	.retro-header-foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin: 0.15rem 0.2rem 0;
+		padding: 0.25rem 0.45rem 0.05rem;
+		border-top: 1px dotted #766b57;
+		font: 700 0.5rem 'Courier New', monospace;
+		letter-spacing: 0.035em;
+	}
+
+	.retro-header-foot span:first-child {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+
+	.retro-header-foot i {
+		display: inline-block;
+		width: 0.45rem;
+		height: 0.45rem;
+	}
+
+	@keyframes status-blink {
+		50% { filter: brightness(1.45); }
+	}
+
 	@media (max-width: 580px) {
 		.header-inner {
 			align-items: flex-start;
@@ -104,6 +298,48 @@ import NorenNav from './NorenNav.astro';
 
 		.signal {
 			margin-left: 3.5rem;
+		}
+
+		.retro-home-header {
+			width: calc(100% - 0.5rem);
+			margin-top: 0.35rem;
+			padding-inline: 0.35rem;
+			box-shadow: 4px 5px 0 rgba(9, 8, 25, 0.36);
+		}
+
+		.retro-titlebar {
+			margin-inline: -0.35rem;
+		}
+
+		.retro-home-header .header-inner {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 0.45rem;
+		}
+
+		.retro-home-header .header-status {
+			text-align: left;
+		}
+
+		.retro-home-header .signal {
+			margin-left: 0;
+		}
+
+		.retro-addressbar code {
+			font-size: 0.52rem;
+		}
+
+		.retro-header-foot {
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 0.2rem 0.65rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.retro-home-header .signal span,
+		.retro-header-foot i {
+			animation: none;
 		}
 	}
 </style>
