@@ -24,6 +24,8 @@ Both local development and production use `/` as their base path. GitHub Pages s
 
 ## Where to edit things
 
+- Character identities, approved traits, prompts, and canonical art: [`CHARACTER-LIBRARY.md`](CHARACTER-LIBRARY.md)
+- Reusable character asset catalog for Astro: `src/data/characters.ts`
 - Site title and description: `src/consts.ts`
 - Main navigation: `src/lib/nav.ts`
 - Chronicler portrait: `src/assets/chronicler/chronicler-neutral.png`

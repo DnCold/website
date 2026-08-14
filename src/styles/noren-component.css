@@ -67,6 +67,10 @@
 	transition: transform 160ms ease;
 }
 
+.noren__sprite {
+	display: none;
+}
+
 .noren__strip:hover {
 	color: #fff7e7;
 	filter: brightness(1.22);
@@ -152,6 +156,21 @@
 	display: none;
 }
 
+.noren.is-retro .noren__sprite {
+	position: absolute;
+	top: 7%;
+	left: 50%;
+	z-index: 2;
+	display: block;
+	width: clamp(2.2rem, 7.8vw, 4.75rem);
+	height: clamp(2.2rem, 7.8vw, 4.75rem);
+	object-fit: contain;
+	filter: drop-shadow(2px 2px 0 rgba(4, 7, 20, 0.92));
+	image-rendering: pixelated;
+	transform: translateX(-50%);
+	transform-origin: 50% 90%;
+}
+
 .noren.is-retro .noren__label {
 	position: relative;
 	z-index: 1;
@@ -164,6 +183,7 @@
 		2px 2px 0 #050913,
 		inset 1px 1px 0 rgba(255, 246, 186, 0.18);
 	line-height: 1.08;
+	transform: translateY(clamp(1rem, 1.7vw, 1.2rem));
 }
 
 .noren.is-retro .noren__strip:hover,
@@ -181,6 +201,11 @@
 .noren.is-retro .noren__strip:focus-visible .noren__label {
 	border-color: #fff7b8;
 	background: #27315b;
+}
+
+.noren.is-retro .noren__strip:hover .noren__sprite,
+.noren.is-retro .noren__strip:focus-visible .noren__sprite {
+	animation: noren-sprite-pop 420ms steps(3, end) infinite alternate;
 }
 
 .noren.is-retro .noren__strip.is-active {
@@ -221,6 +246,11 @@
 	100% { transform: rotate(0deg); }
 }
 
+@keyframes noren-sprite-pop {
+	from { transform: translateX(-50%) translateY(0) scale(1); }
+	to { transform: translateX(-50%) translateY(-4px) scale(1.08) rotate(-2deg); }
+}
+
 @media (max-width: 520px) {
 	.noren {
 		width: calc(100% + 0.5rem);
@@ -245,6 +275,13 @@
 	.noren.is-retro .noren__label {
 		max-width: 94%;
 		padding: 0.2rem 0.18rem 0.18rem;
+		transform: translateY(0.7rem);
+	}
+
+	.noren.is-retro .noren__sprite {
+		top: 7%;
+		width: clamp(1.65rem, 8vw, 2.2rem);
+		height: clamp(1.65rem, 8vw, 2.2rem);
 	}
 
 	.noren-file-note {
@@ -261,5 +298,11 @@
 	.noren.is-retro .noren__strip:focus-visible {
 		animation: none;
 		transform: rotate(-2.5deg) translateY(1px);
+	}
+
+	.noren.is-retro .noren__strip:hover .noren__sprite,
+	.noren.is-retro .noren__strip:focus-visible .noren__sprite {
+		animation: none;
+		transform: translateX(-50%);
 	}
 }
