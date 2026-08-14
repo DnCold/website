@@ -3,7 +3,7 @@
 A static personal website built with [Astro](https://astro.build/). It collects notes, drawings,
 animation, 3D experiments, and small projects in an indie-web-inspired space.
 
-Live site: <https://dncold.github.io/website/>
+Live site: <https://dancold.quest/>
 
 ## Start locally
 
@@ -12,7 +12,7 @@ npm ci
 npm run dev
 ```
 
-The local server uses `/` as its base path. Production builds use `/website/` for GitHub Pages.
+Both local development and production use `/` as their base path. GitHub Pages serves the production build at `dancold.quest`.
 
 ## Useful commands
 

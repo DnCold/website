@@ -294,7 +294,7 @@ No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica 
 ## 12. Checklist antes de terminar
 
 - [ ] Todo el texto público está en inglés.
-- [ ] Los enlaces del menú funcionan bajo `/website/`.
+- [ ] Los enlaces del menú funcionan desde la raíz de `https://dancold.quest/`.
 - [ ] The Archivist se puede usar con mouse, touch y teclado.
 - [ ] The Chronicler, The Archivist y Coldem no muestran la navegación noren del hub.
 - [ ] El arte no contiene títulos que luego sean difíciles de editar.
