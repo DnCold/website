@@ -15,56 +15,91 @@ const posts = (await getCollection('blog'))
 
 <WorldLayout
 	title={`The Chronicler — ${SITE_TITLE}`}
-	description="The Chronicler's field notes: devlogs, unfinished experiments, and lessons rescued beyond the map."
+	description="The Chronicler's travel diary: field reports, unfinished expeditions, and lessons carried home."
 	image={chroniclerPortrait}
 	bodyClass="chronicler-world"
 >
 	<div class="chronicler-shell">
 		<nav class="chronicle-nav" aria-label="Chronicler navigation">
 			<a href={withBase()}>← return to the front page</a>
-			<p><span>FIELD LOG</span> / VOL. 01 / ALWAYS IN PROGRESS</p>
+			<p><span>TRAVEL DIARY</span> / JOURNAL I / ROAD STILL OPEN</p>
 		</nav>
 
-		<section class="chronicle-cover" aria-labelledby="chronicle-title">
-			<div class="chronicle-copy">
-				<p class="chronicle-kicker">ROUGH COUNTRY // FIELD RECORDER</p>
-				<h1 id="chronicle-title"><span>The</span> Chronicler</h1>
+		<section class="travel-diary" aria-labelledby="chronicle-title">
+			<div class="diary-spine" aria-hidden="true"></div>
+
+			<article class="diary-page field-page">
+				<header class="diary-dateline">
+					<span>FIELD ENTRY 000</span>
+					<span>DATE: UNRECORDED</span>
+				</header>
+
+				<p class="chronicle-kicker">BEYOND THE LAST MARKER</p>
+				<h1 id="chronicle-title"><span>The Chronicler's</span> Travel Diary</h1>
 				<p class="chronicle-deck">
-					He crosses unfinished places and records strange trails, failed builds, and useful
-					mistakes before the weather takes them.
+					A record of roads beyond the last useful map: strange places, broken tools,
+					unexpected shelters, and lessons carried home.
 				</p>
-				<blockquote>“If it broke once, write down why.”</blockquote>
-				<dl class="chronicle-facts">
-					<div><dt>Known as</dt><dd>The Chronicler</dd></div>
-					<div><dt>Habitat</dt><dd>Where the map stops being useful</dd></div>
-					<div><dt>Disposition</dt><dd>Weathered. Stubborn. Still taking notes.</dd></div>
+
+				<blockquote>“If the road changes you, mark the page.”</blockquote>
+
+				<dl class="journey-facts">
+					<div><dt>Current route</dt><dd>Past the final printed border</dd></div>
+					<div><dt>Weather</dt><dd>Ink-dry. Wind rising.</dd></div>
+					<div><dt>Supplies</dt><dd>One notebook. No clean plans.</dd></div>
 				</dl>
-			</div>
 
-			<figure class="chronicler-portrait">
-				<div class="portrait-crop">
-					<Image
-						src={chroniclerPortrait}
-						alt="The Chronicler, a manga-style character with enormous messy curls and a full beard, looking left in profile."
-						loading="eager"
-					/>
+				<div class="route-sketch" aria-label="A rough hand-drawn route from camp to an unknown landmark">
+					<span class="route-point camp">camp</span>
+					<span class="route-path path-one" aria-hidden="true"></span>
+					<span class="route-point ford">old ford</span>
+					<span class="route-path path-two" aria-hidden="true"></span>
+					<span class="route-point unknown">?</span>
 				</div>
-				<figcaption>
-					<b>DAN // THE CHRONICLER</b>
-					<span>Explorer of unfinished places. Collector of useful mistakes.</span>
-				</figcaption>
-			</figure>
+				<p class="pencil-note">take the ridge if the bridge is gone again</p>
+				<span class="page-number">— 01 —</span>
+			</article>
 
-			<p class="ink-stamp" aria-hidden="true">RECORDED<br />BY HAND</p>
+			<article class="diary-page clipping-page">
+				<span class="paperclip" aria-hidden="true"></span>
+				<section class="newspaper-clipping" aria-label="A newspaper clipping about The Chronicler">
+					<header class="newspaper-masthead">
+						<p>The Wayfarer's Gazette</p>
+						<div><span>Special field edition</span><span>Price: one good story</span></div>
+					</header>
+					<p class="newspaper-rubric">NEWS FROM BEYOND THE LAST MARKER</p>
+					<h2>Local Chronicler vanishes beyond the last useful map</h2>
+					<p class="newspaper-deck">Explorer leaves the obvious road carrying a weathered journal and very few sensible supplies.</p>
+
+					<figure class="newspaper-photo">
+						<div class="newspaper-photo__frame">
+							<Image
+								src={chroniclerPortrait}
+								alt="The Chronicler, a manga-style adventurer with enormous messy curls, a beard, and a weathered cape."
+								loading="eager"
+							/>
+						</div>
+						<figcaption>Last known portrait, recovered from a rain-damaged field dispatch.</figcaption>
+					</figure>
+
+					<div class="newspaper-columns">
+						<p><b>OUTER ROAD —</b> Witnesses say the traveler ignored the marked trail just after sunrise, pausing only to sketch the broken signpost.</p>
+						<p>The expedition continues somewhere outside the neat edge of the page. Any useful mistakes will be reported upon his return.</p>
+					</div>
+					<p class="clipping-mark">CLIPPING 07</p>
+				</section>
+				<p class="marginalia">Found folded inside the back cover. Keep dry.</p>
+				<span class="page-number">— 02 —</span>
+			</article>
 		</section>
 
 		<section class="chronicle-entries" aria-labelledby="entries-title">
 			<header>
 				<div>
-					<p>THE WORKBENCH INDEX</p>
-					<h2 id="entries-title">Recovered notes</h2>
+					<p>FIELD ENTRY INDEX</p>
+					<h2 id="entries-title">Pages from the road</h2>
 				</div>
-				<span>{String(posts.length).padStart(2, '0')} PUBLIC ENTRIES</span>
+				<span>{String(posts.length).padStart(2, '0')} LOGGED ENTRIES</span>
 			</header>
 
 			{
@@ -79,7 +114,7 @@ const posts = (await getCollection('blog'))
 										<h3>{post.data.title}</h3>
 										<span>{post.data.description}</span>
 									</div>
-									<b>OPEN FILE →</b>
+									<b>READ ENTRY →</b>
 								</a>
 							</li>
 						))}
@@ -88,13 +123,13 @@ const posts = (await getCollection('blog'))
 					<div class="empty-log">
 						<p class="empty-number">000</p>
 						<div>
-							<p class="margin-note">THE INK IS STILL WET</p>
-							<h3>No public entries—yet.</h3>
+							<p class="margin-note">THE FIRST PAGE IS STILL BEING WRITTEN</p>
+							<h3>No dispatches from the road—yet.</h3>
 							<p>
-								The starter articles remain safely marked as drafts. The first real field note will
-								appear here and in the RSS feed when The Chronicler decides it survived the workshop.
+								The starter notes remain closed as drafts. The first field dispatch will surface
+								here—and on the RSS trail—when it has survived the weather.
 							</p>
-							<a href={withBase('rss.xml')}>watch the RSS wire →</a>
+							<a href={withBase('rss.xml')}>follow the RSS trail →</a>
 						</div>
 					</div>
 				)
@@ -102,7 +137,7 @@ const posts = (await getCollection('blog'))
 		</section>
 
 		<footer class="chronicle-footer">
-			<p>END OF CURRENT RECORD // MORE MARGINS WILL BE ADDED</p>
+			<p>END OF CURRENT JOURNAL // NEXT WAYPOINT UNKNOWN</p>
 			<a href={withBase()}>back to dancold.cafe</a>
 		</footer>
 	</div>

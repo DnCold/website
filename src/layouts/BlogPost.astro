@@ -20,8 +20,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 >
 	<div class="chronicler-shell article-edition">
 		<nav class="chronicle-nav" aria-label="Note navigation">
-			<a href={withBase('blog/')}>← The Chronicler's index</a>
-			<p><span>FIELD LOG</span> / RECOVERED ENTRY</p>
+			<a href={withBase('blog/')}>← The Chronicler's route index</a>
+			<p><span>TRAVEL DIARY</span> / RECOVERED ENTRY</p>
 		</nav>
 
 		<article class="article-shell">
@@ -31,7 +31,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 			)}
 			<header class="article-header">
-				<a class="back-link" href={withBase('blog/')}>← Back to the field index</a>
+				<a class="back-link" href={withBase('blog/')}>← Back to the route index</a>
 				<p class="article-date">
 					<FormattedDate date={pubDate} />
 					{updatedDate && <span> · updated <FormattedDate date={updatedDate} /></span>}
@@ -45,7 +45,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		</article>
 
 		<footer class="chronicle-footer">
-			<p>ENTRY CLOSED // MARGINALIA WELCOME</p>
+			<p>ENTRY CLOSED // NEXT WAYPOINT UNKNOWN</p>
 			<a href={withBase()}>back to dancold.cafe</a>
 		</footer>
 	</div>
