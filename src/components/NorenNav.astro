@@ -27,7 +27,7 @@ const current = normalizePath(currentPath);
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
                 >
-                    {item.label}
+                    <span class="noren__label">{item.label}</span>
                 </a>
             );
         })
