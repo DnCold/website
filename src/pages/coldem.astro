@@ -1,10 +1,11 @@
 ---
 import { Image } from 'astro:assets';
-import coldemIcon from '../assets/coldem/icon.png';
-import coldemLogo from '../assets/coldem/dancold-logo.png';
 import petStickers from '../assets/coldem/pet-stickers-v6.webp';
 import robotRockCover from '../assets/coldem/robot-rock-reborn-cover.png';
-import runnerPortrait from '../assets/coldem/runner-v4.png';
+import runnerActive from '../assets/coldem/runner-active.png';
+import runnerFull from '../assets/coldem/runner-full.png';
+import runnerHead from '../assets/coldem/runner-head.png';
+import runnerWelcome from '../assets/coldem/runner-welcome.png';
 import { SITE_TITLE } from '../consts';
 import WorldLayout from '../layouts/WorldLayout.astro';
 import { withBase } from '../lib/nav';
@@ -16,117 +17,57 @@ const launcherReleases = `${launcherRepo}/releases/latest`;
 const releaseVersion = '0.4.1';
 const installerUrl = `${launcherRepo}/releases/download/v${releaseVersion}/Coldem_${releaseVersion}_x64-setup.exe`;
 const installerSize = '26.9 MB';
-const installerSha = '856c2658a2c52da0…c75ea2628';
+const installerSha = '856c2658a2c52da0...c75ea2628';
 
 const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag/delivery-robot-rock-reborn-0.1.0-20260812T0259521230174Z';
 ---
 
 <WorldLayout
-	title={`Coldem Games & Launcher — ${SITE_TITLE}`}
-	description="Enter the Coldem game world, meet The Runner, discover DanCold games, and download the launcher for Windows."
-	image={runnerPortrait}
+	title={`Coldem Games & The Runner — ${SITE_TITLE}`}
+	description="Enter The Runner's game network, discover DanCold games, and download the optional Coldem launcher for Windows."
+	image={runnerFull}
 	bodyClass="coldem-world"
 >
 	<div class="coldem-shell" style={stickerStyle}>
 		<header class="coldem-windowbar">
 			<a class="coldem-wordmark" href={withBase()} aria-label="Return to the DanCold hub">
-				<Image src={coldemIcon} alt="" width={34} height={34} />
-				<span><strong>COLDEM</strong><small>GAMES // LAUNCHER</small></span>
+				<Image src={runnerHead} alt="" width={42} height={42} />
+				<span><strong>COLDEM</strong><small>THE RUNNER'S GAME NETWORK</small></span>
 			</a>
-			<div class="window-status"><i></i> GAME NETWORK ONLINE</div>
+			<div class="window-status"><i></i> GAME SIGNAL ONLINE</div>
 			<a class="hub-exit" href={withBase()}>EXIT TO DANCOLD ↗</a>
 		</header>
 
-		<div class="launcher-grid">
-			<aside class="launcher-sidebar">
-				<div class="tag-profile">
-					<Image class="sidebar-logo" src={coldemLogo} alt="The original purple Coldem graffiti face" width={122} />
-					<p><span>IDENT // 001</span><strong>THE RUNNER</strong></p>
+		<section class="coldem-landing" aria-labelledby="coldem-title">
+			<div class="coldem-landing__copy">
+				<p class="system-kicker"><span></span> TRANSMISSION 001 // THE RUNNER</p>
+				<h1 id="coldem-title">COLD WORLDS.<br /><em>LOUD GAMES.</em></h1>
+				<p>
+					Coldem is where DanCold games live: public builds, odd prototypes, and small worlds
+					carried home by The Runner. The launcher helps, but the games come first.
+				</p>
+				<div class="hero-actions">
+					<a class="coldem-button primary" href="#games">ENTER THE GAMES ↓</a>
+					<a class="coldem-button" href="#runner">MEET THE RUNNER ↘</a>
 				</div>
-				<p class="build-label">CLIENT // {releaseVersion}</p>
-				<nav aria-label="Coldem sections">
-					<a class="active" href="#launcher"><span>01</span> LAUNCHER</a>
-					<a href="#games"><span>02</span> GAMES</a>
-					<a href="#runner"><span>03</span> THE RUNNER</a>
-					<a href="#system"><span>04</span> SYSTEM</a>
-				</nav>
-				<p class="sidebar-note">No storefront.<br /><strong>Just games.</strong></p>
-			</aside>
-
-			<div class="launcher-main" id="launcher">
-				<section class="launcher-topbar" aria-labelledby="coldem-title">
-					<div>
-						<p>FIRST ANNOUNCEMENT // LAUNCHER ONLINE</p>
-						<h1 id="coldem-title">The door to the games.</h1>
-					</div>
-					<div class="search-fake" aria-hidden="true">WINDOWS // X64 <kbd>V{releaseVersion}</kbd></div>
-				</section>
-
-				<section class="featured-hero" id="download">
-					<div class="hero-copy">
-						<p class="system-kicker"><span></span> THE RUNNER ANNOUNCES // V{releaseVersion}</p>
-						<h2>GET THE<br />LAUNCHER</h2>
-						<p>
-							Coldem is the front door to DanCold games. Install them, keep them updated,
-							and launch them from one cold little machine—no storefront account required.
-						</p>
-						<div class="hero-actions">
-							<a class="coldem-button primary download-button" href={installerUrl}>DOWNLOAD FOR WINDOWS ↓</a>
-							<a class="coldem-button" href={launcherReleases} target="_blank" rel="noreferrer">RELEASE NOTES ↗</a>
-						</div>
-						<p class="download-meta" id="download-meta">Windows x64 · {installerSize} · NSIS installer</p>
-					</div>
-
-					<figure class="runner-announcement">
-						<Image
-							src={runnerPortrait}
-							alt="The Runner, a purple graffiti-headed character in patched streetwear holding a spray can"
-							loading="eager"
-						/>
-						<figcaption><b>THE RUNNER</b><span>Street-born game courier</span></figcaption>
-					</figure>
-				</section>
-
-				<section class="collection" id="install" aria-labelledby="collection-title">
-					<div class="section-heading">
-						<div><p>THREE QUICK STEPS</p><h2 id="collection-title">Enter through Coldem</h2></div>
-						<span>NO ACCOUNT REQUIRED</span>
-					</div>
-					<div class="install-steps">
-						<article><b>01</b><span><strong>Download</strong><small>Save the Windows setup file.</small></span></article>
-						<article><b>02</b><span><strong>Install</strong><small>Open Coldem and let it find the catalog.</small></span></article>
-						<article><b>03</b><span><strong>Play</strong><small>Choose a game; Coldem handles its files.</small></span></article>
-					</div>
-				</section>
+				<ul class="coldem-landing__signal" aria-label="Coldem network summary">
+					<li><b>01</b><span>PUBLIC GAME</span></li>
+					<li><b>04</b><span>RUNNER POSES</span></li>
+					<li><b>24/7</b><span>COLD SIGNAL</span></li>
+				</ul>
 			</div>
+			<figure class="coldem-landing__runner">
+				<Image src={runnerActive} alt="The Runner rushing forward with a purple spray can" loading="eager" />
+				<figcaption><b>THE RUNNER</b><span>Game courier // Ident 001</span></figcaption>
+			</figure>
+		</section>
 
-			<aside class="launcher-rail" aria-label="Launcher download details">
-				<section class="profile-card">
-					<div class="profile-avatar">V{releaseVersion.split('.')[1]}</div>
-					<div><strong>LATEST RELEASE</strong><span><i></i> V{releaseVersion} STABLE</span></div>
-				</section>
-
-				<section class="rail-panel">
-					<div class="rail-heading"><p>PACKAGE READY</p><h2>Download</h2></div>
-					<div class="download-row"><b>CLD</b><span><strong>WINDOWS X64</strong><small>COLDEM SETUP.EXE</small></span><em>{installerSize}</em></div>
-					<div class="progress"><span></span></div>
-					<a class="rail-download" href={installerUrl}>DOWNLOAD INSTALLER ↓</a>
-				</section>
-
-				<section class="rail-panel system-list">
-					<div class="rail-heading"><p>INSTALL TARGET</p><h2>Requirements</h2></div>
-					<dl>
-						<div><dt>OS</dt><dd>WINDOWS 10/11</dd></div>
-						<div><dt>ARCH</dt><dd>X64</dd></div>
-						<div><dt>NETWORK</dt><dd>REQUIRED</dd></div>
-						<div><dt>CHANNEL</dt><dd>STABLE</dd></div>
-					</dl>
-					<p class="checksum">SHA-256<br /><code>{installerSha}</code></p>
-				</section>
-
-				<div class="sticker sticker-black-cat" aria-hidden="true"></div>
-			</aside>
-		</div>
+		<nav class="coldem-directory" aria-label="Coldem sections">
+			<a href="#games"><span>01</span><strong>GAMES</strong><small>Play what is here</small></a>
+			<a href="#runner"><span>02</span><strong>THE RUNNER</strong><small>Meet the courier</small></a>
+			<a href="#launcher"><span>03</span><strong>LAUNCHER</strong><small>Optional delivery tool</small></a>
+			<a href="#system"><span>04</span><strong>SYSTEM</strong><small>How Coldem works</small></a>
+		</nav>
 
 		<section class="game-broadcast" id="games" aria-labelledby="games-title">
 			<header class="broadcast-header">
@@ -141,7 +82,7 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 				</figure>
 
 				<div class="game-copy">
-					<p class="system-kicker"><span></span> LIVE IN COLDEM // GAME 001</p>
+					<p class="system-kicker"><span></span> PUBLIC BUILD // GAME 001</p>
 					<h3>Robot Rock<br /><em>Reborn</em></h3>
 					<p>
 						The first public Coldem game package: a 0.1.0 build delivered, verified,
@@ -150,11 +91,11 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 					<ul class="game-meta" aria-label="Robot Rock Reborn details">
 						<li><span>BUILD</span> 0.1.0</li>
 						<li><span>PLATFORM</span> WINDOWS</li>
-						<li><span>DELIVERY</span> COLDEM</li>
+						<li><span>STATUS</span> PUBLIC</li>
 					</ul>
 					<div class="hero-actions">
-						<a class="coldem-button primary" href="#download">GET COLDEM TO PLAY ↓</a>
-						<a class="coldem-button" href={robotRockRelease} target="_blank" rel="noreferrer">VIEW GAME RELEASE ↗</a>
+						<a class="coldem-button primary" href={robotRockRelease} target="_blank" rel="noreferrer">VIEW GAME RELEASE ↗</a>
+						<a class="coldem-button" href="#launcher">GET THE LAUNCHER ↓</a>
 					</div>
 				</div>
 			</article>
@@ -167,7 +108,7 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 
 		<section class="runner-dossier" id="runner" aria-labelledby="runner-title">
 			<figure class="runner-poster">
-				<Image src={runnerPortrait} alt="Full-body portrait of The Runner" loading="lazy" />
+				<Image src={runnerFull} alt="Full-body transparent portrait of The Runner" loading="lazy" />
 				<figcaption>PORTRAIT // IDENT 001</figcaption>
 			</figure>
 
@@ -175,18 +116,63 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 				<p>STREET FILE // PERSONA 03</p>
 				<h2 id="runner-title"><span>Meet</span> The Runner</h2>
 				<p class="runner-intro">
-					Before Coldem, this face was DanCold's graffiti tag—an identity left on walls.
-					Now the mark has legs, a spray can, and one job: bring the games home.
+					Before Coldem, this face was DanCold's graffiti tag. Now the mark has legs,
+					a spray can, and one job: carry unfinished games out into the world.
 				</p>
 				<blockquote>“If it runs, I can find it. If it breaks, I run faster.”</blockquote>
 				<dl class="runner-facts">
 					<div><dt>Known as</dt><dd>The Runner</dd></div>
 					<div><dt>Origin</dt><dd>A purple tag after midnight</dd></div>
-					<div><dt>Occupation</dt><dd>Game courier / launcher gremlin</dd></div>
+					<div><dt>Occupation</dt><dd>Game courier / system gremlin</dd></div>
 					<div><dt>Attitude</dt><dd>Restless. Loyal. Slightly illegal-looking.</dd></div>
 				</dl>
 			</div>
-			<Image class="runner-origin-mark" src={coldemLogo} alt="The original purple tag that became The Runner" width={260} loading="lazy" />
+			<Image class="runner-origin-mark" src={runnerHead} alt="" width={260} loading="lazy" />
+		</section>
+
+		<section class="launcher-dock" id="launcher" aria-labelledby="launcher-title">
+			<header class="launcher-dock__header">
+				<div><p>OPTIONAL TOOL // WINDOWS X64</p><h2 id="launcher-title">Bring the library home.</h2></div>
+				<span>CLIENT V{releaseVersion}</span>
+			</header>
+
+			<div class="launcher-dock__grid">
+				<figure class="launcher-dock__runner">
+					<Image src={runnerWelcome} alt="The Runner waving and carrying a purple spray can" loading="lazy" />
+					<figcaption>YOUR COURIER IS READY</figcaption>
+				</figure>
+
+				<div class="launcher-dock__copy">
+					<p class="system-kicker"><span></span> LAUNCHER ONLINE // V{releaseVersion}</p>
+					<h3>One cold machine.<br />Every DanCold game.</h3>
+					<p>
+						Install, patch, and launch the catalog from one place. There is no storefront
+						account and no launcher wall between you and the public games.
+					</p>
+					<div class="hero-actions">
+						<a class="coldem-button primary" href={installerUrl}>DOWNLOAD FOR WINDOWS ↓</a>
+						<a class="coldem-button" href={launcherReleases} target="_blank" rel="noreferrer">RELEASE NOTES ↗</a>
+					</div>
+					<div class="install-steps">
+						<article><b>01</b><span><strong>Download</strong><small>Save the setup file.</small></span></article>
+						<article><b>02</b><span><strong>Install</strong><small>Open the public catalog.</small></span></article>
+						<article><b>03</b><span><strong>Play</strong><small>The Runner handles the files.</small></span></article>
+					</div>
+				</div>
+
+				<aside class="launcher-package" aria-label="Launcher package details">
+					<p>PACKAGE READY</p>
+					<strong>COLDEM<br />V{releaseVersion}</strong>
+					<dl>
+						<div><dt>OS</dt><dd>WINDOWS 10/11</dd></div>
+						<div><dt>ARCH</dt><dd>X64</dd></div>
+						<div><dt>SIZE</dt><dd>{installerSize}</dd></div>
+						<div><dt>CHANNEL</dt><dd>STABLE</dd></div>
+					</dl>
+					<p class="checksum">SHA-256<br /><code>{installerSha}</code></p>
+					<a class="source-link" href={launcherRepo} target="_blank" rel="noreferrer">View source ↗</a>
+				</aside>
+			</div>
 		</section>
 
 		<section class="coldem-manifest" id="system" aria-labelledby="manifest-title">
@@ -194,14 +180,13 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 				<p>BEHIND THE MACHINE // CLD-001</p>
 				<h2 id="manifest-title">Built around the games.</h2>
 				<p>
-					The launcher is the first announcement, not the whole world. Coldem is the shelf,
-					the delivery route, and the place where every future DanCold game can live together.
+					Coldem is the shelf, the delivery route, and the place where every future
+					DanCold game can live together. The launcher is only one door into that world.
 				</p>
-				<a class="source-link" href={launcherRepo} target="_blank" rel="noreferrer">View launcher source on GitHub ↗</a>
 			</div>
 			<div class="manifest-grid">
-				<article><span>01</span><h3>One growing library</h3><p>Every public DanCold game gets its own cover, status, build, and place in the catalog.</p></article>
-				<article><span>02</span><h3>Smaller updates</h3><p>Incremental patches replace only the files that changed instead of downloading everything again.</p></article>
+				<article><span>01</span><h3>One growing library</h3><p>Every public game gets its own cover, status, build, and place in the catalog.</p></article>
+				<article><span>02</span><h3>Smaller updates</h3><p>Incremental patches replace only the files that changed.</p></article>
 				<article><span>03</span><h3>No account wall</h3><p>The public catalog works without a GitHub, itch.io, or separate Coldem account.</p></article>
 			</div>
 			<div class="sticker sticker-hamster" aria-hidden="true"></div>
