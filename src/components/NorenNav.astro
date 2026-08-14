@@ -1,6 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import type { NavItem } from '../lib/nav.ts';
-import "../styles/noren-component.css"
+import archivistIcon from '../assets/noren-icons/archivist.png';
+import chroniclerIcon from '../assets/noren-icons/chronicler.png';
+import homeIcon from '../assets/noren-icons/home.png';
+import linksIcon from '../assets/noren-icons/links.png';
+import runnerIcon from '../assets/noren-icons/runner.png';
+import '../styles/noren-component.css';
 
 type Props = {
     items: NavItem[];
@@ -11,6 +17,13 @@ type Props = {
 const { items, currentPath = Astro.url.pathname, retro = false } = Astro.props;
 const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
 const current = normalizePath(currentPath);
+const norenIcons = {
+    Home: homeIcon,
+    'The Chronicler': chroniclerIcon,
+    'The Archivist': archivistIcon,
+    Coldem: runnerIcon,
+    Links: linksIcon,
+};
 ---
 
 <div class:list={["noren", retro && "is-retro"]}>
@@ -21,12 +34,14 @@ const current = normalizePath(currentPath);
             const target = normalizePath(item.href);
             const isHome = target === normalizePath(import.meta.env.BASE_URL);
             const active = isHome ? current === target : current === target || current.startsWith(`${target}/`);
+            const icon = norenIcons[item.label as keyof typeof norenIcons];
             return (
                 <a
                     class:list={["noren__strip", active && "is-active"]}
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
                 >
+                    {retro && icon && <Image class="noren__sprite" src={icon} alt="" width={80} height={80} />}
                     <span class="noren__label">{item.label}</span>
                 </a>
             );

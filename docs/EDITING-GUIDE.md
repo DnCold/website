@@ -193,6 +193,7 @@ Home usa un GIF deliberadamente pequeño y limitado a 32 colores:
 
 ```text
 src/assets/noren-retro-v3.gif    noren low-fi de la portada
+src/assets/noren-icons/*.png     sprites pixel-art de cada puerta
 ```
 
 La barra de título, dirección falsa, estado y textos del header están en
