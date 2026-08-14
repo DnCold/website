@@ -145,14 +145,16 @@ automáticamente el mismo mundo visual mediante `src/layouts/BlogPost.astro`.
 ## 6. Cambiar Coldem
 
 El contenido editable está en `src/pages/coldem.astro` y su diseño en `src/styles/coldem.css`.
-Las tres imágenes propias del launcher viven en `src/assets/coldem/`:
+Las imágenes propias de este mundo viven en `src/assets/coldem/`:
 
 - `icon.png`: icono pequeño del sistema;
 - `dancold-logo.png`: marca morada grande;
+- `runner-v3.png`: retrato vertical de The Runner;
+- `robot-rock-reborn-cover.png`: portada de la primera ficha de juego;
 - `pet-stickers-v6.webp`: hoja optimizada de cuatro stickers usada como sprite CSS.
 
-La página está pensada principalmente para descargar el instalador de Windows. La versión, el tamaño,
-el SHA-256 y la URL directa viven juntos al principio de `coldem.astro`:
+La primera parte de la página anuncia el launcher y mantiene el botón de descarga como acción principal.
+La versión, el tamaño, el SHA-256 y la URL directa viven juntos al principio de `coldem.astro`:
 
 ```ts
 const releaseVersion = '0.4.1';
@@ -164,6 +166,19 @@ const installerSha = '...';
 Cuando publiques una nueva versión del launcher, actualiza esas cuatro constantes con los datos del
 asset `.exe` de GitHub Releases. `launcherRepo` y `launcherReleases` controlan los enlaces secundarios
 al código y a las notas de versión.
+
+Debajo del launcher están las dos partes narrativas del mundo:
+
+- `#games`: catálogo público. La primera ficha usa **Robot Rock Reborn 0.1.0** y enlaza a su Release;
+- `#runner`: ficha de **The Runner**, el personaje nacido de la marca grafiti morada.
+
+Para añadir otro juego, duplica una ficha dentro de `.future-games` o crea otro bloque con la misma
+estructura de `.featured-game`. Mantén el título, versión, plataforma, descripción y enlaces como texto
+HTML editable. Las portadas no deberían contener información esencial que no se repita en el HTML.
+
+`runner-v3.png` es una versión nueva y no reemplaza `dancold-logo.png`: la marca original sigue siendo
+la referencia de identidad. Futuras ilustraciones de The Runner deberían conservar la cabeza rectangular
+violeta, el ojo negro único, la boca blanca, la grieta angular y la ropa urbana remendada.
 
 ## 7. Cambiar los sprites noren
 

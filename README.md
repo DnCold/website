@@ -32,7 +32,7 @@ The local server uses `/` as its base path. Production builds use `/website/` fo
 - Archivist shelves: `src/data/archivist.ts`
 - Archivist reaction portraits: `src/assets/archivist/`
 - Archivist page and styles: `src/pages/archivist/index.astro` and `src/styles/archivist.css`
-- Coldem world page: `src/pages/coldem.astro`
+- Coldem games world and launcher page: `src/pages/coldem.astro`
 - Coldem world styles: `src/styles/coldem.css`
 - Homepage retro noren: `src/assets/noren-retro-v3.gif`
 - Standard hub noren: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`
