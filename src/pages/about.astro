@@ -1,149 +1,141 @@
 ---
 import { SITE_TITLE } from '../consts';
+import { withBase } from '../lib/nav';
 import PageLayout from '../layouts/PageLayout.astro';
+import '../styles/about.css';
 ---
 
 <PageLayout
 	title={`About — ${SITE_TITLE}`}
-	description="About DanCold and the ideas behind this personal archive."
+	description="Meet DanCold and open the working file behind this personal web archive."
+	mainClass="about-page"
 >
-	<header class="page-heading">
-		<div>
-			<p class="eyebrow">About this place</p>
-			<h1>A digital home, not a business card.</h1>
-		</div>
-		<p>
-			I am DanCold. I use this site to collect visual work, process notes, and projects that do
-			not fit neatly inside a social feed.
-		</p>
-	</header>
+	<div class="about-desktop">
+		<header class="about-titlebar">
+			<p><span aria-hidden="true">▣</span> C:\DANCOLD\ABOUT\README.TXT</p>
+			<div aria-hidden="true"><i>_</i><i>□</i><i>×</i></div>
+		</header>
 
-	<div class="about-grid">
-		<article class="about-copy panel prose">
-			<h2>The idea</h2>
-			<p>
-				I want this website to feel like entering a room full of folders, tests, references, and
-				found objects. It does not need to be finished to be alive; it can change whenever the
-				work changes.
-			</p>
-			<p>
-				Drawings, animation, 3D, technical notes, and small experiments can all live here. Empty
-				sections are part of the record too.
-			</p>
-			<h2>How it is made</h2>
-			<p>
-				The direction, taste, and final decisions are personal. The site combines Astro code,
-				hands-on editing, and AI-assisted tools for iteration and selected visuals. The point is
-				not to pretend the tools are invisible; it is to shape the result into something that feels
-				like mine.
-			</p>
-			<h2>Principles</h2>
-			<ul>
-				<li>Specific choices before anonymous templates.</li>
-				<li>An owned archive before a borrowed feed.</li>
-				<li>Honest process before invented purity.</li>
-			</ul>
-		</article>
+		<section class="about-hero" aria-labelledby="about-title">
+			<aside class="webmaster-id" aria-label="Webmaster identification card">
+				<p class="file-label">PERSON.DAT</p>
+				<div class="id-avatar" aria-hidden="true"><span>DC</span><i>ONLINE</i></div>
+				<h2>DanCold</h2>
+				<p>Artist / animator / 3D tinkerer / occasional code wrangler.</p>
+				<dl>
+					<div><dt>Location</dt><dd>Montevideo, UY</dd></div>
+					<div><dt>Timezone</dt><dd>UTC−3</dd></div>
+					<div><dt>Status</dt><dd>Making things</dd></div>
+				</dl>
+			</aside>
 
-		<aside class="cabinet" aria-label="Website record">
-			<div class="cabinet-label">
-				<span>ARCHIVE</span>
-				<strong>DANCOLD / WEB</strong>
+			<div class="about-intro">
+				<p class="dos-path">DANCOLD.CAFE / FILE 00 / ABOUT</p>
+				<h1 id="about-title">The person behind the <em>digital attic.</em></h1>
+				<p class="intro-lede">
+					Hi, I’m DanCold. This is where I keep visual work, process notes, experiments, and
+					projects that deserve a stranger and more permanent home than a social feed.
+				</p>
+				<p class="yellow-note">This page is a working file, not a polished biography.</p>
 			</div>
-			<dl>
-				<div><dt>Type</dt><dd>Personal web</dd></div>
-				<div><dt>Status</dt><dd>In progress</dd></div>
-				<div><dt>Contents</dt><dd>Art + notes</dd></div>
-				<div><dt>Engine</dt><dd>Astro</dd></div>
-			</dl>
-			<p class="stamp">AI-ASSISTED<br />PERSONALLY DIRECTED</p>
-		</aside>
+
+			<nav class="file-index" aria-label="About page sections">
+				<p>FILE_INDEX.INI</p>
+				<a href="#idea"><b>01</b><span>THE IDEA</span></a>
+				<a href="#process"><b>02</b><span>THE PROCESS</span></a>
+				<a href="#principles"><b>03</b><span>PRINCIPLES</span></a>
+				<a href="#site-map"><b>04</b><span>ROOM MAP</span></a>
+			</nav>
+		</section>
+
+		<div class="about-status" aria-label="Website status">
+			<span><i aria-hidden="true"></i> FILE OPEN</span>
+			<span>ENCODING: UTF-8</span>
+			<span>REVISION: ALWAYS</span>
+			<span>OWNER: DANCOLD</span>
+		</div>
+
+		<div class="about-files">
+			<article class="file-card idea-file" id="idea">
+				<header><span>01</span><p>THE_IDEA.TXT</p><i aria-hidden="true">PERSONAL</i></header>
+				<div class="file-body">
+					<p class="section-kicker">WHY THIS PLACE EXISTS</p>
+					<h2>A room full of folders, tests, references, and found objects.</h2>
+					<p>
+						The site does not need to be finished to be alive. Drawings, animation, 3D,
+						technical notes, and tiny experiments can sit beside each other without being
+						squeezed into one format or ranked by an algorithm.
+					</p>
+					<p>
+						Empty shelves are part of the record. Half-built rooms are allowed to remain visible.
+						When the work changes, the architecture can change with it.
+					</p>
+					<blockquote>“An owned archive before a borrowed feed.”</blockquote>
+				</div>
+			</article>
+
+			<article class="file-card process-file" id="process">
+				<header><span>02</span><p>HOW_IT_IS_MADE.LOG</p><i aria-hidden="true">DISCLOSURE</i></header>
+				<div class="file-body">
+					<p class="section-kicker">PROCESS LEDGER</p>
+					<h2>Personal direction, mixed tools.</h2>
+					<ol class="process-list">
+						<li><b>01</b><span><strong>Direction</strong>Taste, structure, and final calls stay personal.</span></li>
+						<li><b>02</b><span><strong>Construction</strong>Astro, HTML, CSS, writing, and hands-on editing.</span></li>
+						<li><b>03</b><span><strong>Assistance</strong>AI helps with iteration, code, and selected visual assets.</span></li>
+						<li><b>04</b><span><strong>Curation</strong>Nothing ships merely because a tool produced it.</span></li>
+					</ol>
+					<div class="ai-note">
+						<b>AI-ASSISTED / PERSONALLY DIRECTED</b>
+						<p>
+							The tools are not hidden. The authorship is in the choices: what belongs, what gets
+							reworked, and what is discarded.
+						</p>
+					</div>
+				</div>
+			</article>
+
+			<section class="principles-file" id="principles" aria-labelledby="principles-title">
+				<header>
+					<div><span>03</span><p>PINNED_PRINCIPLES</p></div>
+					<h2 id="principles-title">Rules taped above the desk</h2>
+				</header>
+				<div class="principle-grid">
+					<article><b>01</b><h3>Be specific.</h3><p>Choose strange, personal details before anonymous templates.</p></article>
+					<article><b>02</b><h3>Own the archive.</h3><p>Keep a home that does not depend on a borrowed feed.</p></article>
+					<article><b>03</b><h3>Show the seams.</h3><p>Prefer honest process over invented purity or frictionless polish.</p></article>
+				</div>
+			</section>
+
+			<aside class="currently-file" aria-labelledby="currently-title">
+				<p class="file-label">CURRENT_STATE.NFO</p>
+				<h2 id="currently-title">At the moment</h2>
+				<dl>
+					<div><dt>Building</dt><dd>This website</dd></div>
+					<div><dt>Collecting</dt><dd>Loose ideas</dd></div>
+					<div><dt>Learning</dt><dd>By breaking things</dd></div>
+					<div><dt>Finished</dt><dd>Never entirely</dd></div>
+				</dl>
+				<p class="tiny-warning">⚠ CONTENT MAY MOVE WITHOUT NOTICE</p>
+			</aside>
+
+			<section class="site-map-file" id="site-map" aria-labelledby="site-map-title">
+				<header>
+					<div><span>04</span><p>ROOM_MAP.URL</p></div>
+					<h2 id="site-map-title">Continue exploring</h2>
+				</header>
+				<div class="room-links">
+					<a href={withBase('blog/')}><span>[TXT]</span><b>The Chronicler</b><small>field notes & devlogs</small></a>
+					<a href={withBase('archivist/')}><span>[ART]</span><b>The Archivist</b><small>drawings & motion</small></a>
+					<a href={withBase('coldem/')}><span>[EXE]</span><b>Coldem</b><small>launcher download</small></a>
+					<a href={withBase('links/')}><span>[WWW]</span><b>Links</b><small>paths elsewhere</small></a>
+				</div>
+			</section>
+		</div>
+
+		<footer class="about-file-footer">
+			<p>END OF README.TXT — MORE LINES WILL BE ADDED</p>
+			<a href={withBase()}>[ return to the front room ]</a>
+		</footer>
 	</div>
 </PageLayout>
-
-<style>
-	.about-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.65fr);
-		gap: clamp(1.5rem, 5vw, 4rem);
-		align-items: start;
-	}
-
-	.about-copy {
-		padding: clamp(1.5rem, 4vw, 3rem);
-	}
-
-	.about-copy > * {
-		margin-right: 0;
-		margin-left: 0;
-	}
-
-	.cabinet {
-		padding: 1.25rem;
-		border: 3px double var(--paper);
-		background: var(--plum);
-		color: var(--paper);
-		box-shadow: 7px 7px 0 var(--ink);
-		transform: rotate(1deg);
-	}
-
-	.cabinet-label {
-		padding-bottom: 1rem;
-		border-bottom: 1px dashed rgba(246, 234, 212, 0.5);
-	}
-
-	.cabinet-label span,
-	.cabinet-label strong {
-		display: block;
-	}
-
-	.cabinet-label span,
-	dt {
-		font-family: ui-monospace, 'Cascadia Code', monospace;
-		font-size: 0.65rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-
-	.cabinet dl {
-		margin: 1.5rem 0;
-	}
-
-	.cabinet dl div {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 0.55rem 0;
-		border-bottom: 1px dotted rgba(246, 234, 212, 0.35);
-	}
-
-	.cabinet dd {
-		margin: 0;
-		text-align: right;
-	}
-
-	.stamp {
-		width: max-content;
-		max-width: 100%;
-		margin: 2rem auto 0.5rem;
-		padding: 0.65rem;
-		border: 3px solid var(--ice);
-		color: var(--ice);
-		font-family: ui-monospace, 'Cascadia Code', monospace;
-		font-size: 0.72rem;
-		font-weight: 700;
-		line-height: 1.2;
-		text-align: center;
-		transform: rotate(-5deg);
-	}
-
-	@media (max-width: 780px) {
-		.about-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.cabinet {
-			transform: none;
-		}
-	}
-</style>

@@ -37,6 +37,7 @@ The local server uses `/` as its base path. Production builds use `/website/` fo
 - Homepage retro noren: `src/assets/noren-retro-v3.gif`
 - Standard hub noren: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`
 - Header markup and homepage-only retro chrome: `src/components/Header.astro`
+- About dossier page and styles: `src/pages/about.astro` and `src/styles/about.css`
 - Page content: `src/pages/`
 - Global colors and typography: `src/styles/global.css`
 

@@ -42,7 +42,8 @@ Los archivos que probablemente editarás más seguido son:
 - `src/consts.ts`: nombre y descripción global.
 - `src/lib/nav.ts`: enlaces de navegación.
 - `src/pages/index.astro`: portada.
-- `src/pages/about.astro`: texto de About y explicación del proceso.
+- `src/pages/about.astro`: contenido del dossier About.
+- `src/styles/about.css`: apariencia retro del dossier About.
 - `src/pages/links.astro`: enlaces externos.
 - `src/data/archivist.ts`: estantes y reacciones de The Archivist.
 - `src/pages/blog/index.astro`: presentación y textos de The Chronicler.
