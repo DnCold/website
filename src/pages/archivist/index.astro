@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import archivistMotion from '../../assets/archivist/archivist-motion.webp';
 import archivistNeutral from '../../assets/archivist/archivist-neutral.webp';
 import archivistRender from '../../assets/archivist/archivist-render.webp';
@@ -11,6 +12,9 @@ import { withBase } from '../../lib/nav';
 import '../../styles/archivist.css';
 
 const firstChapter = ARCHIVIST_CHAPTERS[0];
+const libraryEntries = (await getCollection('library')).sort((a, b) =>
+	Number(b.data.featured) - Number(a.data.featured) || a.data.title.localeCompare(b.data.title),
+);
 ---
 
 <WorldLayout
@@ -128,6 +132,27 @@ const firstChapter = ARCHIVIST_CHAPTERS[0];
 							<ul aria-label={`${chapter.title} topics`}>
 								{chapter.tags.map((tag) => <li>{tag}</li>)}
 							</ul>
+							<div class="chapter-library" aria-label={`${chapter.title} library entries`}>
+								<p class="archive-eyebrow">From the shared library</p>
+								{
+									libraryEntries.filter((entry) => entry.data.chapter === chapter.id).length > 0 ? (
+										<ul class="library-links">
+											{libraryEntries
+												.filter((entry) => entry.data.chapter === chapter.id)
+												.map((entry) => (
+													<li>
+														<a href={withBase(`archivist/${entry.id}/`)}>
+															<strong>{entry.data.title}</strong>
+															<span>{entry.data.description}</span>
+														</a>
+													</li>
+												))}
+										</ul>
+									) : (
+										<p class="library-empty">Nothing filed here yet. The next piece can start the shelf.</p>
+									)
+								}
+							</div>
 						</div>
 						<p class="chapter-status"><span></span>{chapter.status}</p>
 					</article>

@@ -5,6 +5,7 @@ dist/
 
 # dependencies
 node_modules/
+apps/dancold-desk/src-tauri/target/
 
 # logs
 npm-debug.log*
@@ -17,6 +18,10 @@ pnpm-debug.log*
 /coldem-launcher/
 /tmp/
 /.preview-*.log
+
+# DanCold Desk is a local-only editor. Keep its source and Tauri build files
+# outside the public website repository; it uses the machine's own git/gh auth.
+/apps/dancold-desk/
 
 
 # environment variables
