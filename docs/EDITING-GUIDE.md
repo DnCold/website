@@ -29,6 +29,7 @@ src/
 ├── assets/            Imágenes que Astro optimiza al compilar
 ├── components/        Cabecera, pie y piezas reutilizables
 ├── content/blog/      Notas escritas en Markdown o MDX
+├── content/library/   Fichas reutilizables del Archivist
 ├── data/archivist.ts  Contenido de los estantes de The Archivist
 ├── layouts/           Layout normal y layout sin navegación para cada mundo
 ├── pages/             Una página por archivo o carpeta
@@ -48,6 +49,9 @@ Los archivos que probablemente editarás más seguido son:
 - `src/styles/about.css`: apariencia retro del dossier About.
 - `src/pages/links.astro`: enlaces externos.
 - `src/data/archivist.ts`: estantes y reacciones de The Archivist.
+- `src/content/library/`: fichas canónicas de dibujos, animaciones y renders.
+- `.pages.yml`: configuración de Pages CMS para posts, biblioteca y medios.
+- `apps/dancold-desk/`: editor Markdown local con preview y publicación por Pull Request.
 - `src/pages/blog/index.astro`: presentación y textos de The Chronicler.
 - `src/styles/chronicler.css`: mundo visual de The Chronicler.
 - `src/assets/chronicler/chronicler-neutral.png`: retrato principal de The Chronicler.
@@ -144,6 +148,19 @@ portada y a tamaño grande dentro del mundo de The Chronicler. Para que ambos re
 Los artículos no se escriben dentro de la página. Siguen viviendo en `src/content/blog/` y usan
 automáticamente el mismo mundo visual mediante `src/layouts/BlogPost.astro`.
 
+### Enlazar una ficha del Archivist desde una nota
+
+Las fichas reutilizables viven en `src/content/library/` y tienen rutas propias como
+`/archivist/sketchbook/`. Para enlazar una desde un post, agrega sus IDs al frontmatter:
+
+```yaml
+library:
+  - sketchbook
+```
+
+El post mostrará automáticamente un bloque que apunta a la ficha original. Así la descripción y
+el arte se mantienen en un solo lugar.
+
 ## 6. Cambiar Coldem
 
 El contenido editable está en `src/pages/coldem.astro` y su diseño en `src/styles/coldem.css`.
@@ -224,6 +241,7 @@ title: 'My first note'
 description: 'A short description shown in the notes index.'
 pubDate: 2026-08-13
 draft: false
+library: []
 ---
 
 Write the note here using Markdown.
@@ -293,6 +311,11 @@ Flujo recomendado:
 6. Comprueba la pestaña **Actions** y luego la web pública.
 
 No edites `dist/`: esa carpeta se genera de nuevo en cada build y no se publica como código fuente.
+
+También puedes editar desde [Pages CMS](https://app.pagescms.org) usando la configuración de
+`.pages.yml`, o abrir el editor local `apps/dancold-desk/` para escribir Markdown con preview.
+La app Tauri ejecuta el build, crea una rama `content/...`, la sube y abre un Pull Request; no
+publica directamente sobre `main`.
 
 ## 12. Checklist antes de terminar
 

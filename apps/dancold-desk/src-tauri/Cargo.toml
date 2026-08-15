@@ -1,0 +1,18 @@
+[package]
+name = "dancold-desk"
+version = "0.1.0"
+description = "Local Markdown editor and publisher for the DanCold Astro site"
+authors = ["DanCold"]
+edition = "2021"
+
+[lib]
+name = "dancold_desk_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.0", features = [] }
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2.11.1", features = [] }

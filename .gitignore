@@ -5,6 +5,7 @@ dist/
 
 # dependencies
 node_modules/
+apps/dancold-desk/src-tauri/target/
 
 # logs
 npm-debug.log*
@@ -17,6 +18,9 @@ pnpm-debug.log*
 /coldem-launcher/
 /tmp/
 /.preview-*.log
+
+# Tauri build output; the editor source remains versioned.
+apps/dancold-desk/src-tauri/gen/
 
 
 # environment variables

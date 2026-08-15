@@ -1,0 +1,107 @@
+# Pages CMS configuration for dancold.quest.
+#
+# Pages CMS edits the repository directly; GitHub Actions still builds and
+# publishes the Astro site after changes reach main.
+
+media:
+  input: public/media
+  output: /media
+  rename: safe
+  categories: [image, document, video, audio]
+
+content:
+  - name: posts
+    label: Chronicler posts
+    type: collection
+    path: src/content/blog
+    view:
+      fields: [title, pubDate, draft]
+      primary: title
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Dispatch summary
+        type: text
+        required: true
+      - name: draft
+        label: Keep as draft
+        type: boolean
+      - name: pubDate
+        label: Published date
+        type: date
+        required: true
+      - name: updatedDate
+        label: Updated date
+        type: date
+      - name: heroImage
+        label: Astro hero asset path
+        type: string
+        description: Optional existing asset path such as ../../assets/blog-placeholder-3.jpg. Images for the body can be uploaded through the media library.
+      - name: library
+        label: Archivist references
+        type: reference
+        options:
+          collection: library
+          multiple: true
+          value: "{name}"
+          label: "{primary}"
+      - name: body
+        label: Markdown body
+        type: rich-text
+
+  - name: library
+    label: Archivist library
+    type: collection
+    path: src/content/library
+    filename:
+      template: "{title}.md"
+      field: create
+    view:
+      fields: [title, chapter, status, featured]
+      primary: title
+      search: [title, description, tags]
+    fields:
+      - name: title
+        label: Entry title
+        type: string
+        required: true
+      - name: description
+        label: Short description
+        type: text
+        required: true
+      - name: chapter
+        label: Archivist shelf
+        type: select
+        options:
+          values:
+            - name: sketchbook
+              label: The Sketchbook
+            - name: motion-room
+              label: The Motion Room
+            - name: render-vault
+              label: The Render Cabinet
+        required: true
+      - name: status
+        label: Catalog status
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: featured
+        label: Feature on shelf
+        type: boolean
+      - name: cover
+        label: Cover image
+        type: image
+        required: false
+      - name: body
+        label: Archivist notes
+        type: rich-text

@@ -7,9 +7,11 @@ import { withBase } from '../lib/nav';
 import '../styles/chronicler.css';
 import WorldLayout from './WorldLayout.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	libraryEntries?: CollectionEntry<'library'>[];
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, libraryEntries = [] } = Astro.props;
 ---
 
 <WorldLayout
@@ -42,6 +44,22 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<div class="prose article-content">
 				<slot />
 			</div>
+
+			{libraryEntries.length > 0 && (
+				<aside class="article-library" aria-label="Archivist references">
+					<p>Filed in The Archivist</p>
+					<ul>
+						{libraryEntries.map((entry) => (
+							<li>
+								<a href={withBase(`archivist/${entry.id}/`)}>
+									<strong>{entry.data.title}</strong>
+									<span>{entry.data.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</aside>
+			)}
 		</article>
 
 		<footer class="chronicle-footer">
@@ -123,6 +141,48 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	.article-content :global(pre) {
 		border: 3px solid var(--chronicle-ink);
 		background: var(--chronicle-ink);
+	}
+
+	.article-library {
+		margin: 0 clamp(1.35rem, 5vw, 4rem) 2rem;
+		padding: 1rem 1.2rem;
+		border: 1px dashed var(--chronicle-rust);
+		background: rgba(250, 237, 201, 0.6);
+	}
+
+	.article-library > p {
+		margin: 0 0 0.65rem;
+		font: 700 0.7rem/1.2 'Courier New', monospace;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.article-library ul {
+		display: grid;
+		gap: 0.55rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.article-library a {
+		display: grid;
+		gap: 0.15rem;
+		color: var(--chronicle-ink);
+		text-decoration: none;
+	}
+
+	.article-library a:hover,
+	.article-library a:focus-visible {
+		color: var(--chronicle-rust);
+	}
+
+	.article-library strong {
+		font-size: 1rem;
+	}
+
+	.article-library span {
+		font-size: 0.8rem;
 	}
 
 	@media (max-width: 560px) {

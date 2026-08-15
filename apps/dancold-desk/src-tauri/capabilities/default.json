@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "The local capabilities required by DanCold Desk.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

@@ -1,0 +1,203 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import archivistNeutral from '../../assets/archivist/archivist-neutral.webp';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+import { withBase } from '../../lib/nav';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import '../../styles/archivist.css';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('library');
+	return entries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+type Props = { entry: CollectionEntry<'library'> };
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const relatedPosts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft && post.data.library.includes(entry.id))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<WorldLayout
+	title={`${entry.data.title} — The Archivist — ${SITE_TITLE}`}
+	description={entry.data.description}
+	image={archivistNeutral}
+	bodyClass="archive-world"
+>
+	<div class="archive-shell library-entry-page">
+		<nav class="archive-nav" aria-label="Archivist navigation">
+			<a href={withBase('archivist/')}>← back to the reading room</a>
+			<span>{entry.data.chapter} · shared library record</span>
+		</nav>
+
+		<article class="library-entry">
+			<header class="library-entry-header">
+				<p class="archive-eyebrow">ARCHIVIST FILE // {entry.data.chapter.toUpperCase()}</p>
+				<h1>{entry.data.title}</h1>
+				<p>{entry.data.description}</p>
+				<div class="library-entry-meta">
+					<span>{entry.data.status}</span>
+					{entry.data.tags.map((tag) => <span>#{tag}</span>)}
+				</div>
+			</header>
+
+			{entry.data.cover && (
+				<figure class="library-entry-cover">
+					<img src={entry.data.cover} alt={`${entry.data.title} cover`} loading="eager" />
+				</figure>
+			)}
+
+			<div class="library-entry-body prose">
+				<Content />
+			</div>
+
+			{relatedPosts.length > 0 && (
+				<aside class="library-related" aria-label="Chronicler notes mentioning this entry">
+					<p class="archive-eyebrow">Notes from the road</p>
+					<h2>Filed in these dispatches</h2>
+					<ul>
+						{relatedPosts.map((post) => (
+							<li>
+								<a href={withBase(`blog/${post.id}/`)}>
+									<strong>{post.data.title}</strong>
+									<span><FormattedDate date={post.data.pubDate} /> · {post.data.description}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</aside>
+			)}
+		</article>
+
+		<footer class="archive-footnote">
+			<p>This entry is the canonical record. Link to it from notes instead of copying the description.</p>
+			<a href={withBase('archivist/')}>return to the shelves ↑</a>
+		</footer>
+	</div>
+</WorldLayout>
+
+<style>
+	.library-entry-page {
+		max-width: 66rem;
+	}
+
+	.library-entry {
+		max-width: 54rem;
+		margin: clamp(3rem, 9vw, 7rem) auto 0;
+		padding: clamp(1.4rem, 5vw, 4.5rem);
+		border: 1px solid #5f4031;
+		background:
+			repeating-linear-gradient(0deg, transparent 0 30px, rgba(114, 83, 58, 0.08) 30px 31px),
+			#f0dfbb;
+		box-shadow: 9px 11px 0 #211510;
+		color: var(--archive-ink);
+	}
+
+	.library-entry-header {
+		padding-bottom: 1.5rem;
+		border-bottom: 3px double rgba(75, 48, 39, 0.45);
+	}
+
+	.library-entry-header h1 {
+		margin: 0.55rem 0 0.8rem;
+		font-size: clamp(2.7rem, 8vw, 6.5rem);
+		font-weight: 400;
+		letter-spacing: -0.06em;
+		line-height: 0.9;
+	}
+
+	.library-entry-header > p:not(.archive-eyebrow) {
+		max-width: 40rem;
+		font-size: 1.15rem;
+	}
+
+	.library-entry-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin-top: 1.2rem;
+	}
+
+	.library-entry-meta span {
+		padding: 0.25rem 0.55rem;
+		border: 1px solid rgba(75, 48, 39, 0.42);
+		border-radius: 999px;
+		font-size: 0.65rem;
+		font-style: italic;
+	}
+
+	.library-entry-cover {
+		margin: 2rem 0 0;
+		border: 1px solid #5f4031;
+		background: #dec39a;
+	}
+
+	.library-entry-cover img {
+		display: block;
+		width: 100%;
+		max-height: 34rem;
+		object-fit: cover;
+	}
+
+	.library-entry-body {
+		max-width: 42rem;
+		margin: 2rem auto 0;
+		font-size: 1.05rem;
+		line-height: 1.75;
+	}
+
+	.library-entry-body :global(h2),
+	.library-entry-body :global(h3) {
+		margin-top: 2.4rem;
+		font-weight: 400;
+	}
+
+	.library-entry-body :global(a) {
+		color: var(--archive-wine);
+	}
+
+	.library-related {
+		margin-top: 2.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px dashed rgba(75, 48, 39, 0.45);
+	}
+
+	.library-related h2 {
+		margin: 0.4rem 0 0.9rem;
+		font-size: clamp(1.5rem, 4vw, 2.2rem);
+		font-weight: 400;
+	}
+
+	.library-related ul {
+		display: grid;
+		gap: 0.65rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.library-related a {
+		display: grid;
+		gap: 0.2rem;
+		padding: 0.55rem 0.7rem;
+		border-left: 3px solid var(--archive-wine);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.library-related a:hover,
+	.library-related a:focus-visible {
+		background: rgba(255, 248, 226, 0.55);
+	}
+
+	.library-related span {
+		color: #755b48;
+		font-size: 0.75rem;
+		line-height: 1.4;
+	}
+</style>
