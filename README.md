@@ -45,10 +45,11 @@ Both local development and production use `/` as their base path. GitHub Pages s
 - Global colors and typography: `src/styles/global.css`
 
 For visual editing from GitHub, open Pages CMS after installing the repository's
-GitHub App. Its schema is in [`.pages.yml`](.pages.yml). For the local-only
-Markdown workspace with preview and a guarded Pull Request flow, see the
+GitHub App. Its schema is in [`.pages.yml`](.pages.yml). For the local Markdown
+workspace with preview and a guarded Pull Request flow, see the
 [`Pages CMS + DanCold Desk guide`](docs/PAGES-CMS-AND-DANCOLD-DESK.md). The
-`apps/dancold-desk/` folder is deliberately ignored and stays on your computer.
+`apps/dancold-desk/` source is versioned, but credentials remain local to the
+machine running it.
 
 For the full, step-by-step maintenance guide in Spanish, read
 [`docs/EDITING-GUIDE.md`](docs/EDITING-GUIDE.md).

@@ -43,9 +43,9 @@ To add a new record:
 
 ## DanCold Desk (Tauri)
 
-The local editor lives in `apps/dancold-desk/` and is deliberately ignored by
-Git. It is useful when you want a
-proper Markdown workspace, a local Astro build check, or a guided publish flow.
+The local editor lives in `apps/dancold-desk/`. Its source can be versioned, but
+it is useful only on a computer with the local project and credentials. Use it
+when you want a proper Markdown workspace, a local Astro build check, or a guided publish flow.
 
 ```sh
 cd apps/dancold-desk
