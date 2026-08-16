@@ -36,6 +36,7 @@ Both local development and production use `/` as their base path. GitHub Pages s
 - Archivist reaction portraits: `src/assets/archivist/`
 - Archivist page and styles: `src/pages/archivist/index.astro` and `src/styles/archivist.css`
 - Coldem games world and launcher page: `src/pages/coldem.astro`
+- Coldem release metadata: `src/lib/coldem-release.ts` (reads the latest public GitHub Releases at build time)
 - Coldem world styles: `src/styles/coldem.css`
 - Homepage retro noren: `src/assets/noren-retro-v3.gif`
 - Standard hub noren: `src/assets/noren-fabric-v2.webp` and `src/assets/noren-rail-v2.webp`
@@ -54,7 +55,18 @@ machine running it.
 For the full, step-by-step maintenance guide in Spanish, read
 [`docs/EDITING-GUIDE.md`](docs/EDITING-GUIDE.md).
 
+### Coldem release updates
+
+The Coldem page no longer needs a manual version edit. Every production build reads the latest
+release from `DnCold/Coldem-launcher` and `DnCold/Coldem-delivery`, then updates the displayed
+version, installer link, package size, checksum, and game release link. If GitHub is temporarily
+unreachable during a build, `src/lib/coldem-release.ts` uses the last known fallback values so the
+site can still build; run another build after the release is available to refresh the page.
+
 ## Deployment
+
+The Pages workflow also refreshes the Coldem release metadata hourly, so new launcher and game
+releases appear on the site without a manual version edit.
 
 The workflow in `.github/workflows/deploy.yml` builds and publishes the website after every push to
 `main`. GitHub Pages must use **Settings → Pages → Source: GitHub Actions**.
