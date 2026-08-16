@@ -9,17 +9,13 @@ import runnerWelcome from '../assets/coldem/runner-welcome.png';
 import { SITE_TITLE } from '../consts';
 import WorldLayout from '../layouts/WorldLayout.astro';
 import { withBase } from '../lib/nav';
+import { getColdemReleaseData } from '../lib/coldem-release';
 import '../styles/coldem.css';
 
 const stickerStyle = `--sticker-sheet: url(${petStickers.src})`;
 const launcherRepo = 'https://github.com/DnCold/Coldem-launcher';
-const launcherReleases = `${launcherRepo}/releases/latest`;
-const releaseVersion = '0.4.1';
-const installerUrl = `${launcherRepo}/releases/download/v${releaseVersion}/Coldem_${releaseVersion}_x64-setup.exe`;
-const installerSize = '26.9 MB';
-const installerSha = '856c2658a2c52da0...c75ea2628';
-
-const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag/delivery-robot-rock-reborn-0.1.0-20260812T0259521230174Z';
+const releaseData = await getColdemReleaseData();
+const { launcher, game } = releaseData;
 ---
 
 <WorldLayout
@@ -85,16 +81,16 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 					<p class="system-kicker"><span></span> PUBLIC BUILD // GAME 001</p>
 					<h3>Robot Rock<br /><em>Reborn</em></h3>
 					<p>
-						The first public Coldem game package: a 0.1.0 build delivered, verified,
+						The latest public Coldem game package: a {game.version} build delivered, verified,
 						installed, and kept ready by the launcher.
 					</p>
 					<ul class="game-meta" aria-label="Robot Rock Reborn details">
-						<li><span>BUILD</span> 0.1.0</li>
+						<li><span>BUILD</span> {game.version}</li>
 						<li><span>PLATFORM</span> WINDOWS</li>
 						<li><span>STATUS</span> PUBLIC</li>
 					</ul>
 					<div class="hero-actions">
-						<a class="coldem-button primary" href={robotRockRelease} target="_blank" rel="noreferrer">VIEW GAME RELEASE ↗</a>
+						<a class="coldem-button primary" href={game.releaseUrl} target="_blank" rel="noreferrer">VIEW GAME RELEASE ↗</a>
 						<a class="coldem-button" href="#launcher">GET THE LAUNCHER ↓</a>
 					</div>
 				</div>
@@ -133,7 +129,7 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 		<section class="launcher-dock" id="launcher" aria-labelledby="launcher-title">
 			<header class="launcher-dock__header">
 				<div><p>OPTIONAL TOOL // WINDOWS X64</p><h2 id="launcher-title">Bring the library home.</h2></div>
-				<span>CLIENT V{releaseVersion}</span>
+				<span>CLIENT V{launcher.version}</span>
 			</header>
 
 			<div class="launcher-dock__grid">
@@ -143,15 +139,15 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 				</figure>
 
 				<div class="launcher-dock__copy">
-					<p class="system-kicker"><span></span> LAUNCHER ONLINE // V{releaseVersion}</p>
+					<p class="system-kicker"><span></span> LAUNCHER ONLINE // V{launcher.version}</p>
 					<h3>One cold machine.<br />Every DanCold game.</h3>
 					<p>
 						Install, patch, and launch the catalog from one place. There is no storefront
 						account and no launcher wall between you and the public games.
 					</p>
 					<div class="hero-actions">
-						<a class="coldem-button primary" href={installerUrl}>DOWNLOAD FOR WINDOWS ↓</a>
-						<a class="coldem-button" href={launcherReleases} target="_blank" rel="noreferrer">RELEASE NOTES ↗</a>
+						<a class="coldem-button primary" href={launcher.installerUrl}>DOWNLOAD FOR WINDOWS ↓</a>
+						<a class="coldem-button" href={launcher.releaseUrl} target="_blank" rel="noreferrer">RELEASE NOTES ↗</a>
 					</div>
 					<div class="install-steps">
 						<article><b>01</b><span><strong>Download</strong><small>Save the setup file.</small></span></article>
@@ -162,14 +158,14 @@ const robotRockRelease = 'https://github.com/DnCold/Coldem-delivery/releases/tag
 
 				<aside class="launcher-package" aria-label="Launcher package details">
 					<p>PACKAGE READY</p>
-					<strong>COLDEM<br />V{releaseVersion}</strong>
+					<strong>COLDEM<br />V{launcher.version}</strong>
 					<dl>
 						<div><dt>OS</dt><dd>WINDOWS 10/11</dd></div>
 						<div><dt>ARCH</dt><dd>X64</dd></div>
-						<div><dt>SIZE</dt><dd>{installerSize}</dd></div>
+						<div><dt>SIZE</dt><dd>{launcher.installerSize}</dd></div>
 						<div><dt>CHANNEL</dt><dd>STABLE</dd></div>
 					</dl>
-					<p class="checksum">SHA-256<br /><code>{installerSha}</code></p>
+					<p class="checksum">SHA-256<br /><code>{launcher.installerSha}</code></p>
 					<a class="source-link" href={launcherRepo} target="_blank" rel="noreferrer">View source ↗</a>
 				</aside>
 			</div>
