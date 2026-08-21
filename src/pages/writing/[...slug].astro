@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from 'astro:content';
+import { withBase } from '../../lib/nav';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import '../../styles/storykeeper.css';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('writing', ({ data }) => !data.draft);
+	return entries.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const displayDate = entry.data.pubDate.toLocaleDateString('en', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<WorldLayout
+	title={`${entry.data.title} — The Storykeeper`}
+	description={entry.data.description}
+	bodyClass="storykeeper-world"
+>
+	<div class="storykeeper-shell storykeeper-reader-shell">
+		<nav class="storykeeper-nav" aria-label="Story page navigation">
+			<a href={withBase('writing/')}>← back into the shelf labyrinth</a>
+			<span>{entry.data.kind} // filed {entry.data.pubDate.toISOString().slice(0, 10)}</span>
+		</nav>
+
+		<main class="reader-desk">
+			<div class="reader-clutter reader-clutter--books" aria-hidden="true"><i></i><i></i><i></i></div>
+			<div class="reader-clutter reader-clutter--cup" aria-hidden="true"></div>
+			<div class="reader-clutter reader-clutter--ink" aria-hidden="true"></div>
+
+			<article class="storykeeper-manuscript writing-entry">
+				<header class="manuscript-heading">
+					<p class="manuscript-kicker">THE STORYKEEPER // FILED {entry.data.kind}</p>
+					<h1>{entry.data.title}</h1>
+					<div class="manuscript-meta">
+						<time datetime={entry.data.pubDate.toISOString()}>{displayDate}</time>
+						{entry.data.tags.length > 0 && <span>{entry.data.tags.join(' · ')}</span>}
+					</div>
+				</header>
+				<p class="writing-entry__description">{entry.data.description}</p>
+				<div class="writing-entry__body"><Content /></div>
+			</article>
+		</main>
+
+		<footer class="storykeeper-footer">
+			<p>Filed by The Storykeeper. Handle gently.</p>
+			<a href={withBase('writing/')}>return the manuscript to its shelf ↑</a>
+		</footer>
+	</div>
+</WorldLayout>
+
+<style>
+	.writing-entry__body :global(p) {
+		margin: 0 0 1.35rem;
+	}
+
+	.writing-entry__body :global(blockquote) {
+		margin: 1.8rem 0;
+		padding: 0.8rem 1rem;
+		border-left: 3px solid #795063;
+		background: rgba(105, 73, 64, 0.07);
+		font-style: italic;
+	}
+
+	.writing-entry__body :global(h2),
+	.writing-entry__body :global(h3) {
+		margin: 2.2rem 0 0.7rem;
+		color: #34263f;
+		font-weight: 400;
+	}
+
+	.writing-entry__body :global(ul),
+	.writing-entry__body :global(ol) {
+		padding-left: 1.5rem;
+	}
+
+	.writing-entry__body :global(a) {
+		color: #743f54;
+	}
+
+	.writing-entry__body :global(hr) {
+		width: 42%;
+		margin: 2.4rem auto;
+		border: 0;
+		border-top: 1px solid #9c806d;
+	}
+</style>

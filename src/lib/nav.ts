@@ -13,9 +13,9 @@ export const withBase = (path = '') => {
 };
 
 export const NAV: NavItem[] = [
-	{ label: 'Home', href: withBase() },
 	{ label: 'The Chronicler', href: withBase('blog/') },
 	{ label: 'The Archivist', href: withBase('archivist/') },
+	{ label: 'The Storykeeper', href: withBase('writing/') },
 	{ label: 'The Runner', href: withBase('coldem/') },
 	{ label: 'Links', href: withBase('links/') },
 ];

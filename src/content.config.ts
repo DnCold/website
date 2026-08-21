@@ -33,4 +33,18 @@ const library = defineCollection({
 	}),
 });
 
-export const collections = { blog, library };
+const writing = defineCollection({
+	// Stories, poems, haikus, and fragments that belong to The Storykeeper.
+	loader: glob({ base: './src/content/writing', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		kind: z.enum(['poem', 'story', 'fragment', 'note']),
+		pubDate: z.coerce.date(),
+		draft: z.boolean().default(false),
+		featured: z.boolean().default(false),
+		tags: z.array(z.string()).default([]),
+	}),
+});
+
+export const collections = { blog, library, writing };

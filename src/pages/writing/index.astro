@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import storykeeperSleeping from '../../assets/storykeeper/storykeeper-sleeping-attic.png';
+import { SITE_TITLE } from '../../consts';
+import { withBase } from '../../lib/nav';
+import WorldLayout from '../../layouts/WorldLayout.astro';
+import '../../styles/storykeeper.css';
+
+const writings = (await getCollection('writing'))
+	.filter((entry) => !entry.data.draft)
+	.sort(
+		(a, b) =>
+			Number(b.data.featured) - Number(a.data.featured) ||
+			b.data.pubDate.valueOf() - a.data.pubDate.valueOf() ||
+			a.data.title.localeCompare(b.data.title, 'en'),
+	);
+
+const kindLabels = {
+	story: 'bound book',
+	poem: 'folded page',
+	fragment: 'torn scrap',
+	note: 'index card',
+} as const;
+
+const kindMarks = {
+	story: 'BK',
+	poem: 'PG',
+	fragment: 'FR',
+	note: 'IX',
+} as const;
+
+const placementCycle = ['lean-left', 'upright', 'lean-right', 'low', 'tall'] as const;
+const writingObjects = writings.map((entry, index) => ({
+	entry,
+	placement: placementCycle[index % placementCycle.length],
+	displayDate: entry.data.pubDate.toISOString().slice(0, 10),
+}));
+const shelfRows = Array.from({ length: Math.ceil(writingObjects.length / 5) }, (_, rowIndex) =>
+	writingObjects.slice(rowIndex * 5, rowIndex * 5 + 5),
+);
+---
+
+<WorldLayout
+	title={`The Storykeeper — ${SITE_TITLE}`}
+	description="A sleepless attic library where stories, poems, fragments, and notes wait among the shelves."
+	bodyClass="storykeeper-world"
+>
+	<div class="storykeeper-shell">
+		<nav class="storykeeper-nav" aria-label="Storykeeper navigation">
+			<a href={withBase()}>← return to the front room</a>
+			<span>ATTIC ACCESS // AFTER MIDNIGHT</span>
+		</nav>
+
+		<header class="attic-entry">
+			<figure class="attic-entry__scene">
+				<Image
+					src={storykeeperSleeping}
+					alt="The Storykeeper asleep over her crowded writing desk beneath the rafters of a dark attic library."
+					widths={[760, 1120, 1400, 1672]}
+					sizes="(max-width: 800px) 100vw, 1248px"
+					loading="eager"
+				/>
+				<figcaption class="storykeeper-title-note">
+					<p>FOUND PINNED BESIDE THE LAMP</p>
+					<h1>The Storykeeper’s<br />Sleepless Attic</h1>
+					<span>Walk softly. She finally fell asleep.</span>
+				</figcaption>
+			</figure>
+			<div class="attic-entry__desk-edge" aria-hidden="true"><i></i><i></i><i></i></div>
+		</header>
+
+		<main class="shelf-labyrinth" aria-labelledby="labyrinth-title">
+			<header class="labyrinth-sign">
+				<div>
+					<p>FOLLOW THE LAMPLIGHT // MIND THE STACKS</p>
+					<h2 id="labyrinth-title">The shelf labyrinth</h2>
+				</div>
+				<span>{String(writings.length).padStart(2, '0')} objects kept</span>
+			</header>
+
+			{
+				writingObjects.length > 0 ? (
+					<div class="labyrinth-passage">
+						{shelfRows.map((row, rowIndex) => (
+							<ol class:list={['labyrinth-shelf', `labyrinth-shelf--${(rowIndex % 3) + 1}`, rowIndex === 0 && 'is-near-lamp']}>
+								{row.map(({ entry, placement, displayDate }, objectIndex) => (
+									<li
+										class:list={[
+											'labyrinth-object',
+											`labyrinth-object--${entry.data.kind}`,
+											`is-${placement}`,
+											entry.data.featured && 'is-featured',
+										]}
+										style={`--object-order: ${objectIndex}`}
+									>
+										<a
+											class="writing-object"
+											href={withBase(`writing/${entry.id}/`)}
+											aria-label={`Read ${entry.data.title}, ${entry.data.kind}, filed ${displayDate}`}
+										>
+											<span class="object-face" aria-hidden="true">
+												<i>{kindMarks[entry.data.kind]}</i>
+											</span>
+											<span class="object-reveal">
+												<small>{kindLabels[entry.data.kind]} · {displayDate}</small>
+												<strong>{entry.data.title}</strong>
+												<em>{entry.data.description}</em>
+											</span>
+										</a>
+									</li>
+								))}
+							</ol>
+						))}
+					</div>
+				) : (
+					<div class="empty-labyrinth">
+						<div class="labyrinth-shelf labyrinth-shelf--1 is-empty" aria-hidden="true" />
+						<div class="labyrinth-shelf labyrinth-shelf--2 is-empty" aria-hidden="true" />
+						<div class="labyrinth-shelf labyrinth-shelf--3 is-empty" aria-hidden="true" />
+						<p>No pages have been filed yet.</p>
+					</div>
+				)
+			}
+		</main>
+
+		<footer class="storykeeper-footer">
+			<p>Every kept page began as something loose on the desk.</p>
+			<a href={withBase()}>leave the attic quietly ↑</a>
+		</footer>
+	</div>
+</WorldLayout>

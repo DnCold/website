@@ -105,12 +105,36 @@ missing either eye, a normal human head, or making the launcher their entire ide
 > crack detail. Compact patched streetwear body with lime accents and a spray can. Preserve the clean
 > original head silhouette with no extra purple rim and no white flaps beneath it.
 
+## The Storykeeper
+
+**Role:** A nocturnal writer who keeps stories, poems, haikus, and fragments alive at a crowded desk.
+
+**Personality:** Dreamy, tired, absorbed, gentle with other people’s words, and stubbornly awake when a line needs saving. She should feel like a nocturnal owl: quiet, watchful, and immersed in the work.
+
+**Keep these traits:**
+
+- adult woman with huge, messy dark wavy hair;
+- heavy-lidded warm eyes and a tired but focused expression;
+- a loose beige cardigan over a dark navy blouse;
+- notebook, loose pages, or a pen when the pose allows it;
+- warm desk-lamp light, midnight blue shadows, and cozy paper clutter.
+
+**Avoid:** A polished corporate workspace, an energetic cheerful expression, tidy minimalist surroundings, or a generic fantasy scholar look.
+
+**Canonical assets:**
+
+- Desk portrait: `src/assets/storykeeper/storykeeper-desk.png`
+- Sleeping attic scene: `src/assets/storykeeper/storykeeper-sleeping-attic.png`
+- Noren chibi: `src/assets/noren-icons/storykeeper.png`
+
+**Prompt starter:**
+
+> The Storykeeper, an adult nocturnal writer with huge messy dark wavy hair, heavy-lidded warm eyes, a loose beige cardigan over a dark navy blouse, and a notebook or pen. She is tired but entirely immersed in her writing, framed by warm desk-lamp light, midnight blue shadows, and cozy paper clutter.
+
 ## Noren icon status
 
-The three character chibis above are approved references. These two non-character symbols are still
-placeholders and can be redesigned later:
+The four character chibis above are approved references. The Links symbol is still a placeholder and can be redesigned later:
 
-- `src/assets/noren-icons/home.png`
 - `src/assets/noren-icons/links.png`
 
 ## Rules for future artwork

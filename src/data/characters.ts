@@ -3,6 +3,9 @@ import archivistNeutral from '../assets/archivist/archivist-neutral.webp';
 import archivistRender from '../assets/archivist/archivist-render.webp';
 import archivistSketchbook from '../assets/archivist/archivist-sketchbook.webp';
 import chroniclerNeutral from '../assets/chronicler/chronicler-neutral.png';
+import storykeeperDesk from '../assets/storykeeper/storykeeper-desk.png';
+import storykeeperSleepingAttic from '../assets/storykeeper/storykeeper-sleeping-attic.png';
+import storykeeperChibi from '../assets/noren-icons/storykeeper.png';
 import runnerActive from '../assets/coldem/runner-active.png';
 import runnerFull from '../assets/coldem/runner-full.png';
 import runnerHead from '../assets/coldem/runner-head.png';
@@ -37,6 +40,17 @@ export const characters = {
       motion: archivistMotion,
       render: archivistRender,
       chibi: archivistChibi,
+    },
+  },
+  storykeeper: {
+    id: 'storykeeper',
+    name: 'The Storykeeper',
+    role: 'A sleepless nocturnal writer who keeps stories, poems, and fragments close to the lamp.',
+    signatureTraits: ['huge messy dark wavy hair', 'heavy-lidded eyes', 'beige cardigan', 'navy blouse', 'notebook and pen'],
+    artwork: {
+      portrait: storykeeperDesk,
+      sleepingAttic: storykeeperSleepingAttic,
+      chibi: storykeeperChibi,
     },
   },
   runner: {
