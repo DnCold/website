@@ -6,12 +6,20 @@ use std::process::Command;
 #[derive(Debug, Serialize)]
 struct PostFile {
     path: String,
+    collection: String,
     slug: String,
     title: String,
     description: String,
     #[serde(rename = "pubDate")]
     pub_date: String,
+    #[serde(rename = "updatedDate")]
+    updated_date: String,
     draft: bool,
+    kind: String,
+    featured: bool,
+    tags: Vec<String>,
+    #[serde(rename = "heroImage")]
+    hero_image: String,
     library: Vec<String>,
     body: String,
 }
@@ -22,23 +30,37 @@ struct BuildResult {
     output: String,
 }
 
+fn collection_name(collection: &str) -> Result<&'static str, String> {
+    match collection {
+        "blog" => Ok("blog"),
+        "writing" => Ok("writing"),
+        _ => Err("Unknown collection. Choose blog or writing.".to_string()),
+    }
+}
+
 fn project_root(root: &str) -> Result<PathBuf, String> {
     let root = Path::new(root)
         .canonicalize()
         .map_err(|error| format!("Cannot open project folder: {error}"))?;
-    if !root.join("package.json").is_file() || !root.join("src/content/blog").is_dir() {
-        return Err("Choose the root of the Astro project (it must contain package.json and src/content/blog).".to_string());
+    let has_content_collection = root.join("src/content/blog").is_dir()
+        || root.join("src/content/writing").is_dir();
+    if !root.join("package.json").is_file() || !has_content_collection {
+        return Err("Choose the root of the Astro project (it must contain package.json and src/content/blog or src/content/writing).".to_string());
     }
     Ok(root)
 }
 
-fn safe_post_path(root: &Path, relative: &str) -> Result<PathBuf, String> {
+fn safe_post_path(root: &Path, relative: &str, collection: &str) -> Result<PathBuf, String> {
+    let collection = collection_name(collection)?;
     let relative_path = Path::new(relative);
+    let normalized = relative.replace('\\', "/");
+    let prefix = format!("src/content/{collection}/");
+
     if relative_path.is_absolute()
         || relative_path.components().any(|component| matches!(component, Component::ParentDir))
-        || !relative.replace('\\', "/").starts_with("src/content/blog/")
+        || !normalized.starts_with(&prefix)
     {
-        return Err("The editor can only access files inside src/content/blog/.".to_string());
+        return Err(format!("The editor can only access files inside {prefix}."));
     }
 
     let extension = relative_path.extension().and_then(|value| value.to_str());
@@ -66,6 +88,10 @@ fn frontmatter_value(frontmatter: &str, key: &str) -> String {
         .unwrap_or_default()
 }
 
+fn frontmatter_bool(frontmatter: &str, key: &str) -> bool {
+    matches!(frontmatter_value(frontmatter, key).as_str(), "true" | "yes" | "on")
+}
+
 fn frontmatter_list(frontmatter: &str, key: &str) -> Vec<String> {
     let lines: Vec<&str> = frontmatter.lines().collect();
     let Some(key_index) = lines.iter().position(|line| line.split_once(':').map(|(name, _)| name.trim() == key).unwrap_or(false)) else {
@@ -91,7 +117,7 @@ fn frontmatter_list(frontmatter: &str, key: &str) -> Vec<String> {
         .collect()
 }
 
-fn parse_post(root: &Path, path: &Path) -> Result<PostFile, String> {
+fn parse_post(root: &Path, path: &Path, collection: &str) -> Result<PostFile, String> {
     let source = fs::read_to_string(path).map_err(|error| format!("Cannot read {}: {error}", path.display()))?;
     let mut sections = source.splitn(3, "---");
     let _before = sections.next().unwrap_or_default();
@@ -106,42 +132,54 @@ fn parse_post(root: &Path, path: &Path) -> Result<PostFile, String> {
 
     Ok(PostFile {
         path: relative,
+        collection: collection.to_string(),
         slug,
         title: frontmatter_value(frontmatter, "title"),
         description: frontmatter_value(frontmatter, "description"),
         pub_date: frontmatter_value(frontmatter, "pubDate"),
-        draft: frontmatter_value(frontmatter, "draft") == "true",
+        updated_date: frontmatter_value(frontmatter, "updatedDate"),
+        draft: frontmatter_bool(frontmatter, "draft"),
+        kind: frontmatter_value(frontmatter, "kind"),
+        featured: frontmatter_bool(frontmatter, "featured"),
+        tags: frontmatter_list(frontmatter, "tags"),
+        hero_image: frontmatter_value(frontmatter, "heroImage"),
         library: frontmatter_list(frontmatter, "library"),
         body,
     })
 }
 
-fn collect_posts(root: &Path, folder: &Path, posts: &mut Vec<PostFile>) -> Result<(), String> {
+fn collect_posts(root: &Path, folder: &Path, collection: &str, posts: &mut Vec<PostFile>) -> Result<(), String> {
     for entry in fs::read_dir(folder).map_err(|error| format!("Cannot list posts: {error}"))? {
         let entry = entry.map_err(|error| format!("Cannot read post entry: {error}"))?;
         let path = entry.path();
         if path.is_dir() {
-            collect_posts(root, &path, posts)?;
+            collect_posts(root, &path, collection, posts)?;
         } else if matches!(path.extension().and_then(|value| value.to_str()), Some("md") | Some("mdx")) {
-            posts.push(parse_post(root, &path)?);
+            posts.push(parse_post(root, &path, collection)?);
         }
     }
     Ok(())
 }
 
 #[tauri::command]
-fn list_posts(root: String) -> Result<Vec<PostFile>, String> {
+fn list_posts(root: String, collection: String) -> Result<Vec<PostFile>, String> {
     let root = project_root(&root)?;
+    let collection = collection_name(&collection)?;
+    let folder = root.join("src/content").join(collection);
+    if !folder.is_dir() {
+        return Ok(Vec::new());
+    }
+
     let mut posts = Vec::new();
-    collect_posts(&root, &root.join("src/content/blog"), &mut posts)?;
+    collect_posts(&root, &folder, collection, &mut posts)?;
     posts.sort_by(|left, right| right.pub_date.cmp(&left.pub_date).then(left.title.cmp(&right.title)));
     Ok(posts)
 }
 
 #[tauri::command]
-fn save_post(root: String, path: String, content: String) -> Result<(), String> {
+fn save_post(root: String, path: String, content: String, collection: String) -> Result<(), String> {
     let root = project_root(&root)?;
-    let path = safe_post_path(&root, &path)?;
+    let path = safe_post_path(&root, &path, &collection)?;
     fs::write(path, content).map_err(|error| format!("Cannot save post: {error}"))
 }
 
@@ -176,9 +214,10 @@ fn run_build(root: String) -> Result<BuildResult, String> {
 }
 
 #[tauri::command]
-fn publish_post(root: String, path: String, content: String, title: String) -> Result<String, String> {
+fn publish_post(root: String, path: String, content: String, title: String, collection: String) -> Result<String, String> {
     let root = project_root(&root)?;
-    let post_path = safe_post_path(&root, &path)?;
+    let collection = collection_name(&collection)?;
+    let post_path = safe_post_path(&root, &path, collection)?;
     fs::write(&post_path, content).map_err(|error| format!("Cannot save post before publishing: {error}"))?;
 
     let build = run_build(root.to_string_lossy().to_string())?;
@@ -186,8 +225,12 @@ fn publish_post(root: String, path: String, content: String, title: String) -> R
         return Err(format!("Build failed. Nothing was pushed.\n{}", build.output));
     }
 
-    let slug = post_path.file_stem().and_then(|value| value.to_str()).unwrap_or("field-note");
-    let branch = format!("content/{slug}");
+    let slug = post_path.file_stem().and_then(|value| value.to_str()).unwrap_or("page");
+    let branch = if collection == "writing" {
+        format!("content/storykeeper-{slug}")
+    } else {
+        format!("content/{slug}")
+    };
     command_output(&root, "git", &["switch", "-c", &branch])
         .or_else(|_| command_output(&root, "git", &["switch", &branch]))?;
     let relative = post_path.strip_prefix(&root).map_err(|_| "Post is outside the selected project.".to_string())?.to_string_lossy().replace('\\', "/");

@@ -105,3 +105,59 @@ content:
       - name: body
         label: Archivist notes
         type: rich-text
+
+  - name: writing
+    label: Storykeeper writing
+    type: collection
+    path: src/content/writing
+    filename:
+      template: "{title}.md"
+      field: create
+    view:
+      fields: [title, kind, pubDate, draft]
+      primary: title
+      search: [title, description, tags]
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Page title
+        type: string
+        required: true
+      - name: description
+        label: Short description
+        type: text
+        required: true
+      - name: kind
+        label: Type
+        type: select
+        options:
+          values:
+            - name: poem
+              label: Poem
+            - name: story
+              label: Story
+            - name: fragment
+              label: Fragment
+            - name: note
+              label: Note
+        required: true
+      - name: pubDate
+        label: Date
+        type: date
+        required: true
+      - name: draft
+        label: Keep as draft
+        type: boolean
+      - name: featured
+        label: Feature at the top
+        type: boolean
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: body
+        label: Story or poem
+        type: rich-text
